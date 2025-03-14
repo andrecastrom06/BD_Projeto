@@ -35,3 +35,12 @@
   - Lucas Sukar - lfsw@cesar.school 📩
 
 </details>
+
+<details>
+
+<summary>Equipe</summary>
+
+## Processo de projeto
+  - Aqui será listado o processo descrito em etapas do começo até a finalização do projeto.
+
+</details>
