@@ -38,7 +38,7 @@
 
 <details>
 
-<summary>Equipe</summary>
+<summary>Passo a Passo</summary>
 
 ## Processo de projeto
   - Aqui será listado o processo descrito em etapas do começo até a finalização do projeto.
