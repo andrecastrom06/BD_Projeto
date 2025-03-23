@@ -41,6 +41,6 @@
 <summary>Passo a Passo</summary>
 
 ## Processo de projeto
-  - Confira nosso docs acerca do processo descrito em etapas do começo até a finalização do projeto : https://docs.google.com/document/d/1RaJv51FO-OfHOLRIb1fyvZKLld-sElfNIdHY5CPsPfM/edit?usp=sharing
+  - Caso queira mais detalhes sobre nosso processo descrito em etapas do começo até a finalização do projeto, acesse : https://docs.google.com/document/d/1RaJv51FO-OfHOLRIb1fyvZKLld-sElfNIdHY5CPsPfM/edit?usp=sharing
 
 </details>
