@@ -56,7 +56,7 @@
 
 ## Modelo Lógico
 <br>
-<img src = "https://drive.google.com/file/d/1hNndq8dVtc16pYs7fmr8tbKv2dzJs2lm/view?usp=sharing" alt = "Modelo lógico"/>
+![Captura de tela 2025-03-25 092426](https://github.com/user-attachments/assets/c93548c6-1e30-4349-b065-5a3816a1b985)
 
 <br>
 
