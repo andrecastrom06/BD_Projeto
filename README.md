@@ -52,12 +52,13 @@
 ## Modelo Entidade-Relacional
 <br>
 
+![Captura de tela 2025-03-25 092426](https://github.com/user-attachments/assets/c93548c6-1e30-4349-b065-5a3816a1b985)
+
 <br>
 
 ## Modelo Lógico
 <br>
 
-![Captura de tela 2025-03-25 092426](https://github.com/user-attachments/assets/c93548c6-1e30-4349-b065-5a3816a1b985)
 
 
 <br>
