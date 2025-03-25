@@ -59,6 +59,7 @@
 ## Modelo Lógico
 <br>
 
+![ModeloLogicoProjetoPNG](https://github.com/user-attachments/assets/ae377e7c-c125-4bb5-8be8-b2eb375f3289)
 
 
 <br>
