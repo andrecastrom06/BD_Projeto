@@ -56,7 +56,7 @@
 
 ## Modelo Lógico
 <br>
-<img src = "![Imagem do WhatsApp de 2025-03-25 à(s) 09 26 48_feb40be6](https://github.com/user-attachments/assets/ef2fe907-0a3b-4cdb-8fb9-82cbbd16fd72)" alt = "Modelo lógico"/>
+<img src = "https://drive.google.com/file/d/1hNndq8dVtc16pYs7fmr8tbKv2dzJs2lm/view?usp=sharing" alt = "Modelo lógico"/>
 
 <br>
 
