@@ -51,12 +51,13 @@
 
 ## Modelo Entidade-Relacional
 <br>
-<img>![Imagem do WhatsApp de 2025-03-25 à(s) 09 24 55_48b273dd](https://github.com/user-attachments/assets/e6114a67-1aa9-4efa-9802-d230f5d30427)</img>
+
 <br>
 
 ## Modelo Lógico
 <br>
-![Imagem do WhatsApp de 2025-03-25 à(s) 09 26 47_f804b0f7](https://github.com/user-attachments/assets/25ebb5cd-f62c-40b2-a9da-92f24438aae6)
+<img src = "![Imagem do WhatsApp de 2025-03-25 à(s) 09 26 48_feb40be6](https://github.com/user-attachments/assets/ef2fe907-0a3b-4cdb-8fb9-82cbbd16fd72)" alt = "Modelo lógico"/>
+
 <br>
 
 </details>
