@@ -51,7 +51,7 @@
 
 ## Modelo Entidade-Relacional
 <br>
-![Imagem do WhatsApp de 2025-03-25 à(s) 09 24 55_48b273dd](https://github.com/user-attachments/assets/e6114a67-1aa9-4efa-9802-d230f5d30427)
+<img>![Imagem do WhatsApp de 2025-03-25 à(s) 09 24 55_48b273dd](https://github.com/user-attachments/assets/e6114a67-1aa9-4efa-9802-d230f5d30427)</img>
 <br>
 
 ## Modelo Lógico
