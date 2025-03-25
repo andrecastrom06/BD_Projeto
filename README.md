@@ -44,3 +44,19 @@
   - Caso queira mais detalhes sobre nosso processo descrito em etapas do começo até a finalização do projeto, acesse : https://docs.google.com/document/d/1RaJv51FO-OfHOLRIb1fyvZKLld-sElfNIdHY5CPsPfM/edit?usp=sharing
 
 </details>
+
+<details>
+
+<summary>Modelos Conceituais</summary>
+
+## Modelo Entidade-Relacional
+<br>
+![Imagem do WhatsApp de 2025-03-25 à(s) 09 24 55_48b273dd](https://github.com/user-attachments/assets/e6114a67-1aa9-4efa-9802-d230f5d30427)
+<br>
+
+## Modelo Lógico
+<br>
+![Imagem do WhatsApp de 2025-03-25 à(s) 09 26 47_f804b0f7](https://github.com/user-attachments/assets/25ebb5cd-f62c-40b2-a9da-92f24438aae6)
+<br>
+
+</details>
