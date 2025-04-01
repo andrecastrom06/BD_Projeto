@@ -12,7 +12,7 @@
 
 # 👓 Projeto Banco de Dados Davisory 👓
 
-  Banco de dados da Davisory, que é uma empresa brasileira especializada na produção de armações de óculos em aço inoxidável.
+  Olá, somos um grupo de estudantes do quarto período da César school e lhe apresento ao Banco de dados da Davisory, que é uma empresa brasileira especializada na produção de armações de óculos em aço inoxidável.
 
 <details>
 
