@@ -19,6 +19,7 @@
 <summary>Equipe</summary>
 
 ## 👤Equipe👤
+Acompanhe nossa equipe para estar ciente dos nossos projetos :
   - André Castro - alcms@cesar.school 📩
    
   - Caio Lima - clb@cesar.school 📩
