@@ -16,15 +16,6 @@
 
 <details>
 
-<summary>Links Gerais</summary>
-
-## 🔗 Links 🔗
-  - docs: https://docs.google.com/document/d/1sKelIHWcGIeqJN1RK4M5WdEIaBeg2iGqwYvX9Gfq-Y4/edit?usp=sharing
-  
-</details>
-
-<details>
-
 <summary>Equipe</summary>
 
 ## 👤Equipe👤
@@ -59,8 +50,24 @@
 ## Modelo Lógico
 <br>
 
-![ModeloLogicoProjeto](https://github.com/user-attachments/assets/3c823f74-016a-4226-8be4-025aa0ff6d70)
+![ModeloLogicoProjeto](https://github.com/user-attachments/assets/1338a2b8-cbc2-41e5-8bf9-3afc1166f9e7)
 
 <br>
 
+</details>
+
+<details>
+
+<summary>Mini-Mundo</summary>
+
+## Mini-Mundo Davisory
+A loja de óculos Davisory comercializa diversos produtos, que são catalogados por meio de seu identificador, nome, descrição e preço. Esses produtos são armazenados em estoques específicos, onde se registra a quantidade disponível.
+Os clientes que desejam adquirir esses produtos devem fornecer suas informações, incluindo nome, CPF/CNPJ, um ou mais telefones, um ou mais e-mails e endereço completo (estado, cidade, bairro, rua, número e, se houver, complemento).
+Cada cliente é atendido por um funcionário, que também participa do processo de compra. Os funcionários são identificados por seu identificador, nome, data de contratação e salário. Eles são divididos em dois cargos: Administrativo e Operacional.
+O funcionário administrativo é responsável por atender os clientes e guardar a data do atendimento, além de supervisionar outros funcionários do mesmo setor. Além disso, quando necessário, ele solicita matéria-prima ao fornecedor.
+O funcionário operacional é encarregado da montagem dos pedidos, que possuem um identificador próprio, data de realização, código de rastreamento da entrega, quantidade solicitada e preço unitário do produto.
+A matéria-prima, essencial para a produção, possui identificador próprio, valor unitário, código de entrega e data estimada para recebimento. Ela é armazenada em um estoque específico, onde sua quantidade disponível é monitorada.
+Por fim, o fornecedor é o responsável por fornecer a matéria-prima. Ele é identificado pelo CNPJ e deve informar seu nome, um ou mais telefones, um ou mais e-mails e endereço completo (estado, cidade, bairro, rua, número e, se houver, complemento).
+<br>
+- docs: https://docs.google.com/document/d/1sKelIHWcGIeqJN1RK4M5WdEIaBeg2iGqwYvX9Gfq-Y4/edit?usp=sharing
 </details>
