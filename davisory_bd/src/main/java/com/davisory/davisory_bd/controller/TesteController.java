@@ -1,0 +1,13 @@
+package com.davisory.davisory_bd.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class TesteController {
+
+    @GetMapping("/inicial")
+    public String ping() {
+        return "PAGINA INICIAL BD DAVISORY";
+    }
+}
