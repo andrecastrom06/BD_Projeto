@@ -9,7 +9,7 @@ public class ConexaoBD {
         return DriverManager.getConnection(
             "jdbc:mysql://localhost:3306/davisory?useSSL=false&serverTimezone=UTC",
             "root",
-            "nautico2006"
+            "098321"
         );
     }
 }

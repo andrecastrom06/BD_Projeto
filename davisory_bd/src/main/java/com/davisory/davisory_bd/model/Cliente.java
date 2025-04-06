@@ -1,25 +1,52 @@
 package com.davisory.davisory_bd.model;
 
 public class Cliente {
-    private int id;
-    private String nome;
-    private String email;
+    private String cpfCnpjCliente;
+    private String nomeCliente;
+    private String telefoneCliente;
+    private String emailCliente;
 
-    // Construtores
+    // Construtor vazio
     public Cliente() {}
-    public Cliente(int id, String nome, String email) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
+
+    // Construtor com todos os campos
+    public Cliente(String cpfCnpjCliente, String nomeCliente, String telefoneCliente, String emailCliente) {
+        this.cpfCnpjCliente = cpfCnpjCliente;
+        this.nomeCliente = nomeCliente;
+        this.telefoneCliente = telefoneCliente;
+        this.emailCliente = emailCliente;
     }
 
     // Getters e Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public String getCpfCnpjCliente() {
+        return cpfCnpjCliente;
+    }
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public void setCpfCnpjCliente(String cpfCnpjCliente) {
+        this.cpfCnpjCliente = cpfCnpjCliente;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public String getTelefoneCliente() {
+        return telefoneCliente;
+    }
+
+    public void setTelefoneCliente(String telefoneCliente) {
+        this.telefoneCliente = telefoneCliente;
+    }
+
+    public String getEmailCliente() {
+        return emailCliente;
+    }
+
+    public void setEmailCliente(String emailCliente) {
+        this.emailCliente = emailCliente;
+    }
 }

@@ -11,15 +11,16 @@ public class ClienteRepositorio {
         List<Cliente> clientes = new ArrayList<>();
 
         try (Connection conn = ConexaoBD.conectar()) {
-            String sql = "SELECT * FROM cliente";
+            String sql = "SELECT * FROM Cliente";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Cliente cliente = new Cliente(
-                    rs.getInt("id"),
-                    rs.getString("nome"),
-                    rs.getString("email")
+                    rs.getString("cpfCnpjCliente"),
+                    rs.getString("nomeCliente"),
+                    rs.getString("telefoneCliente"),
+                    rs.getString("emailCliente")
                 );
                 clientes.add(cliente);
             }
@@ -29,6 +30,4 @@ public class ClienteRepositorio {
 
         return clientes;
     }
-
-    // Você pode adicionar métodos como: salvar(Cliente), atualizar(Cliente), deletar(id), etc.
 }
