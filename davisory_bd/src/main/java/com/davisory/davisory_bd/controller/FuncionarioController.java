@@ -42,5 +42,10 @@ public class FuncionarioController {
         repositorio.atualizarEmpregado(id, empregado);
         return "redirect:/funcionarios";
     }
-
+    @GetMapping("/chefes")
+    public String listarFuncionariosComChefes(Model model) {
+        List<Funcionario> funcionarios = repositorio.listarFuncionariosComChefes();
+        model.addAttribute("funcionarios", funcionarios);
+        return "chefes";
+    }
 }

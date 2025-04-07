@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chefes e Funcionários</title>
+</head>
+<body>
+    <h1>Relação de Chefes</h1>
+    <table border="1">
+        <tr>
+            <th>ID Funcionário</th>
+            <th>Nome</th>
+            <th>ID Chefe</th>
+        </tr>
+        <tr th:each="f : ${funcionarios}">
+            <td th:text="${f.idFuncionario}">ID</td>
+            <td th:text="${f.nomeFuncionario}">Nome</td>
+            <td th:text="${f.chefeFuncionario}">Chefe</td>
+        </tr>
+    </table>
+</body>
+</html>

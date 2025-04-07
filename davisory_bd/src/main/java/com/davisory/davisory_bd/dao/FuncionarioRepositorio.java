@@ -102,4 +102,34 @@ public class FuncionarioRepositorio {
             e.printStackTrace();
         }
     }
+    public List<Funcionario> listarFuncionariosComChefes() {
+        List<Funcionario> lista = new ArrayList<>();
+        String sql = """
+            SELECT f.idFuncionario, f.nomeFuncionario, f.salarioFuncionario, 
+                   f.dataContratacaoFuncionario, f.chefeFuncionario, f.empregado,
+                   c.nomeFuncionario AS nomeChefe
+            FROM Funcionario f
+            LEFT JOIN Funcionario c ON f.chefeFuncionario = c.idFuncionario
+        """;
+    
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+    
+            while (rs.next()) {
+                Funcionario f = new Funcionario();
+                f.setIdFuncionario(rs.getInt("idFuncionario"));
+                f.setNomeFuncionario(rs.getString("nomeFuncionario"));
+                f.setSalarioFuncionario(rs.getDouble("salarioFuncionario"));
+                f.setDataContratacaoFuncionario(rs.getDate("dataContratacaoFuncionario"));
+                f.setChefeFuncionario(rs.getObject("chefeFuncionario", Integer.class));
+                f.setEmpregado(rs.getBoolean("empregado"));    
+                lista.add(f);
+            }
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }    
 }
