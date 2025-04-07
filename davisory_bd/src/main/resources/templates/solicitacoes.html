@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Solicitações</title>
+</head>
+<body>
+    <h1>Solicitações</h1>
+    <table border="1">
+        <tr>
+            <th>CNPJ Fornecedor</th>
+            <th>ID Matéria-Prima</th>
+            <th>ID Func. Administrativo</th>
+            <th>Data da Solicitação</th>
+        </tr>
+        <tr th:each="s : ${solicitacoes}">
+            <td th:text="${s.cnpjFornecedor}">CNPJ</td>
+            <td th:text="${s.idMateriaPrima}">Matéria</td>
+            <td th:text="${s.idFuncionarioAdministrativo}">Func</td>
+            <td th:text="${s.dataSolicitacao}">Data</td>
+        </tr>
+    </table>
+</body>
+</html>

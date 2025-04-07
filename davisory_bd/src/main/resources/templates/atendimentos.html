@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Atendimentos</title>
+</head>
+<body>
+    <h1>Atendimentos</h1>
+    <table border="1">
+        <tr>
+            <th>CPF/CNPJ Cliente</th>
+            <th>ID Funcionário Administrativo</th>
+            <th>Data do Atendimento</th>
+        </tr>
+        <tr th:each="a : ${atendimentos}">
+            <td th:text="${a.cpfCnpjCliente}">CPF</td>
+            <td th:text="${a.idFuncionarioAdministrativo}">ID</td>
+            <td th:text="${a.dataAtendimento}">Data</td>
+        </tr>
+    </table>
+</body>
+</html>

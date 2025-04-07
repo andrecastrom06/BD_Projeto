@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Montagens</title>
+</head>
+<body>
+    <h1>Montagens</h1>
+    <table border="1">
+        <tr>
+            <th>ID Func. Operacional</th>
+            <th>ID Pedido</th>
+        </tr>
+        <tr th:each="m : ${montagens}">
+            <td th:text="${m.idFuncionarioOperacional}">Func</td>
+            <td th:text="${m.idPedido}">Pedido</td>
+        </tr>
+    </table>
+</body>
+</html>
