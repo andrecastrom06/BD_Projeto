@@ -57,6 +57,7 @@ CREATE TABLE Funcionario (
     salarioFuncionario DECIMAL(10,2) NOT NULL CHECK (salarioFuncionario >= 0),
     dataContratacaoFuncionario DATE NOT NULL,
     chefeFuncionario INT,
+    empregado BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (chefeFuncionario) REFERENCES Funcionario(idFuncionario)
 );
 
@@ -163,12 +164,12 @@ INSERT INTO Cliente VALUES
 ('12345678903', 'Cliente 4', '(81) 99594-1517', 'cliente4@email.com', 3),
 ('12345678904', 'Cliente 5', '(81) 99958-9688', 'cliente5@email.com', 1);
 
-INSERT INTO Funcionario (nomeFuncionario, salarioFuncionario, dataContratacaoFuncionario, chefeFuncionario) VALUES 
-('Funcionario 1', 2221.88, '2024-04-05', NULL),
-('Funcionario 2', 2384.46, '2023-04-05', 1),
-('Funcionario 3', 2152.78, '2022-04-05', 2),
-('Funcionario 4', 2296.59, '2021-04-05', 3),
-('Funcionario 5', 1930.79, '2020-04-05', 3);
+INSERT INTO Funcionario (nomeFuncionario, salarioFuncionario, dataContratacaoFuncionario, chefeFuncionario, empregado) VALUES 
+('Funcionario 1', 2221.88, '2024-04-05', NULL, TRUE),
+('Funcionario 2', 2384.46, '2023-04-05', 1, TRUE),
+('Funcionario 3', 2152.78, '2022-04-05', 2, TRUE),
+('Funcionario 4', 2296.59, '2021-04-05', 3, TRUE),
+('Funcionario 5', 1930.79, '2020-04-05', 3, TRUE);
 
 INSERT INTO Operacional VALUES 
 (1),

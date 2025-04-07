@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Funcionário</title>
+</head>
+<body>
+<h1 th:text="'Editando ' + ${funcionario.nomeFuncionario}">Editar Funcionário</h1>
+
+<form action="#" th:action="@{/funcionarios/atualizar}" method="post">
+    <input type="hidden" name="id" th:value="${funcionario.idFuncionario}"/>
+    <label>Status:
+        <select name="empregado">
+            <option th:value="true" th:selected="${funcionario.empregado}">Ativo</option>
+            <option th:value="false" th:selected="${!funcionario.empregado}">Inativo</option>
+        </select>
+    </label><br>
+
+    <label>Setor:
+        <select name="setor">
+            <option th:value="'Administrativo'" th:selected="${funcionario instanceof T(com.davisory.davisory_bd.model.Administrativo)}">Administrativo</option>
+            <option th:value="'Operacional'" th:selected="${funcionario instanceof T(com.davisory.davisory_bd.model.Operacional)}">Operacional</option>
+        </select>
+    </label><br>
+
+    <label>Cargo:
+        <input type="text" name="cargo" th:value="${funcionario.cargoFuncionarioAdministrativo}" />
+    </label><br>
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a th:href="@{/funcionarios}">Voltar</a>
+</body>
+</html>

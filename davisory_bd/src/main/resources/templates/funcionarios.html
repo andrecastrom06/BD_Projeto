@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Funcionários</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            margin-top: 40px;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .status-ativo {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-inativo {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Funcionários Administrativos</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th>Salário</th>
+        <th>Função</th>
+        <th>Status</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="adm : ${administrativos}">
+        <td th:text="${adm.nomeFuncionario}">Nome</td>
+        <td th:text="${#numbers.formatDecimal(adm.salarioFuncionario, 1, 'COMMA', 2, 'POINT')}">Salário</td>
+        <td th:text="${adm.cargoFuncionarioAdministrativo}">Função</td>
+        <td th:classappend="${adm.empregado} ? 'status-ativo' : 'status-inativo'"
+            th:text="${adm.empregado} ? 'Ativo' : 'Inativo'">Status</td>
+        <td>
+            <a class="btn" th:href="@{'/funcionarios/editar?id=' + ${adm.idFuncionario}}">Editar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h1>Funcionários Operacionais</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th>Salário</th>
+        <th>Status</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="op : ${operacionais}">
+        <td th:text="${op.nomeFuncionario}">Nome</td>
+        <td th:text="${#numbers.formatDecimal(op.salarioFuncionario, 1, 'COMMA', 2, 'POINT')}">Salário</td>
+        <td th:classappend="${op.empregado} ? 'status-ativo' : 'status-inativo'"
+            th:text="${op.empregado} ? 'Ativo' : 'Inativo'">Status</td>
+        <td>
+            <a class="btn" th:href="@{'/funcionarios/editar?id=' + ${op.idFuncionario}}">Editar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
