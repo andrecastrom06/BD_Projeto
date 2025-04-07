@@ -6,10 +6,8 @@ public class Cliente {
     private String telefoneCliente;
     private String emailCliente;
 
-    // Construtor vazio
     public Cliente() {}
 
-    // Construtor com todos os campos
     public Cliente(String cpfCnpjCliente, String nomeCliente, String telefoneCliente, String emailCliente) {
         this.cpfCnpjCliente = cpfCnpjCliente;
         this.nomeCliente = nomeCliente;
@@ -17,7 +15,6 @@ public class Cliente {
         this.emailCliente = emailCliente;
     }
 
-    // Getters e Setters
     public String getCpfCnpjCliente() {
         return cpfCnpjCliente;
     }

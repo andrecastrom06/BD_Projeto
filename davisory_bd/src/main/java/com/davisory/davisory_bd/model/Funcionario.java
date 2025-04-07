@@ -9,7 +9,6 @@ public class Funcionario {
     private Date dataContratacaoFuncionario;
     private Integer chefeFuncionario;
 
-    // Getters e Setters
     public int getIdFuncionario() { return idFuncionario; }
     public void setIdFuncionario(int idFuncionario) { this.idFuncionario = idFuncionario; }
 
