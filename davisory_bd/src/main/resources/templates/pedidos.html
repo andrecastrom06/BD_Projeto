@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Pedidos</title>
+</head>
+<body>
+    <h1>Pedidos</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Código Entrega</th>
+            <th>Quantidade</th>
+            <th>Preço Unitário</th>
+            <th>ID Produto</th>
+            <th>ID Funcionário</th>
+            <th>Cliente</th>
+        </tr>
+        <tr th:each="pedido : ${pedidos}">
+            <td th:text="${pedido.idPedido}">1</td>
+            <td th:text="${pedido.dataPedido}">2024-01-01</td>
+            <td th:text="${pedido.codigoEntregaPedido}">ABC123</td>
+            <td th:text="${pedido.quantidadePedido}">10</td>
+            <td th:text="${pedido.precoUnitarioPedido}">99.99</td>
+            <td th:text="${pedido.idProduto}">1</td>
+            <td th:text="${pedido.idFuncionario}">1</td>
+            <td th:text="${pedido.cpfCnpjCliente}">12345678900</td>
+        </tr>
+    </table>
+</body>
+</html>
