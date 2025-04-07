@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Estoque Matéria-Prima</title>
+</head>
+<body>
+    <h1>Estoque de Matéria-Prima</h1>
+    <table border="1">
+        <tr>
+            <th>ID Estoque</th>
+            <th>ID Matéria-Prima</th>
+            <th>Quantidade</th>
+        </tr>
+        <tr th:each="item : ${estoque}">
+            <td th:text="${item.idEstoqueMateriaPrima}">ID Estoque</td>
+            <td th:text="${item.fkMateriaPrimaId}">ID Matéria-Prima</td>
+            <td th:text="${item.quantidadeMateriaPrima}">Quantidade</td>
+        </tr>
+    </table>
+</body>
+</html>

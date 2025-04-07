@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Matéria-Prima</title>
+</head>
+<body>
+    <h1>Matéria-Prima</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Valor</th>
+            <th>Código de Entrega</th>
+            <th>Data Estimada Entrega</th>
+        </tr>
+        <tr th:each="m : ${materias}">
+            <td th:text="${m.idMateriaPrima}">ID</td>
+            <td th:text="${m.valorMateriaPrima}">Valor</td>
+            <td th:text="${m.codigoEntregaMateriaPrima}">Código</td>
+            <td th:text="${m.dataEstimadaEntregaMateriaPrima}">Data</td>
+        </tr>
+    </table>
+</body>
+</html>
