@@ -1,29 +1,43 @@
 package com.davisory.davisory_bd.dao;
 
-import com.davisory.davisory_bd.model.Atendimento;
-import java.sql.*;
+import com.davisory.davisory_bd.dto.AtendimentoDTO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AtendimentoRepositorio {
 
-    public List<Atendimento> listar() {
-        List<Atendimento> lista = new ArrayList<>();
-        String sql = "SELECT * FROM Atende";
+    public List<AtendimentoDTO> listarAtendimentosComFuncionario() {
+        List<AtendimentoDTO> lista = new ArrayList<>();
+
+        String sql = """
+            SELECT a.fk_Cliente_cpfCnpjCliente AS cpfCnpjCliente,
+                f.nomeFuncionario,
+                a.dataAtendimento
+            FROM Atende a
+            JOIN Administrativo ad ON a.fk_Administrativo_Funcionario_idFuncionario = ad.fk_Funcionario_idFuncionario
+            JOIN Funcionario f ON ad.fk_Funcionario_idFuncionario = f.idFuncionario
+        """;
+
 
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                Atendimento a = new Atendimento();
-                a.setCpfCnpjCliente(rs.getString("fk_Cliente_cpfCnpjCliente"));
-                a.setIdFuncionarioAdministrativo(rs.getInt("fk_Administrativo_Funcionario_idFuncionario"));
-                a.setDataAtendimento(rs.getTimestamp("dataAtendimento"));
-                lista.add(a);
+                AtendimentoDTO dto = new AtendimentoDTO(
+                    rs.getString("cpfCnpjCliente"),
+                    rs.getString("nomeFuncionario"),
+                    rs.getTimestamp("dataAtendimento").toLocalDateTime()
+                );
+
+                lista.add(dto);
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -10,14 +10,14 @@
     <table border="1">
         <tr>
             <th>CPF/CNPJ Cliente</th>
-            <th>ID Funcionário Administrativo</th>
+            <th>Nome Funcionário Administrativo</th>
             <th>Data do Atendimento</th>
         </tr>
         <tr th:each="a : ${atendimentos}">
-            <td th:text="${a.cpfCnpjCliente}">CPF</td>
-            <td th:text="${a.idFuncionarioAdministrativo}">ID</td>
-            <td th:text="${a.dataAtendimento}">Data</td>
-        </tr>
+            <td th:text="${a.cpfCnpjCliente}"></td>
+            <td th:text="${a.nomeFuncionario}"></td>
+            <td th:text="${a.dataAtendimento}"></td>
+        </tr>        
     </table>
 </body>
 </html>
