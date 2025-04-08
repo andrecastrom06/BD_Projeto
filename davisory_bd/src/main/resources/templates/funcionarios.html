@@ -26,7 +26,7 @@
         <td th:classappend="${adm.empregado} ? 'status-ativo' : 'status-inativo'"
             th:text="${adm.empregado} ? 'Ativo' : 'Inativo'">Status</td>
         <td>
-            <a class="btn" th:href="@{'/funcionarios/editar?id=' + ${adm.idFuncionario}}">Editar</a>
+            <a class="btn" th:href="@{'/funcionarios/editar/' + ${adm.idFuncionario}}">Editar</a>
         </td>
     </tr>
     </tbody>
@@ -49,7 +49,7 @@
         <td th:classappend="${op.empregado} ? 'status-ativo' : 'status-inativo'"
             th:text="${op.empregado} ? 'Ativo' : 'Inativo'">Status</td>
         <td>
-            <a class="btn" th:href="@{'/funcionarios/editar?id=' + ${op.idFuncionario}}">Editar</a>
+            <a class="btn" th:href="@{'/funcionarios/editar/' + ${op.idFuncionario}}">Editar</a>
         </td>
     </tr>
     </tbody>
