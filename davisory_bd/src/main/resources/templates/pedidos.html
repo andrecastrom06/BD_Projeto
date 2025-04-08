@@ -8,26 +8,28 @@
     <a href="/" class="botao-voltar">← Voltar</a> 
     <h1>Pedidos</h1>
     <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Data</th>
-            <th>Código Entrega</th>
-            <th>Quantidade</th>
-            <th>Preço Unitário</th>
-            <th>ID Produto</th>
-            <th>ID Funcionário</th>
-            <th>Cliente</th>
-        </tr>
-        <tr th:each="pedido : ${pedidos}">
-            <td th:text="${pedido.idPedido}">1</td>
-            <td th:text="${pedido.dataPedido}">2024-01-01</td>
-            <td th:text="${pedido.codigoEntregaPedido}">ABC123</td>
-            <td th:text="${pedido.quantidadePedido}">10</td>
-            <td th:text="${pedido.precoUnitarioPedido}">99.99</td>
-            <td th:text="${pedido.idProduto}">1</td>
-            <td th:text="${pedido.idFuncionario}">1</td>
-            <td th:text="${pedido.cpfCnpjCliente}">12345678900</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Código Entrega</th>
+                <th>Quantidade</th>
+                <th>Preço Unitário</th>
+                <th>Nome Produto</th>
+                <th>Nome Funcionário</th>
+                <th>Cliente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="detalhado : ${pedidosDetalhados}">
+                <td th:text="${detalhado.pedido.dataPedido}"></td>
+                <td th:text="${detalhado.pedido.codigoEntregaPedido}"></td>
+                <td th:text="${detalhado.pedido.quantidadePedido}"></td>
+                <td th:text="${detalhado.pedido.precoUnitarioPedido}"></td>
+                <td th:text="${detalhado.produto.nomeProduto}"></td>
+                <td th:text="${detalhado.funcionario.nomeFuncionario}"></td>
+                <td th:text="${detalhado.pedido.cpfCnpjCliente}"></td>
+            </tr>
+        </tbody>
     </table>
 </body>
 </html>

@@ -22,6 +22,7 @@ CREATE TABLE Fornecedor (
 
 CREATE TABLE MateriaPrima (
     idMateriaPrima INT PRIMARY KEY AUTO_INCREMENT,
+    nomeMateriaPrima varchar (255) not null,
     valorMateriaPrima DECIMAL(10,2) NOT NULL CHECK (valorMateriaPrima >= 0),
     codigoEntregaMateriaPrima VARCHAR(50) UNIQUE NOT NULL,
     dataEstimadaEntregaMateriaPrima DATE NOT NULL
@@ -136,12 +137,12 @@ INSERT INTO Fornecedor VALUES
 ('10000000000004', 'Fornecedor 4', '(81) 99935-1170', 'fornecedor4@email.com', 4),
 ('10000000000005', 'Fornecedor 5', '(81) 99946-2096', 'fornecedor5@email.com', 5);
 
-INSERT INTO MateriaPrima (valorMateriaPrima, codigoEntregaMateriaPrima, dataEstimadaEntregaMateriaPrima) VALUES 
-(134.47, 'ENT001', '2025-04-10'),
-(104.80, 'ENT002', '2025-04-15'),
-(108.68, 'ENT003', '2025-04-20'),
-(66.62, 'ENT004', '2025-04-25'),
-(179.79, 'ENT005', '2025-04-30');
+INSERT INTO MateriaPrima (nomeMateriaPrima, valorMateriaPrima, codigoEntregaMateriaPrima, dataEstimadaEntregaMateriaPrima) VALUES 
+('Materia 1', 134.47, 'ENT001', '2025-04-10'),
+('Materia 2', 104.80, 'ENT002', '2025-04-15'),
+('Materia 3', 108.68, 'ENT003', '2025-04-20'),
+('Materia 4', 66.62, 'ENT004', '2025-04-25'),
+('Materia 5', 179.79, 'ENT005', '2025-04-30');
 
 INSERT INTO Produto (nomeProduto, descricaoProduto, precoProduto) VALUES 
 ('Óculos Modelo 1', 'Óculos de grau com armação resistente.', 448.13),

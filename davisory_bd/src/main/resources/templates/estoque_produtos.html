@@ -8,16 +8,18 @@
     <a href="/" class="botao-voltar">← Voltar</a> 
     <h1>Estoque de Produtos</h1>
     <table border="1">
-        <tr>
-            <th>ID Estoque</th>
-            <th>ID Produto</th>
-            <th>Quantidade</th>
-        </tr>
-        <tr th:each="e : ${estoque}">
-            <td th:text="${e.idEstoqueProduto}">1</td>
-            <td th:text="${e.idProduto}">1</td>
-            <td th:text="${e.quantidadeProduto}">100</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Nome Produto</th>
+                <th>Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="e : ${estoqueDetalhado}">
+                <td th:text="${e.produto.nomeProduto}"></td>
+                <td th:text="${e.estoque.quantidadeProduto}"></td>
+            </tr>
+        </tbody>
     </table>
 </body>
 </html>

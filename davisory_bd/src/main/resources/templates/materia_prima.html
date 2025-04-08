@@ -8,18 +8,22 @@
     <a href="/" class="botao-voltar">← Voltar</a> 
     <h1>Matéria-Prima</h1>
     <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Valor</th>
-            <th>Código de Entrega</th>
-            <th>Data Estimada Entrega</th>
-        </tr>
-        <tr th:each="m : ${materias}">
-            <td th:text="${m.idMateriaPrima}">ID</td>
-            <td th:text="${m.valorMateriaPrima}">Valor</td>
-            <td th:text="${m.codigoEntregaMateriaPrima}">Código</td>
-            <td th:text="${m.dataEstimadaEntregaMateriaPrima}">Data</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Valor</th>
+                <th>Código de Entrega</th>
+                <th>Data Estimada Entrega</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="m : ${materias}">
+                <td th:text="${m.nomeMateriaPrima}">Nome</td>
+                <td th:text="${m.valorMateriaPrima}">Valor</td>
+                <td th:text="${m.codigoEntregaMateriaPrima}">Código</td>
+                <td th:text="${m.dataEstimadaEntregaMateriaPrima}">Data</td>
+            </tr>
+        </tbody>
     </table>
 </body>
 </html>
