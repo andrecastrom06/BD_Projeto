@@ -79,8 +79,6 @@ Por fim, o fornecedor é o responsável por fornecer a matéria-prima. Ele é id
 
 ## UTILIZE COMANDO ABAIXO E TROQUE SENHA PELA SUA SENHA
 
-- LINUX
-export DB_PASSWORD=senha
-- WINDOWS
-$env:DB_PASSWORD=senha
+- LINUX: export DB_PASSWORD=senha
+- WINDOWS: $env:DB_PASSWORD=senha
 </details>
