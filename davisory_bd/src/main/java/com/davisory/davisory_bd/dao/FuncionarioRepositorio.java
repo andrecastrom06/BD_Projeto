@@ -3,11 +3,13 @@ package com.davisory.davisory_bd.dao;
 import com.davisory.davisory_bd.model.Administrativo;
 import com.davisory.davisory_bd.model.Funcionario;
 import com.davisory.davisory_bd.model.Operacional;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class FuncionarioRepositorio {
 
     public List<Administrativo> listarAdministrativos() {
@@ -68,6 +70,7 @@ public class FuncionarioRepositorio {
         }
         return lista;
     }
+
     public Funcionario buscarPorId(int id) {
         String sql = "SELECT * FROM Funcionario WHERE idFuncionario = ?";
         try (Connection conn = ConexaoBD.conectar();
@@ -90,7 +93,7 @@ public class FuncionarioRepositorio {
         }
         return null;
     }
-    
+
     public void atualizarEmpregado(int id, boolean empregado) {
         String sql = "UPDATE Funcionario SET empregado = ? WHERE idFuncionario = ?";
         try (Connection conn = ConexaoBD.conectar();
@@ -102,6 +105,7 @@ public class FuncionarioRepositorio {
             e.printStackTrace();
         }
     }
+
     public List<Funcionario> listarFuncionariosComChefes() {
         List<Funcionario> lista = new ArrayList<>();
         String sql = """
@@ -111,11 +115,11 @@ public class FuncionarioRepositorio {
             FROM Funcionario f
             LEFT JOIN Funcionario c ON f.chefeFuncionario = c.idFuncionario
         """;
-    
+
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-    
+
             while (rs.next()) {
                 Funcionario f = new Funcionario();
                 f.setIdFuncionario(rs.getInt("idFuncionario"));
@@ -123,13 +127,13 @@ public class FuncionarioRepositorio {
                 f.setSalarioFuncionario(rs.getDouble("salarioFuncionario"));
                 f.setDataContratacaoFuncionario(rs.getDate("dataContratacaoFuncionario"));
                 f.setChefeFuncionario(rs.getObject("chefeFuncionario", Integer.class));
-                f.setEmpregado(rs.getBoolean("empregado"));    
+                f.setEmpregado(rs.getBoolean("empregado"));
                 lista.add(f);
             }
-    
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return lista;
-    }    
+    }
 }

@@ -5,19 +5,18 @@ import com.davisory.davisory_bd.model.Administrativo;
 import com.davisory.davisory_bd.model.Funcionario;
 import com.davisory.davisory_bd.model.Operacional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 public class FuncionarioController {
 
-    FuncionarioRepositorio repositorio = new FuncionarioRepositorio();
+    @Autowired
+    private FuncionarioRepositorio repositorio;
 
     @GetMapping("/funcionarios")
     public String listarFuncionarios(Model model) {
@@ -29,6 +28,7 @@ public class FuncionarioController {
 
         return "funcionarios";
     }
+
     @GetMapping("/funcionarios/editar/{id}")
     public String editarFuncionario(@PathVariable("id") int id, Model model) {
         Funcionario funcionario = repositorio.buscarPorId(id);
@@ -38,10 +38,11 @@ public class FuncionarioController {
 
     @PostMapping("/funcionarios/atualizar")
     public String atualizarFuncionario(@RequestParam("id") int id,
-        @RequestParam("empregado") boolean empregado) {
+                                       @RequestParam("empregado") boolean empregado) {
         repositorio.atualizarEmpregado(id, empregado);
         return "redirect:/funcionarios";
     }
+
     @GetMapping("/chefes")
     public String listarFuncionariosComChefes(Model model) {
         List<Funcionario> funcionarios = repositorio.listarFuncionariosComChefes();
