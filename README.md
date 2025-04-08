@@ -84,6 +84,7 @@ Por fim, o fornecedor é o responsável por fornecer a matéria-prima. Ele é id
 export DB_PASSWORD=senha
 
 <br>
+
 - WINDOWS
 <br>
 $env:DB_PASSWORD=senha
