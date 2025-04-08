@@ -3,13 +3,11 @@ package com.davisory.davisory_bd.dao;
 import com.davisory.davisory_bd.model.Administrativo;
 import com.davisory.davisory_bd.model.Funcionario;
 import com.davisory.davisory_bd.model.Operacional;
-import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
 public class FuncionarioRepositorio {
 
     public List<Administrativo> listarAdministrativos() {
@@ -29,10 +27,10 @@ public class FuncionarioRepositorio {
                 adm.setIdFuncionario(rs.getInt("idFuncionario"));
                 adm.setNomeFuncionario(rs.getString("nomeFuncionario"));
                 adm.setSalarioFuncionario(rs.getDouble("salarioFuncionario"));
-                adm.setDataContratacaoFuncionario(rs.getDate("dataContratacaoFuncionario"));
                 adm.setChefeFuncionario(rs.getInt("chefeFuncionario"));
                 adm.setCargoFuncionarioAdministrativo(rs.getString("cargoFuncionarioAdministrativo"));
                 adm.setEmpregado(rs.getBoolean("empregado"));
+                adm.setCargo(rs.getString("cargoFuncionarioAdministrativo"));
                 lista.add(adm);
             }
 
@@ -59,7 +57,6 @@ public class FuncionarioRepositorio {
                 op.setIdFuncionario(rs.getInt("idFuncionario"));
                 op.setNomeFuncionario(rs.getString("nomeFuncionario"));
                 op.setSalarioFuncionario(rs.getDouble("salarioFuncionario"));
-                op.setDataContratacaoFuncionario(rs.getDate("dataContratacaoFuncionario"));
                 op.setChefeFuncionario(rs.getInt("chefeFuncionario"));
                 op.setEmpregado(rs.getBoolean("empregado"));
                 lista.add(op);
@@ -82,9 +79,19 @@ public class FuncionarioRepositorio {
                     f.setIdFuncionario(rs.getInt("idFuncionario"));
                     f.setNomeFuncionario(rs.getString("nomeFuncionario"));
                     f.setSalarioFuncionario(rs.getDouble("salarioFuncionario"));
-                    f.setDataContratacaoFuncionario(rs.getDate("dataContratacaoFuncionario"));
-                    f.setChefeFuncionario(rs.getInt("chefeFuncionario"));
+                    f.setChefeFuncionario(rs.getObject("chefeFuncionario", Integer.class));
                     f.setEmpregado(rs.getBoolean("empregado"));
+
+                    String sqlCargo = "SELECT cargoFuncionarioAdministrativo FROM Administrativo WHERE fk_Funcionario_idFuncionario = ?";
+                    try (PreparedStatement stmt2 = conn.prepareStatement(sqlCargo)) {
+                        stmt2.setInt(1, id);
+                        try (ResultSet rs2 = stmt2.executeQuery()) {
+                            if (rs2.next()) {
+                                f.setCargo(rs2.getString("cargoFuncionarioAdministrativo"));
+                            }
+                        }
+                    }
+
                     return f;
                 }
             }
@@ -100,39 +107,6 @@ public class FuncionarioRepositorio {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setBoolean(1, empregado);
             stmt.setInt(2, id);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void atualizarFuncionarioCompleto(Funcionario funcionario) {
-        String sql = """
-            UPDATE Funcionario
-            SET nomeFuncionario = ?,
-                salarioFuncionario = ?,
-                dataContratacaoFuncionario = ?,
-                chefeFuncionario = ?,
-                empregado = ?
-            WHERE idFuncionario = ?
-        """;
-
-        try (Connection conn = ConexaoBD.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, funcionario.getNomeFuncionario());
-            stmt.setDouble(2, funcionario.getSalarioFuncionario());
-            stmt.setDate(3, funcionario.getDataContratacaoFuncionario());
-
-            if (funcionario.getChefeFuncionario() != null) {
-                stmt.setInt(4, funcionario.getChefeFuncionario());
-            } else {
-                stmt.setNull(4, java.sql.Types.INTEGER);
-            }
-
-            stmt.setBoolean(5, funcionario.isEmpregado());
-            stmt.setInt(6, funcionario.getIdFuncionario());
-
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -158,7 +132,6 @@ public class FuncionarioRepositorio {
                 f.setIdFuncionario(rs.getInt("idFuncionario"));
                 f.setNomeFuncionario(rs.getString("nomeFuncionario"));
                 f.setSalarioFuncionario(rs.getDouble("salarioFuncionario"));
-                f.setDataContratacaoFuncionario(rs.getDate("dataContratacaoFuncionario"));
                 f.setChefeFuncionario(rs.getObject("chefeFuncionario", Integer.class));
                 f.setEmpregado(rs.getBoolean("empregado"));
                 lista.add(f);
@@ -168,5 +141,46 @@ public class FuncionarioRepositorio {
             e.printStackTrace();
         }
         return lista;
+    }
+
+    public void atualizarFuncionarioCompleto(Funcionario f) {
+        String sqlFuncionario = """
+            UPDATE Funcionario SET 
+                nomeFuncionario = ?, 
+                salarioFuncionario = ?, 
+                chefeFuncionario = ?, 
+                empregado = ?
+            WHERE idFuncionario = ?
+        """;
+
+        String sqlCargo = """
+            UPDATE Administrativo 
+            SET cargoFuncionarioAdministrativo = ?
+            WHERE fk_Funcionario_idFuncionario = ?
+        """;
+
+        try (Connection conn = ConexaoBD.conectar()) {
+            try (PreparedStatement stmt = conn.prepareStatement(sqlFuncionario)) {
+                stmt.setString(1, f.getNomeFuncionario());
+                stmt.setDouble(2, f.getSalarioFuncionario());
+                if (f.getChefeFuncionario() != null) {
+                    stmt.setInt(3, f.getChefeFuncionario());
+                } else {
+                    stmt.setNull(3, java.sql.Types.INTEGER);
+                }
+                stmt.setBoolean(4, f.isEmpregado());
+                stmt.setInt(5, f.getIdFuncionario());
+                stmt.executeUpdate();
+            }
+
+            try (PreparedStatement stmt2 = conn.prepareStatement(sqlCargo)) {
+                stmt2.setString(1, f.getCargo());
+                stmt2.setInt(2, f.getIdFuncionario());
+                stmt2.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

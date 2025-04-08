@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -37,24 +36,25 @@ public class FuncionarioController {
 
     @PostMapping("/funcionarios/atualizar")
     public String atualizarFuncionario(
-            @RequestParam("id") int id,
-            @RequestParam("nome") String nome,
-            @RequestParam("salario") double salario,
-            @RequestParam("dataContratacao") Date dataContratacao,
-            @RequestParam(value = "chefe", required = false) Integer chefe,
-            @RequestParam("empregado") boolean empregado) {
+        @RequestParam("id") int id,
+        @RequestParam("nome") String nome,
+        @RequestParam("salario") double salario,
+        @RequestParam(value = "chefe", required = false) Integer chefe,
+        @RequestParam("empregado") boolean empregado,
+        @RequestParam("cargo") String cargo) {
 
         Funcionario f = new Funcionario();
         f.setIdFuncionario(id);
         f.setNomeFuncionario(nome);
         f.setSalarioFuncionario(salario);
-        f.setDataContratacaoFuncionario(dataContratacao);
         f.setChefeFuncionario(chefe);
         f.setEmpregado(empregado);
+        f.setCargo(cargo);
 
         repositorio.atualizarFuncionarioCompleto(f);
         return "redirect:/funcionarios";
     }
+
 
     @GetMapping("/chefes")
     public String listarFuncionariosComChefes(Model model) {

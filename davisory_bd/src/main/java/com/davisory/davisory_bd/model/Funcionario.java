@@ -1,12 +1,10 @@
 package com.davisory.davisory_bd.model;
 
-import java.sql.Date;
-
 public class Funcionario {
     private int idFuncionario;
     private String nomeFuncionario;
     private double salarioFuncionario;
-    private Date dataContratacaoFuncionario;
+    private String cargo;
     private Integer chefeFuncionario;
     private boolean empregado;
 
@@ -18,11 +16,10 @@ public class Funcionario {
 
     public double getSalarioFuncionario() { return salarioFuncionario; }
     public void setSalarioFuncionario(double salarioFuncionario) { this.salarioFuncionario = salarioFuncionario; }
+    
+    public String getCargo() { return cargo; }
+    public void setCargo(String cargo) { this.cargo = cargo; }
 
-    public Date getDataContratacaoFuncionario() { return dataContratacaoFuncionario; }
-    public void setDataContratacaoFuncionario(Date dataContratacaoFuncionario) {
-        this.dataContratacaoFuncionario = dataContratacaoFuncionario;
-    }
 
     public Integer getChefeFuncionario() { return chefeFuncionario; }
     public void setChefeFuncionario(Integer chefeFuncionario) { this.chefeFuncionario = chefeFuncionario; }

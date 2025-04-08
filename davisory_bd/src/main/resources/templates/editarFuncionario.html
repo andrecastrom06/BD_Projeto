@@ -16,9 +16,6 @@
         <label>Salário:</label>
         <input type="number" step="0.01" name="salario" th:value="${funcionario.salarioFuncionario}" required/><br/>
 
-        <label>Data de Contratação:</label>
-        <input type="date" name="dataContratacao" th:value="${funcionario.dataContratacaoFuncionario}" required/><br/>
-
         <label>Chefe (ID):</label>
         <input type="number" name="chefe" th:value="${funcionario.chefeFuncionario}" /><br/>
 
@@ -27,6 +24,9 @@
             <option th:value="true" th:selected="${funcionario.empregado}">Ativo</option>
             <option th:value="false" th:selected="${!funcionario.empregado}">Inativo</option>
         </select><br/>
+
+        <label>Cargo/Função:</label>
+        <input type="text" name="cargo" th:value="${funcionario.cargo}" /><br/>
 
         <button type="submit">Salvar</button>
     </form>
