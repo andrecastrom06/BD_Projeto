@@ -72,3 +72,21 @@ Por fim, o fornecedor é o responsável por fornecer a matéria-prima. Ele é id
 <br>
 - docs: https://docs.google.com/document/d/1sKelIHWcGIeqJN1RK4M5WdEIaBeg2iGqwYvX9Gfq-Y4/edit?usp=sharing
 </details>
+
+<details>
+
+<summary>Senha do Banco de dados</summary>
+
+## UTILIZE COMANDO ABAIXO E TROQUE SENHA PELA SUA SENHA
+
+- LINUX
+<br>
+export DB_PASSWORD=senha
+
+<br>
+- WINDOWS
+<br>
+$env:DB_PASSWORD=senha
+
+<br>
+</details>
