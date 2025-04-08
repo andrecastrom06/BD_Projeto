@@ -1,11 +1,6 @@
 package com.davisory.davisory_bd.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +27,9 @@ public class FuncionarioRepositorio {
                 adm.setIdFuncionario(rs.getInt("idFuncionario"));
                 adm.setNomeFuncionario(rs.getString("nomeFuncionario"));
                 adm.setSalarioFuncionario(rs.getDouble("salarioFuncionario"));
-                adm.setChefeFuncionario(rs.getInt("chefeFuncionario"));
-                adm.setCargoFuncionarioAdministrativo(rs.getString("cargoFuncionarioAdministrativo"));
+                adm.setChefeFuncionario(rs.getObject("chefeFuncionario", Integer.class));
                 adm.setEmpregado(rs.getBoolean("empregado"));
+                adm.setCargoFuncionarioAdministrativo(rs.getString("cargoFuncionarioAdministrativo"));
                 adm.setCargo(rs.getString("cargoFuncionarioAdministrativo"));
                 lista.add(adm);
             }
@@ -62,7 +57,7 @@ public class FuncionarioRepositorio {
                 op.setIdFuncionario(rs.getInt("idFuncionario"));
                 op.setNomeFuncionario(rs.getString("nomeFuncionario"));
                 op.setSalarioFuncionario(rs.getDouble("salarioFuncionario"));
-                op.setChefeFuncionario(rs.getInt("chefeFuncionario"));
+                op.setChefeFuncionario(rs.getObject("chefeFuncionario", Integer.class));
                 op.setEmpregado(rs.getBoolean("empregado"));
                 lista.add(op);
             }
@@ -171,17 +166,19 @@ public class FuncionarioRepositorio {
                 if (f.getChefeFuncionario() != null) {
                     stmt.setInt(3, f.getChefeFuncionario());
                 } else {
-                    stmt.setNull(3, java.sql.Types.INTEGER);
+                    stmt.setNull(3, Types.INTEGER);
                 }
                 stmt.setBoolean(4, f.isEmpregado());
                 stmt.setInt(5, f.getIdFuncionario());
                 stmt.executeUpdate();
             }
 
-            try (PreparedStatement stmt2 = conn.prepareStatement(sqlCargo)) {
-                stmt2.setString(1, f.getCargo());
-                stmt2.setInt(2, f.getIdFuncionario());
-                stmt2.executeUpdate();
+            if (f.getCargo() != null) {
+                try (PreparedStatement stmt2 = conn.prepareStatement(sqlCargo)) {
+                    stmt2.setString(1, f.getCargo());
+                    stmt2.setInt(2, f.getIdFuncionario());
+                    stmt2.executeUpdate();
+                }
             }
 
         } catch (SQLException e) {
@@ -190,9 +187,9 @@ public class FuncionarioRepositorio {
     }
 
     public void inserirAdministrativo(int idFuncionario, String cargo) {
-        try (Connection conn = ConexaoBD.conectar()) {
-            String sql = "INSERT INTO Administrativo (fk_Funcionario_idFuncionario, cargoFuncionarioAdministrativo) VALUES (?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        String sql = "INSERT INTO Administrativo (fk_Funcionario_idFuncionario, cargoFuncionarioAdministrativo) VALUES (?, ?)";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, idFuncionario);
             stmt.setString(2, cargo);
             stmt.executeUpdate();
@@ -201,28 +198,46 @@ public class FuncionarioRepositorio {
         }
     }
 
+    public void inserirOperacional(int idFuncionario) {
+        String sql = "INSERT INTO Operacional (fk_Funcionario_idFuncionario) VALUES (?)";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idFuncionario);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int inserir(Funcionario f) {
         int novoId = -1;
-        try (Connection conn = ConexaoBD.conectar()) {
-            String sql = "INSERT INTO Funcionario (nomeFuncionario, salarioFuncionario, dataContratacaoFuncionario, chefeFuncionario, empregado) VALUES (?, ?, CURDATE(), ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        String sql = "INSERT INTO Funcionario (nomeFuncionario, salarioFuncionario, dataContratacaoFuncionario, chefeFuncionario, empregado) VALUES (?, ?, CURDATE(), ?, ?)";
+
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
             stmt.setString(1, f.getNomeFuncionario());
             stmt.setDouble(2, f.getSalarioFuncionario());
+
             if (f.getChefeFuncionario() != null) {
                 stmt.setInt(3, f.getChefeFuncionario());
             } else {
                 stmt.setNull(3, Types.INTEGER);
             }
+
             stmt.setBoolean(4, f.isEmpregado());
             stmt.executeUpdate();
 
-            ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                novoId = rs.getInt(1);
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    novoId = rs.getInt(1);
+                }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return novoId;
     }
 

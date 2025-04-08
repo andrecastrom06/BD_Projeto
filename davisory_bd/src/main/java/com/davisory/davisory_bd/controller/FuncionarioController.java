@@ -58,7 +58,6 @@ public class FuncionarioController {
         return "redirect:/funcionarios";
     }
 
-
     @GetMapping("/chefes")
     public String listarFuncionariosComChefes(Model model) {
         List<Funcionario> funcionarios = repositorio.listarFuncionariosComChefes();
@@ -74,22 +73,38 @@ public class FuncionarioController {
         return "adicionarFuncionario";
     }
 
-
     @PostMapping("/funcionarios/adicionar")
     public String adicionarFuncionario(
         @RequestParam("nome") String nome,
         @RequestParam("salario") double salario,
         @RequestParam(value = "chefe", required = false) Integer chefe,
-        @RequestParam("cargo") String cargo) {
+        @RequestParam("tipo") String tipoFuncionario,
+        @RequestParam(value = "cargo", required = false) String cargo
+    ) {
+        Funcionario f;
 
-        Funcionario f = new Funcionario();
+        if ("Administrativo".equals(tipoFuncionario)) {
+            Administrativo adm = new Administrativo();
+            adm.setCargoFuncionarioAdministrativo(cargo);
+            adm.setCargo(cargo);
+            f = adm;
+        } else {
+            f = new Operacional();
+        }
+
         f.setNomeFuncionario(nome);
         f.setSalarioFuncionario(salario);
         f.setChefeFuncionario(chefe);
-        f.setEmpregado(true); // por padrão
-        f.setCargo(cargo);
+        f.setEmpregado(true);
 
-        repositorio.inserir(f);
+        int novoId = repositorio.inserir(f);
+
+        if ("Administrativo".equals(tipoFuncionario)) {
+            repositorio.inserirAdministrativo(novoId, cargo);
+        } else {
+            repositorio.inserirOperacional(novoId);
+        }
+
         return "redirect:/funcionarios";
     }
 

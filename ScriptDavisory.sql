@@ -69,7 +69,7 @@ CREATE TABLE Operacional (
 
 CREATE TABLE Administrativo (
     fk_Funcionario_idFuncionario INT PRIMARY KEY,
-    cargoFuncionarioAdministrativo VARCHAR(100) NOT NULL,
+    cargoFuncionarioAdministrativo VARCHAR(100) NOT NULL DEFAULT 'Administrativo',
     FOREIGN KEY (fk_Funcionario_idFuncionario) REFERENCES Funcionario(idFuncionario)
 );
 

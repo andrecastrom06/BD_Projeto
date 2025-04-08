@@ -21,9 +21,18 @@
         </div>
 
         <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo de Funcionário:</label>
+            <select class="form-select" id="tipo" name="tipo" required>
+                <option value="">Selecione</option>
+                <option value="Administrativo">Administrativo</option>
+                <option value="Operacional">Operacional</option>
+            </select>
+        </div>     
+
+        <div class="mb-3" id="divCargo">
             <label for="cargo" class="form-label">Cargo:</label>
-            <input type="text" class="form-control" id="cargo" name="cargo" required>
-        </div>
+            <input type="text" class="form-control" id="cargo" name="cargo">
+        </div>        
 
         <div class="mb-3">
             <label for="chefe" class="form-label">Chefe:</label>
@@ -38,5 +47,23 @@
         </div>
     </form>
 </div>
+
+<script>
+    const tipoSelect = document.getElementById("tipo");
+    const divCargo = document.getElementById("divCargo");
+
+    function toggleCargoField() {
+        if (tipoSelect.value === "Administrativo") {
+            divCargo.style.display = "block";
+        } else {
+            divCargo.style.display = "none";
+            document.getElementById("cargo").value = ""; 
+        }
+    }
+
+    tipoSelect.addEventListener("change", toggleCargoField);
+    toggleCargoField();
+</script>
+
 </body>
 </html>
