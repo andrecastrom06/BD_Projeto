@@ -44,14 +44,14 @@ Acompanhe nossa equipe para estar ciente dos nossos projetos :
 ## Modelo Entidade-Relacional
 <br>
 
-![Captura de tela 2025-03-25 092426](https://github.com/user-attachments/assets/c93548c6-1e30-4349-b065-5a3816a1b985)
+![ModeloLogicoProjeto](https://github.com/user-attachments/assets/649d2068-4fff-4762-ae31-2ebe046de747)
 
 <br>
 
 ## Modelo Lógico
 <br>
 
-![ModeloLogicoProjeto](https://github.com/user-attachments/assets/1338a2b8-cbc2-41e5-8bf9-3afc1166f9e7)
+![ModeloLogicoProjeto](https://github.com/user-attachments/assets/5bbf59a9-9d9a-4d9e-934b-7098cf6865f8)
 
 <br>
 
