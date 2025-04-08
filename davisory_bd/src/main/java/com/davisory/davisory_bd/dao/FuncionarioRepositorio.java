@@ -106,6 +106,39 @@ public class FuncionarioRepositorio {
         }
     }
 
+    public void atualizarFuncionarioCompleto(Funcionario funcionario) {
+        String sql = """
+            UPDATE Funcionario
+            SET nomeFuncionario = ?,
+                salarioFuncionario = ?,
+                dataContratacaoFuncionario = ?,
+                chefeFuncionario = ?,
+                empregado = ?
+            WHERE idFuncionario = ?
+        """;
+
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, funcionario.getNomeFuncionario());
+            stmt.setDouble(2, funcionario.getSalarioFuncionario());
+            stmt.setDate(3, funcionario.getDataContratacaoFuncionario());
+
+            if (funcionario.getChefeFuncionario() != null) {
+                stmt.setInt(4, funcionario.getChefeFuncionario());
+            } else {
+                stmt.setNull(4, java.sql.Types.INTEGER);
+            }
+
+            stmt.setBoolean(5, funcionario.isEmpregado());
+            stmt.setInt(6, funcionario.getIdFuncionario());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Funcionario> listarFuncionariosComChefes() {
         List<Funcionario> lista = new ArrayList<>();
         String sql = """

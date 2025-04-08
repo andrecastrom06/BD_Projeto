@@ -8,6 +8,7 @@ public class Funcionario {
     private double salarioFuncionario;
     private Date dataContratacaoFuncionario;
     private Integer chefeFuncionario;
+    private boolean empregado;
 
     public int getIdFuncionario() { return idFuncionario; }
     public void setIdFuncionario(int idFuncionario) { this.idFuncionario = idFuncionario; }
@@ -26,8 +27,6 @@ public class Funcionario {
     public Integer getChefeFuncionario() { return chefeFuncionario; }
     public void setChefeFuncionario(Integer chefeFuncionario) { this.chefeFuncionario = chefeFuncionario; }
 
-    private boolean empregado;
     public boolean isEmpregado() { return empregado; }
     public void setEmpregado(boolean empregado) { this.empregado = empregado; }
-
 }

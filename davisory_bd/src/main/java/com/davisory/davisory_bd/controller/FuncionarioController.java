@@ -5,18 +5,17 @@ import com.davisory.davisory_bd.model.Administrativo;
 import com.davisory.davisory_bd.model.Funcionario;
 import com.davisory.davisory_bd.model.Operacional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @Controller
 public class FuncionarioController {
 
-    @Autowired
-    private FuncionarioRepositorio repositorio;
+    FuncionarioRepositorio repositorio = new FuncionarioRepositorio();
 
     @GetMapping("/funcionarios")
     public String listarFuncionarios(Model model) {
@@ -37,9 +36,23 @@ public class FuncionarioController {
     }
 
     @PostMapping("/funcionarios/atualizar")
-    public String atualizarFuncionario(@RequestParam("id") int id,
-                                       @RequestParam("empregado") boolean empregado) {
-        repositorio.atualizarEmpregado(id, empregado);
+    public String atualizarFuncionario(
+            @RequestParam("id") int id,
+            @RequestParam("nome") String nome,
+            @RequestParam("salario") double salario,
+            @RequestParam("dataContratacao") Date dataContratacao,
+            @RequestParam(value = "chefe", required = false) Integer chefe,
+            @RequestParam("empregado") boolean empregado) {
+
+        Funcionario f = new Funcionario();
+        f.setIdFuncionario(id);
+        f.setNomeFuncionario(nome);
+        f.setSalarioFuncionario(salario);
+        f.setDataContratacaoFuncionario(dataContratacao);
+        f.setChefeFuncionario(chefe);
+        f.setEmpregado(empregado);
+
+        repositorio.atualizarFuncionarioCompleto(f);
         return "redirect:/funcionarios";
     }
 
