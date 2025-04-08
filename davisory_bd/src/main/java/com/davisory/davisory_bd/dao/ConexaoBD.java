@@ -9,7 +9,10 @@ public class ConexaoBD {
         return DriverManager.getConnection(
             "jdbc:mysql://localhost:3306/davisory?useSSL=false&serverTimezone=UTC",
             "root",
-            "nautico2006"
+            "C@io2501"
+            //password:"nautico2006"
+            //password:"nautico2006"
+            //password:"nautico2006"
         );
     }
 }

@@ -3,32 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Funcionário</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/editarfuncionario.css}">
 </head>
 <body>
-    <h1 th:text="'Editando funcionário: ' + ${funcionario.nomeFuncionario}">Editando Funcionário</h1>
+    <header>
+        <h1 th:text="'Editando funcionário: ' + ${funcionario.nomeFuncionario}">Editando Funcionário</h1>
+    </header>
 
-    <form th:action="@{/funcionarios/atualizar}" method="post">
-        <input type="hidden" name="id" th:value="${funcionario.idFuncionario}"/>
+    <a th:href="@{/funcionarios}" class="botao-voltar">← Voltar</a>
 
-        <label>Nome:</label>
-        <input type="text" name="nome" th:value="${funcionario.nomeFuncionario}" required/><br/>
+    <div class="container">
+        <form th:action="@{/funcionarios/atualizar}" method="post">
+            <input type="hidden" name="id" th:value="${funcionario.idFuncionario}"/>
 
-        <label>Salário:</label>
-        <input type="number" step="0.01" name="salario" th:value="${funcionario.salarioFuncionario}" required/><br/>
+            <label>Nome:</label>
+            <input type="text" name="nome" th:value="${funcionario.nomeFuncionario}" required/><br/>
 
-        <label>Chefe (ID):</label>
-        <input type="number" name="chefe" th:value="${funcionario.chefeFuncionario}" /><br/>
+            <label>Salário:</label>
+            <input type="number" step="0.01" name="salario" th:value="${funcionario.salarioFuncionario}" required/><br/>
 
-        <label>Status:</label>
-        <select name="empregado">
-            <option th:value="true" th:selected="${funcionario.empregado}">Ativo</option>
-            <option th:value="false" th:selected="${!funcionario.empregado}">Inativo</option>
-        </select><br/>
+            <label>Chefe (ID):</label>
+            <input type="number" name="chefe" th:value="${funcionario.chefeFuncionario}" /><br/>
 
-        <label>Cargo/Função:</label>
-        <input type="text" name="cargo" th:value="${funcionario.cargo}" /><br/>
+            <label>Status:</label>
+            <select name="empregado">
+                <option th:value="true" th:selected="${funcionario.empregado}">Ativo</option>
+                <option th:value="false" th:selected="${!funcionario.empregado}">Inativo</option>
+            </select><br/>
 
-        <button type="submit">Salvar</button>
-    </form>
+            <label>Cargo/Função:</label>
+            <input type="text" name="cargo" th:value="${funcionario.cargo}" /><br/>
+
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
 </body>
 </html>
