@@ -44,14 +44,14 @@ Acompanhe nossa equipe para estar ciente dos nossos projetos :
 ## Modelo Entidade-Relacional
 <br>
 
-![Captura de tela 2025-03-25 092426](https://github.com/user-attachments/assets/c93548c6-1e30-4349-b065-5a3816a1b985)
+![Captura de tela 2025-04-08 104353](https://github.com/user-attachments/assets/1216409d-969f-4ef3-8f04-823768251769)
 
 <br>
 
 ## Modelo Lógico
 <br>
 
-![ModeloLogicoProjeto](https://github.com/user-attachments/assets/1338a2b8-cbc2-41e5-8bf9-3afc1166f9e7)
+![ModeloLogicoProjeto](https://github.com/user-attachments/assets/649d2068-4fff-4762-ae31-2ebe046de747)
 
 <br>
 
@@ -71,4 +71,14 @@ A matéria-prima, essencial para a produção, possui identificador próprio, va
 Por fim, o fornecedor é o responsável por fornecer a matéria-prima. Ele é identificado pelo CNPJ e deve informar seu nome, um ou mais telefones, um ou mais e-mails e endereço completo (estado, cidade, bairro, rua, número e, se houver, complemento).
 <br>
 - docs: https://docs.google.com/document/d/1sKelIHWcGIeqJN1RK4M5WdEIaBeg2iGqwYvX9Gfq-Y4/edit?usp=sharing
+</details>
+
+<details>
+
+<summary>Senha do Banco de dados</summary>
+
+## UTILIZE COMANDO ABAIXO E TROQUE SENHA PELA SUA SENHA
+
+- LINUX: export DB_PASSWORD=senha
+- WINDOWS: $env:DB_PASSWORD=senha
 </details>

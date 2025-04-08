@@ -6,13 +6,10 @@ import java.sql.SQLException;
 
 public class ConexaoBD {
     public static Connection conectar() throws SQLException {
-        return DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/davisory?useSSL=false&serverTimezone=UTC",
-            "root",
-            "C@io2501"
-            //password:"nautico2006"
-            //password:"nautico2006"
-            //password:"nautico2006"
-        );
+        String url = "jdbc:mysql://localhost:3306/davisory?useSSL=false&serverTimezone=UTC";
+        String user = "root";
+        String password = System.getenv("DB_PASSWORD"); // <-- vem do .env via variável de ambiente
+
+        return DriverManager.getConnection(url, user, password);
     }
 }
