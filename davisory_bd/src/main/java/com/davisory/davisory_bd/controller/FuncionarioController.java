@@ -1,15 +1,18 @@
 package com.davisory.davisory_bd.controller;
 
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.davisory.davisory_bd.dao.FuncionarioRepositorio;
 import com.davisory.davisory_bd.model.Administrativo;
 import com.davisory.davisory_bd.model.Funcionario;
 import com.davisory.davisory_bd.model.Operacional;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 public class FuncionarioController {
@@ -61,5 +64,40 @@ public class FuncionarioController {
         List<Funcionario> funcionarios = repositorio.listarFuncionariosComChefes();
         model.addAttribute("funcionarios", funcionarios);
         return "chefes";
+    }
+
+    @GetMapping("/funcionarios/adicionar")
+    public String exibirFormularioAdicao(Model model) {
+        List<Funcionario> chefes = repositorio.listarTodosFuncionarios();
+        model.addAttribute("chefes", chefes);
+        model.addAttribute("funcionario", new Funcionario());
+        return "adicionarFuncionario";
+    }
+
+
+    @PostMapping("/funcionarios/adicionar")
+    public String adicionarFuncionario(
+        @RequestParam("nome") String nome,
+        @RequestParam("salario") double salario,
+        @RequestParam(value = "chefe", required = false) Integer chefe,
+        @RequestParam("cargo") String cargo) {
+
+        Funcionario f = new Funcionario();
+        f.setNomeFuncionario(nome);
+        f.setSalarioFuncionario(salario);
+        f.setChefeFuncionario(chefe);
+        f.setEmpregado(true); // por padrão
+        f.setCargo(cargo);
+
+        repositorio.inserir(f);
+        return "redirect:/funcionarios";
+    }
+
+    @GetMapping("/funcionarios/formulario")
+    public String mostrarFormulario(Model model) {
+        List<Funcionario> chefes = repositorio.listarTodosFuncionarios();
+        model.addAttribute("chefes", chefes);
+        model.addAttribute("funcionario", new Funcionario());
+        return "formularioFuncionario";
     }
 }

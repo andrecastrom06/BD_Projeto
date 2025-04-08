@@ -1,12 +1,17 @@
 package com.davisory.davisory_bd.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.davisory.davisory_bd.model.Administrativo;
 import com.davisory.davisory_bd.model.Funcionario;
 import com.davisory.davisory_bd.model.Operacional;
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FuncionarioRepositorio {
 
@@ -182,5 +187,66 @@ public class FuncionarioRepositorio {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void inserirAdministrativo(int idFuncionario, String cargo) {
+        try (Connection conn = ConexaoBD.conectar()) {
+            String sql = "INSERT INTO Administrativo (fk_Funcionario_idFuncionario, cargoFuncionarioAdministrativo) VALUES (?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idFuncionario);
+            stmt.setString(2, cargo);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int inserir(Funcionario f) {
+        int novoId = -1;
+        try (Connection conn = ConexaoBD.conectar()) {
+            String sql = "INSERT INTO Funcionario (nomeFuncionario, salarioFuncionario, dataContratacaoFuncionario, chefeFuncionario, empregado) VALUES (?, ?, CURDATE(), ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, f.getNomeFuncionario());
+            stmt.setDouble(2, f.getSalarioFuncionario());
+            if (f.getChefeFuncionario() != null) {
+                stmt.setInt(3, f.getChefeFuncionario());
+            } else {
+                stmt.setNull(3, Types.INTEGER);
+            }
+            stmt.setBoolean(4, f.isEmpregado());
+            stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                novoId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return novoId;
+    }
+
+    public List<Funcionario> listarTodosFuncionarios() {
+        List<Funcionario> lista = new ArrayList<>();
+        String sql = "SELECT * FROM Funcionario";
+
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Funcionario f = new Funcionario();
+                f.setIdFuncionario(rs.getInt("idFuncionario"));
+                f.setNomeFuncionario(rs.getString("nomeFuncionario"));
+                f.setSalarioFuncionario(rs.getDouble("salarioFuncionario"));
+                f.setChefeFuncionario(rs.getObject("chefeFuncionario", Integer.class));
+                f.setEmpregado(rs.getBoolean("empregado"));
+                lista.add(f);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
 }

@@ -6,7 +6,12 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
 </head>
 <body>
-<a href="/" class="botao-voltar">← Voltar</a> 
+
+<!-- Botão de Adicionar -->
+<a class="btn" th:href="@{/funcionarios/adicionar}" style="margin-bottom: 20px; display: inline-block;">
+    ➕ Adicionar Funcionário
+</a>
+
 <h1>Funcionários Administrativos</h1>
 <table>
     <thead>
@@ -20,18 +25,18 @@
     </thead>
     <tbody>
     <tr th:each="adm : ${administrativos}">
-        <td th:text="${adm.nomeFuncionario}"></td>
-        <td th:text="${#numbers.formatDecimal(adm.salarioFuncionario, 1, 'COMMA', 2, 'POINT')}"></td>
-        <td th:text="${adm.cargoFuncionarioAdministrativo}"></td>
+        <td th:text="${adm.nomeFuncionario}">Nome</td>
+        <td th:text="${#numbers.formatDecimal(adm.salarioFuncionario, 1, 'COMMA', 2, 'POINT')}">Salário</td>
+        <td th:text="${adm.cargoFuncionarioAdministrativo}">Função</td>
         <td th:classappend="${adm.empregado} ? 'status-ativo' : 'status-inativo'"
-            th:text="${adm.empregado} ? 'Ativo' : 'Inativo'"></td>
+            th:text="${adm.empregado} ? 'Ativo' : 'Inativo'">Status</td>
         <td>
             <a class="btn" th:href="@{'/funcionarios/editar/' + ${adm.idFuncionario}}">Editar</a>
         </td>
     </tr>
     </tbody>
 </table>
-
+<a href="/" class="botao-voltar">← Voltar</a> 
 <h1>Funcionários Operacionais</h1>
 <table>
     <thead>
@@ -44,10 +49,10 @@
     </thead>
     <tbody>
     <tr th:each="op : ${operacionais}">
-        <td th:text="${op.nomeFuncionario}"></td>
-        <td th:text="${#numbers.formatDecimal(op.salarioFuncionario, 1, 'COMMA', 2, 'POINT')}"></td>
+        <td th:text="${op.nomeFuncionario}">Nome</td>
+        <td th:text="${#numbers.formatDecimal(op.salarioFuncionario, 1, 'COMMA', 2, 'POINT')}">Salário</td>
         <td th:classappend="${op.empregado} ? 'status-ativo' : 'status-inativo'"
-            th:text="${op.empregado} ? 'Ativo' : 'Inativo'"></td>
+            th:text="${op.empregado} ? 'Ativo' : 'Inativo'">Status</td>
         <td>
             <a class="btn" th:href="@{'/funcionarios/editar/' + ${op.idFuncionario}}">Editar</a>
         </td>
