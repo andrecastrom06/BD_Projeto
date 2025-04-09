@@ -47,4 +47,26 @@ public class ProdutoController {
         produtoRepositorio.atualizarProduto(produto);
         return "redirect:/produtos";
     }
+
+    @GetMapping("/produtos/adicionar")
+    public String exibirFormularioAdicao(Model model) {
+        model.addAttribute("produto", new Produto());
+        return "adicionarProduto";
+    }
+
+    @PostMapping("/produtos/adicionar")
+    public String adicionarProduto(
+        @RequestParam("nomeProduto") String nomeProduto,
+        @RequestParam("descricaoProduto") String descricaoProduto,
+        @RequestParam("precoProduto") double precoProduto
+    ) {
+        Produto produto = new Produto();
+        produto.setNomeProduto(nomeProduto);
+        produto.setDescricaoProduto(descricaoProduto);
+        produto.setPrecoProduto(precoProduto);
+
+        produtoRepositorio.inserirProduto(produto);
+
+        return "redirect:/produtos";
+    }
 }
