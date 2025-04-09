@@ -1,6 +1,8 @@
 package com.davisory.davisory_bd.dao;
 
 import com.davisory.davisory_bd.model.Cliente;
+import com.davisory.davisory_bd.model.Endereco;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,7 @@ public class ClienteRepositorio {
 
     public List<Cliente> listarTodos() {
         List<Cliente> clientes = new ArrayList<>();
+        EnderecoRepositorio enderecoRepositorio = new EnderecoRepositorio();
 
         try (Connection conn = ConexaoBD.conectar()) {
             String sql = "SELECT * FROM Cliente";
@@ -22,16 +25,26 @@ public class ClienteRepositorio {
                     rs.getString("telefoneCliente"),
                     rs.getString("emailCliente")
                 );
+
+                int idEndereco = rs.getInt("fk_Endereco_idEndereco");
+                if (!rs.wasNull()) {
+                    Endereco endereco = enderecoRepositorio.buscarPorId(idEndereco);
+                    cliente.setEndereco(endereco);
+                }
+
                 clientes.add(cliente);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        System.out.println("Clientes encontrados: " + clientes.size());
         return clientes;
     }
+
     public Cliente buscarPorCpfCnpj(String cpfCnpj) {
         Cliente cliente = null;
+        EnderecoRepositorio enderecoRepositorio = new EnderecoRepositorio();
 
         try (Connection conn = ConexaoBD.conectar()) {
             String sql = "SELECT * FROM Cliente WHERE cpfCnpjCliente = ?";
@@ -46,6 +59,12 @@ public class ClienteRepositorio {
                     rs.getString("telefoneCliente"),
                     rs.getString("emailCliente")
                 );
+
+                int idEndereco = rs.getInt("fk_Endereco_idEndereco");
+                if (!rs.wasNull()) {
+                    Endereco endereco = enderecoRepositorio.buscarPorId(idEndereco);
+                    cliente.setEndereco(endereco);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,6 +86,7 @@ public class ClienteRepositorio {
             e.printStackTrace();
         }
     }
+
     public void inserir(Cliente cliente) {
         try (Connection conn = ConexaoBD.conectar()) {
             String sql = "INSERT INTO Cliente (cpfCnpjCliente, nomeCliente, telefoneCliente, emailCliente, fk_Endereco_idEndereco) VALUES (?, ?, ?, ?, ?)";
@@ -82,4 +102,3 @@ public class ClienteRepositorio {
         }
     }
 }
-

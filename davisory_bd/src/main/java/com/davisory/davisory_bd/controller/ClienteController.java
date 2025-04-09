@@ -25,6 +25,7 @@ public class ClienteController {
         model.addAttribute("clientes", clientes);
         return "clientes";
     }
+    
     @GetMapping("/clientes/editar/{cpfCnpj}")
     public String editarCliente(@PathVariable("cpfCnpj") String cpfCnpj, Model model) {
         Cliente cliente = clienteRepositorio.buscarPorCpfCnpj(cpfCnpj);

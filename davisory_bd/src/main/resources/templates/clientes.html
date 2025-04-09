@@ -22,6 +22,7 @@
                 <th>Nome</th>
                 <th>Telefone</th>
                 <th>Email</th>
+                <th>Endereço</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -32,9 +33,17 @@
                 <td th:text="${cliente.telefoneCliente}">Telefone</td>
                 <td th:text="${cliente.emailCliente}">Email</td>
                 <td>
+                    <a th:if="${cliente.endereco != null}"
+                       th:href="@{/enderecos/{id}(id=${cliente.endereco.idEndereco})}"
+                       class="botao-endereco">
+                        Ver Endereço
+                    </a>
+                    <span th:if="${cliente.endereco == null}">Sem Endereço</span>
+                </td>
+                <td>
                     <a th:href="@{/clientes/editar/{cpfCnpj}(cpfCnpj=${cliente.cpfCnpjCliente})}" class="btn">Editar</a>
                 </td>
-            </tr>
+            </tr>            
         </tbody>
     </table>
 </body>
