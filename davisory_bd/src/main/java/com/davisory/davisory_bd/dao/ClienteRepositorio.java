@@ -38,7 +38,6 @@ public class ClienteRepositorio {
             e.printStackTrace();
         }
 
-        System.out.println("Clientes encontrados: " + clientes.size());
         return clientes;
     }
 
