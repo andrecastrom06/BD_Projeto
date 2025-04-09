@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Estoque Matéria-Prima</title>
+    <title>Estoque</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
 </head>
 <body>
@@ -16,6 +16,22 @@
             <td th:text="${item.materiaPrima.nomeMateriaPrima}"></td>
             <td th:text="${item.estoque.quantidadeMateriaPrima}"></td>
         </tr>
+    </table>
+
+    <h1>Estoque de Produtos</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome Produto</th>
+                <th>Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="e : ${estoqueDetalhado}">
+                <td th:text="${e.produto.nomeProduto}"></td>
+                <td th:text="${e.estoque.quantidadeProduto}"></td>
+            </tr>
+        </tbody>
     </table>
 </body>
 </html>
