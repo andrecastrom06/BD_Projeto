@@ -39,26 +39,6 @@ Acompanhe nossa equipe para estar ciente dos nossos projetos :
 
 <details>
 
-<summary>Modelos Conceituais</summary>
-
-## Modelo Entidade-Relacional
-<br>
-
-![Captura de tela 2025-04-08 104353](https://github.com/user-attachments/assets/1216409d-969f-4ef3-8f04-823768251769)
-
-<br>
-
-## Modelo Lógico
-<br>
-
-![ModeloLogicoProjeto](https://github.com/user-attachments/assets/649d2068-4fff-4762-ae31-2ebe046de747)
-
-<br>
-
-</details>
-
-<details>
-
 <summary>Mini-Mundo</summary>
 
 ## Mini-Mundo Davisory
