@@ -56,4 +56,6 @@ Se quiser ver mais sobre nosso mini-mundo em específico, acesse:
 
 - LINUX: export DB_PASSWORD="senha"
 - WINDOWS: $env:DB_PASSWORD="senha"
+
+*obs: O campo escrito "senha" deve ser substituído pela sua própria senha*
 </details>
