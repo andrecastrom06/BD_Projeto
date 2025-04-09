@@ -13,14 +13,18 @@
             <th>Nome</th>
             <th>Telefone</th>
             <th>Email</th>
-            <th>ID Endereço</th>
+            <th>Endereço</th>
         </tr>
         <tr th:each="fornecedor : ${fornecedores}">
             <td th:text="${fornecedor.cnpjFornecedor}">CNPJ</td>
             <td th:text="${fornecedor.nomeFornecedor}">Nome</td>
             <td th:text="${fornecedor.telefoneFornecedor}">Telefone</td>
             <td th:text="${fornecedor.emailFornecedor}">Email</td>
-            <td th:text="${fornecedor.fkEnderecoId}">ID Endereço</td>
+            <td>
+                <a th:href="@{'/enderecos/' + ${fornecedor.fkEnderecoId}}" class="botao-endereco">
+                    Ver Endereço
+                </a>
+            </td>
         </tr>
     </table>
 </body>

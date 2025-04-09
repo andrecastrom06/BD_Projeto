@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes do Endereço</title>
+</head>
+<body>
+    <a href="/fornecedores" class="botao-voltar">← Voltar</a>
+    <h1>Detalhes do Endereço</h1>
+    <ul>
+        <li><strong>ID:</strong> <span th:text="${endereco.idEndereco}"></span></li>
+        <li><strong>Estado:</strong> <span th:text="${endereco.estado}"></span></li>
+        <li><strong>Cidade:</strong> <span th:text="${endereco.cidade}"></span></li>
+        <li><strong>Bairro:</strong> <span th:text="${endereco.bairro}"></span></li>
+        <li><strong>Rua:</strong> <span th:text="${endereco.rua}"></span></li>
+        <li><strong>Complemento:</strong> <span th:text="${endereco.complemento}"></span></li>
+        <li><strong>Número:</strong> <span th:text="${endereco.numero}"></span></li>
+    </ul>
+</body>
+</html>

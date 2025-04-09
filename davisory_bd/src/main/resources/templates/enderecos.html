@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Endereços</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
+</head>
+<body>
+    <a href="/" class="botao-voltar">← Voltar</a> 
+    <h1>Endereços</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Estado</th>
+                <th>Cidade</th>
+                <th>Bairro</th>
+                <th>Rua</th>
+                <th>Complemento</th>
+                <th>Número</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="e : ${enderecos}">
+                <td th:text="${e.estado}">Estado</td>
+                <td th:text="${e.cidade}">Cidade</td>
+                <td th:text="${e.bairro}">Bairro</td>
+                <td th:text="${e.rua}">Rua</td>
+                <td th:text="${e.complemento}">Complemento</td>
+                <td th:text="${e.numero}">Número</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
