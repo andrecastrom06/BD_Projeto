@@ -16,10 +16,10 @@
             <th>Endereço</th>
         </tr>
         <tr th:each="fornecedor : ${fornecedores}">
-            <td th:text="${fornecedor.cnpjFornecedor}">CNPJ</td>
-            <td th:text="${fornecedor.nomeFornecedor}">Nome</td>
-            <td th:text="${fornecedor.telefoneFornecedor}">Telefone</td>
-            <td th:text="${fornecedor.emailFornecedor}">Email</td>
+            <td th:text="${fornecedor.cnpjFornecedor}"></td>
+            <td th:text="${fornecedor.nomeFornecedor}"></td>
+            <td th:text="${fornecedor.telefoneFornecedor}"></td>
+            <td th:text="${fornecedor.emailFornecedor}"></td>
             <td>
                 <a th:href="@{'/enderecos/' + ${fornecedor.fkEnderecoId}}" class="botao-endereco">
                     Ver Endereço

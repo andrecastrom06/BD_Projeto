@@ -12,11 +12,15 @@
             <th>Nome</th>
             <th>Descrição</th>
             <th>Preço</th>
+            <th>Ações</th>
         </tr>
         <tr th:each="produto : ${produtos}">
             <td th:text="${produto.nomeProduto}"></td>
             <td th:text="${produto.descricaoProduto}"></td>
             <td th:text="${produto.precoProduto}"></td>
+            <td>
+                <a class="btn" th:href="@{/produtos/editar/{id}(id=${produto.idProduto})}">Editar</a>
+            </td>
         </tr>
     </table>
 </body>

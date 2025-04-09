@@ -28,17 +28,16 @@
         </thead>
         <tbody>
             <tr th:each="cliente : ${clientes}">
-                <td th:text="${cliente.cpfCnpjCliente}">CPF/CNPJ</td>
-                <td th:text="${cliente.nomeCliente}">Nome</td>
-                <td th:text="${cliente.telefoneCliente}">Telefone</td>
-                <td th:text="${cliente.emailCliente}">Email</td>
+                <td th:text="${cliente.cpfCnpjCliente}"></td>
+                <td th:text="${cliente.nomeCliente}"></td>
+                <td th:text="${cliente.telefoneCliente}"></td>
+                <td th:text="${cliente.emailCliente}"></td>
                 <td>
                     <a th:if="${cliente.endereco != null}"
                        th:href="@{/enderecos/{id}(id=${cliente.endereco.idEndereco})}"
                        class="botao-endereco">
                         Ver Endereço
                     </a>
-                    <span th:if="${cliente.endereco == null}">Sem Endereço</span>
                 </td>
                 <td>
                     <a th:href="@{/clientes/editar/{cpfCnpj}(cpfCnpj=${cliente.cpfCnpjCliente})}" class="btn">Editar</a>
