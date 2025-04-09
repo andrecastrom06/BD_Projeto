@@ -1,10 +1,13 @@
 package com.davisory.davisory_bd.dao;
 
-import com.davisory.davisory_bd.model.Pedido;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.davisory.davisory_bd.model.Pedido;
 
 public class PedidoRepositorio {
 
@@ -63,4 +66,49 @@ public class PedidoRepositorio {
     
         return p;
     }    
+
+    public void inserir(Pedido pedido) {
+        String sql = "INSERT INTO Pedido (dataPedido, codigoEntregaPedido, quantidadePedido, precoUnitarioPedido, fk_Produto_idProduto, fk_Funcionario_idFuncionario, fk_Cliente_cpfCnpjCliente) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    
+            stmt.setTimestamp(1, pedido.getDataPedido());
+            stmt.setString(2, pedido.getCodigoEntregaPedido());
+            stmt.setInt(3, pedido.getQuantidadePedido());
+            stmt.setDouble(4, pedido.getPrecoUnitarioPedido());
+            stmt.setInt(5, pedido.getIdProduto());
+            stmt.setInt(6, pedido.getIdFuncionario());
+            stmt.setString(7, pedido.getCpfCnpjCliente());
+    
+            stmt.executeUpdate();
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void atualizar(Pedido pedido) {
+        String sql = "UPDATE Pedido SET codigoEntregaPedido = ?, quantidadePedido = ?, precoUnitarioPedido = ?, fk_Produto_idProduto = ?, fk_Funcionario_idFuncionario = ?, fk_Cliente_cpfCnpjCliente = ? WHERE idPedido = ?";
+    
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    
+            stmt.setString(1, pedido.getCodigoEntregaPedido());
+            stmt.setInt(2, pedido.getQuantidadePedido());
+            stmt.setDouble(3, pedido.getPrecoUnitarioPedido());
+            stmt.setInt(4, pedido.getIdProduto());
+            stmt.setInt(5, pedido.getIdFuncionario());
+            stmt.setString(6, pedido.getCpfCnpjCliente());
+            stmt.setInt(7, pedido.getIdPedido());
+    
+            stmt.executeUpdate();
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
+    
 }
