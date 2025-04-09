@@ -1,15 +1,43 @@
-<form action="/clientes/adicionar" method="post">
-    <label for="cpfCnpj">CPF/CNPJ:</label>
-    <input type="text" id="cpfCnpj" name="cpfCnpj" required>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Cliente</title>
+    <link rel="stylesheet" href="/css/editarfuncionario.css"> 
+</head>
+<body>
 
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" required>
+    <a href="/clientes" class="botao-voltar">Voltar</a>
+<div class="container">
+    <form action="/clientes/adicionar" method="post">
+        <label for="cpfCnpj">CPF/CNPJ:</label>
+        <input type="text" name="cpfCnpj" id="cpfCnpj" required>
 
-    <label for="telefone">Telefone:</label>
-    <input type="text" id="telefone" name="telefone" required>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" required>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
+        <label for="telefone">Telefone:</label>
+        <input type="text" name="telefone" id="telefone" required>
 
-    <button type="submit">Salvar</button>
-</form>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+
+        <label for="idEndereco">Endereço (por número):</label>
+        <select name="idEndereco" id="idEndereco" required>
+            <option value="">Selecione um número</option>
+            <th:block th:each="endereco : ${enderecos}">
+                <option th:value="${endereco.idEndereco}" 
+                        th:text="'Nº ' + ${endereco.numero} + ' - ' + ${endereco.rua} + ', ' + ${endereco.bairro}"></option>
+            </th:block>
+        </select>
+
+        <button type="submit">Salvar</button>
+    </form>
+</div>
+
+<footer>
+    &copy; 2025 - Sistema de Cadastro de Clientes
+</footer>
+
+</body>
+</html>

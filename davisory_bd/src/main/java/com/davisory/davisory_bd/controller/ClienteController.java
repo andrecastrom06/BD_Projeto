@@ -1,7 +1,9 @@
 package com.davisory.davisory_bd.controller;
 
 import com.davisory.davisory_bd.dao.ClienteRepositorio;
+import com.davisory.davisory_bd.dao.EnderecoRepositorio;
 import com.davisory.davisory_bd.model.Cliente;
+import com.davisory.davisory_bd.model.Endereco;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,18 +48,14 @@ public class ClienteController {
         clienteRepositorio.atualizar(cliente);
         return "redirect:/clientes";
     }
-    @GetMapping("/clientes/adicionar")
-    public String exibirFormularioAdicao(Model model) {
-        model.addAttribute("cliente", new Cliente());
-        return "adicionarcliente";
-    }
-
+   
     @PostMapping("/clientes/adicionar")
     public String adicionarCliente(
         @RequestParam("cpfCnpj") String cpfCnpj,
         @RequestParam("nome") String nome,
         @RequestParam("telefone") String telefone,
-        @RequestParam("email") String email
+        @RequestParam("email") String email,
+        @RequestParam("idEndereco") int idEndereco // novo campo do form
     ) {
         Cliente cliente = new Cliente();
         cliente.setCpfCnpjCliente(cpfCnpj);
@@ -65,8 +63,20 @@ public class ClienteController {
         cliente.setTelefoneCliente(telefone);
         cliente.setEmailCliente(email);
 
+        EnderecoRepositorio enderecoRepositorio = new EnderecoRepositorio();
+        Endereco endereco = enderecoRepositorio.buscarPorId(idEndereco);
+        cliente.setEndereco(endereco); // associar endereço ao cliente
+
         clienteRepositorio.inserir(cliente);
         return "redirect:/clientes";
+    }
+
+    @GetMapping("/clientes/adicionar")
+    public String exibirFormularioAdicao(Model model) {
+        EnderecoRepositorio enderecoRepositorio = new EnderecoRepositorio();
+        model.addAttribute("cliente", new Cliente());
+        model.addAttribute("enderecos", enderecoRepositorio.listar()); // lista de endereços
+        return "adicionarcliente";
     }
 }
 

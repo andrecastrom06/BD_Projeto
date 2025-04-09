@@ -69,17 +69,17 @@ public class ClienteRepositorio {
     }
     public void inserir(Cliente cliente) {
         try (Connection conn = ConexaoBD.conectar()) {
-            String sql = "INSERT INTO Cliente (cpfCnpjCliente, nomeCliente, telefoneCliente, emailCliente) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO Cliente (cpfCnpjCliente, nomeCliente, telefoneCliente, emailCliente, fk_Endereco_idEndereco) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, cliente.getCpfCnpjCliente());
             stmt.setString(2, cliente.getNomeCliente());
             stmt.setString(3, cliente.getTelefoneCliente());
             stmt.setString(4, cliente.getEmailCliente());
+            stmt.setInt(5, cliente.getEndereco().getIdEndereco()); // FK aqui
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
 }
 

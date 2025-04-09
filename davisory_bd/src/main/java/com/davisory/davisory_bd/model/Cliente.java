@@ -5,6 +5,7 @@ public class Cliente {
     private String nomeCliente;
     private String telefoneCliente;
     private String emailCliente;
+    private Endereco endereco;
 
     public Cliente() {}
 
@@ -46,4 +47,13 @@ public class Cliente {
     public void setEmailCliente(String emailCliente) {
         this.emailCliente = emailCliente;
     }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
 }
