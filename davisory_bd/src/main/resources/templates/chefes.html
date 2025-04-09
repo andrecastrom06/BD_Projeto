@@ -9,15 +9,13 @@
     <h1>Relação de Chefes</h1>
     <table border="1">
         <tr>
-            <th>ID Funcionário</th>
             <th>Nome</th>
             <th>ID Chefe</th>
         </tr>
         <tr th:each="f : ${funcionarios}">
-            <td th:text="${f.idFuncionario}">ID</td>
             <td th:text="${f.nomeFuncionario}">Nome</td>
-            <td th:text="${f.chefeFuncionario}">Chefe</td>
-        </tr>
+            <td th:text="${f.nomeChefe}">Chefe</td>
+        </tr>        
     </table>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.davisory.davisory_bd.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.davisory.davisory_bd.dao.FuncionarioRepositorio;
+import com.davisory.davisory_bd.dto.FuncionarioComChefeDTO;
 import com.davisory.davisory_bd.model.Administrativo;
 import com.davisory.davisory_bd.model.Funcionario;
 import com.davisory.davisory_bd.model.Operacional;
@@ -61,7 +63,21 @@ public class FuncionarioController {
     @GetMapping("/chefes")
     public String listarFuncionariosComChefes(Model model) {
         List<Funcionario> funcionarios = repositorio.listarFuncionariosComChefes();
-        model.addAttribute("funcionarios", funcionarios);
+        List<FuncionarioComChefeDTO> dtos = new ArrayList<>();
+
+        for (Funcionario f : funcionarios) {
+            String nomeChefe = null;
+            if (f.getChefeFuncionario() != null) {
+                Funcionario chefe = repositorio.buscarPorId(f.getChefeFuncionario());
+                nomeChefe = chefe != null ? chefe.getNomeFuncionario() : "Sem chefe";
+            } else {
+                nomeChefe = "Sem chefe";
+            }
+
+            dtos.add(new FuncionarioComChefeDTO(f.getNomeFuncionario(), nomeChefe));
+        }
+
+        model.addAttribute("funcionarios", dtos);
         return "chefes";
     }
 
