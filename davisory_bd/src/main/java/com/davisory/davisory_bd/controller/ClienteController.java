@@ -46,5 +46,27 @@ public class ClienteController {
         clienteRepositorio.atualizar(cliente);
         return "redirect:/clientes";
     }
+    @GetMapping("/clientes/adicionar")
+    public String exibirFormularioAdicao(Model model) {
+        model.addAttribute("cliente", new Cliente());
+        return "adicionarcliente";
+    }
+
+    @PostMapping("/clientes/adicionar")
+    public String adicionarCliente(
+        @RequestParam("cpfCnpj") String cpfCnpj,
+        @RequestParam("nome") String nome,
+        @RequestParam("telefone") String telefone,
+        @RequestParam("email") String email
+    ) {
+        Cliente cliente = new Cliente();
+        cliente.setCpfCnpjCliente(cpfCnpj);
+        cliente.setNomeCliente(nome);
+        cliente.setTelefoneCliente(telefone);
+        cliente.setEmailCliente(email);
+
+        clienteRepositorio.inserir(cliente);
+        return "redirect:/clientes";
+    }
 }
 

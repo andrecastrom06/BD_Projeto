@@ -67,5 +67,19 @@ public class ClienteRepositorio {
             e.printStackTrace();
         }
     }
+    public void inserir(Cliente cliente) {
+        try (Connection conn = ConexaoBD.conectar()) {
+            String sql = "INSERT INTO Cliente (cpfCnpjCliente, nomeCliente, telefoneCliente, emailCliente) VALUES (?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, cliente.getCpfCnpjCliente());
+            stmt.setString(2, cliente.getNomeCliente());
+            stmt.setString(3, cliente.getTelefoneCliente());
+            stmt.setString(4, cliente.getEmailCliente());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
 }
 
