@@ -5,21 +5,33 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
 </head>
 <body>
-    <a href="/" class="botao-voltar">← Voltar</a> 
+    <div class="topo">
+        <a href="/" class="botao-voltar">← Voltar</a> 
+    </div>
+
     <h1>Clientes</h1>
-    <table border="1">
-        <tr>
-            <th>CPF/CNPJ</th>
-            <th>Nome</th>
-            <th>Telefone</th>
-            <th>Email</th>
-        </tr>
-        <tr th:each="cliente : ${clientes}">
-            <td th:text="${cliente.cpfCnpjCliente}">CPF/CNPJ</td>
-            <td th:text="${cliente.nomeCliente}">Nome</td>
-            <td th:text="${cliente.telefoneCliente}">Telefone</td>
-            <td th:text="${cliente.emailCliente}">Email</td>
-        </tr>
+
+    <table>
+        <thead>
+            <tr>
+                <th>CPF/CNPJ</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cliente : ${clientes}">
+                <td th:text="${cliente.cpfCnpjCliente}">CPF/CNPJ</td>
+                <td th:text="${cliente.nomeCliente}">Nome</td>
+                <td th:text="${cliente.telefoneCliente}">Telefone</td>
+                <td th:text="${cliente.emailCliente}">Email</td>
+                <td>
+                    <a th:href="@{/clientes/editar/{cpfCnpj}(cpfCnpj=${cliente.cpfCnpjCliente})}" class="btn">Editar</a>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </body>
 </html>
