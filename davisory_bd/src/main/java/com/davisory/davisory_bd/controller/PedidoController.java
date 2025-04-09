@@ -10,6 +10,7 @@ import com.davisory.davisory_bd.model.Produto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,5 +37,18 @@ public class PedidoController {
 
         model.addAttribute("pedidosDetalhados", pedidosDetalhados);
         return "pedidos";
+    }
+
+    @GetMapping("/pedidos/{id}")
+    public String verPedido(@PathVariable int id, Model model) {
+        Pedido pedido = pedidoRepositorio.buscarPorId(id);
+        Produto produto = produtoRepositorio.buscarPorId(pedido.getIdProduto());
+        Funcionario funcionario = funcionarioRepositorio.buscarPorId(pedido.getIdFuncionario());
+
+        model.addAttribute("pedido", pedido);
+        model.addAttribute("produto", produto);
+        model.addAttribute("funcionario", funcionario);
+
+        return "pedido_detalhado";
     }
 }

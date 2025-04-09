@@ -34,4 +34,33 @@ public class PedidoRepositorio {
         }
         return pedidos;
     }
+
+    public Pedido buscarPorId(int id) {
+        String sql = "SELECT * FROM Pedido WHERE idPedido = ?";
+        Pedido p = null;
+    
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    p = new Pedido();
+                    p.setIdPedido(rs.getInt("idPedido"));
+                    p.setDataPedido(rs.getTimestamp("dataPedido"));
+                    p.setCodigoEntregaPedido(rs.getString("codigoEntregaPedido"));
+                    p.setQuantidadePedido(rs.getInt("quantidadePedido"));
+                    p.setPrecoUnitarioPedido(rs.getDouble("precoUnitarioPedido"));
+                    p.setIdProduto(rs.getInt("fk_Produto_idProduto"));
+                    p.setIdFuncionario(rs.getInt("fk_Funcionario_idFuncionario"));
+                    p.setCpfCnpjCliente(rs.getString("fk_Cliente_cpfCnpjCliente")); // ← esse aqui
+                }
+            }
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return p;
+    }    
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pedido Detalhado</title>
+</head>
+<body>
+    <a href="/" class="botao-voltar">← Voltar</a> 
+    <h1>Pedido</h1>
+    <p th:text="'Data: ' + ${pedido.dataPedido}"></p>
+    <p th:text="'Código de Entrega: ' + ${pedido.codigoEntregaPedido}"></p>
+    <p th:text="'Quantidade: ' + ${pedido.quantidadePedido}"></p>
+    <p th:text="'Preço Unitário: ' + ${pedido.precoUnitarioPedido}"></p>
+    <p th:text="'Produto: ' + ${produto.nomeProduto}"></p>
+    <p th:text="'Funcionário: ' + ${funcionario.nomeFuncionario}"></p>
+    <p th:text="'CPF/CNPJ Cliente: ' + ${pedido.cpfCnpjCliente}"></p>
+</body>
+</html>
