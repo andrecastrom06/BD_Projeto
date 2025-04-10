@@ -77,4 +77,20 @@ public class MateriaPrimaRepositorio {
         }
         return -1;
     }
+    public void atualizar(MateriaPrima materia) {
+        String sql = "UPDATE MateriaPrima SET nomeMateriaPrima=?, valorMateriaPrima=?, codigoEntregaMateriaPrima=?, dataEstimadaEntregaMateriaPrima=? WHERE idMateriaPrima=?";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    
+            stmt.setString(1, materia.getNomeMateriaPrima());
+            stmt.setDouble(2, materia.getValorMateriaPrima());
+            stmt.setString(3, materia.getCodigoEntregaMateriaPrima());
+            stmt.setDate(4, materia.getDataEstimadaEntregaMateriaPrima());
+            stmt.setInt(5, materia.getIdMateriaPrima());
+            stmt.executeUpdate();
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

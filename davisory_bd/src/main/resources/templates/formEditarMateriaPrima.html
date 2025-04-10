@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Matéria-Prima</title>
+</head>
+<body>
+<h1>Editar Matéria-Prima</h1>
+<form action="/materia_prima/editar" method="post">
+    <input type="hidden" name="idMateriaPrima" th:value="${materiaPrima.idMateriaPrima}" />
+    <label>Nome:</label><input type="text" name="nomeMateriaPrima" th:value="${materiaPrima.nomeMateriaPrima}" required><br>
+    <label>Valor:</label><input type="number" name="valorMateriaPrima" th:value="${materiaPrima.valorMateriaPrima}" step="0.01" required><br>
+    <label>Código Entrega:</label><input type="text" name="codigoEntregaMateriaPrima" th:value="${materiaPrima.codigoEntregaMateriaPrima}" required><br>
+    <label>Data Estimada Entrega:</label><input type="date" name="dataEstimadaEntregaMateriaPrima" th:value="${materiaPrima.dataEstimadaEntregaMateriaPrima}" required><br>
+    <button type="submit">Salvar</button>
+</form>
+<a href="/materia_prima">← Voltar</a>
+</body>
+</html>

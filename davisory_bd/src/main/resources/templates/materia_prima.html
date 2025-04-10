@@ -17,6 +17,7 @@
                 <th>Valor</th>
                 <th>Código de Entrega</th>
                 <th>Data Estimada Entrega</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,7 @@
                 <td th:text="${m.valorMateriaPrima}"></td>
                 <td th:text="${m.codigoEntregaMateriaPrima}"></td>
                 <td th:text="${m.dataEstimadaEntregaMateriaPrima}"></td>
+                <td><a th:href="@{'/materia_prima/editar/' + ${m.idMateriaPrima}}">Editar</a></td>
             </tr>
         </tbody>
     </table>
