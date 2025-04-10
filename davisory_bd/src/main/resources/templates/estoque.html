@@ -8,14 +8,22 @@
     <a href="/" class="botao-voltar">← Voltar</a> 
     <h1>Estoque de Matéria-Prima</h1>
     <table border="1">
-        <tr>
-            <th>Nome Matéria-Prima</th>
-            <th>Quantidade</th>
-        </tr>
-        <tr th:each="item : ${estoque}">
-            <td th:text="${item.materiaPrima.nomeMateriaPrima}"></td>
-            <td th:text="${item.estoque.quantidadeMateriaPrima}"></td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Nome Matéria-Prima</th>
+                <th>Quantidade</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${estoque}">
+                <td th:text="${item.materiaPrima.nomeMateriaPrima}"></td>
+                <td th:text="${item.estoque.quantidadeMateriaPrima}"></td>
+                <td>
+                    <a th:href="@{'/estoque/materia-prima/editar/' + ${item.estoque.idEstoqueMateriaPrima} + '/' + ${item.materiaPrima.idMateriaPrima}}">Editar</a>
+                </td>
+            </tr>
+        </tbody>
     </table>
 
     <h1>Estoque de Produtos</h1>
@@ -24,12 +32,16 @@
             <tr>
                 <th>Nome Produto</th>
                 <th>Quantidade</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="e : ${estoqueDetalhado}">
                 <td th:text="${e.produto.nomeProduto}"></td>
                 <td th:text="${e.estoque.quantidadeProduto}"></td>
+                <td>
+                    <a th:href="@{'/estoque/produto/editar/' + ${e.estoque.idEstoqueProduto} + '/' + ${e.produto.idProduto}}">Editar</a>
+                </td>
             </tr>
         </tbody>
     </table>

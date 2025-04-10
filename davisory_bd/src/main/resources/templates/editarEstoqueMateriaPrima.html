@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Matéria-Prima</title>
+</head>
+<body>
+<h1>Editar Estoque da Matéria-Prima</h1>
+<form th:action="@{/estoque/materia-prima/atualizar}" method="post">
+    <input type="hidden" name="idEstoqueMateriaPrima" th:value="${estoque.idEstoqueMateriaPrima}" />
+    <input type="hidden" name="fkMateriaPrimaId" th:value="${materia.idMateriaPrima}" />
+    
+    <label>Matéria-Prima:</label>
+    <input type="text" th:value="${materia.nomeMateriaPrima}" disabled /><br><br>
+    
+    <label>Quantidade:</label>
+    <input type="number" name="quantidadeMateriaPrima" th:value="${estoque.quantidadeMateriaPrima}" /><br><br>
+    
+    <button type="submit">Salvar</button>
+    <a href="/estoque">Cancelar</a>
+</form>
+</body>
+</html>
