@@ -56,5 +56,25 @@ public class MateriaPrimaRepositorio {
     
         return null;
     }    
-
+    public int inserir(MateriaPrima materia) {
+        String sql = "INSERT INTO MateriaPrima (nomeMateriaPrima, valorMateriaPrima, codigoEntregaMateriaPrima, dataEstimadaEntregaMateriaPrima) VALUES (?, ?, ?, ?)";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+    
+            stmt.setString(1, materia.getNomeMateriaPrima());
+            stmt.setDouble(2, materia.getValorMateriaPrima());
+            stmt.setString(3, materia.getCodigoEntregaMateriaPrima());
+            stmt.setDate(4, materia.getDataEstimadaEntregaMateriaPrima());
+            stmt.executeUpdate();
+    
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }

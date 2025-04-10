@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Adicionar Matéria-Prima</title>
+</head>
+<body>
+<h1>Nova Matéria-Prima</h1>
+<form action="/materia_prima/adicionar" method="post">
+    <label>Nome:</label><input type="text" name="nomeMateriaPrima" required><br>
+    <label>Valor:</label><input type="number" name="valorMateriaPrima" step="0.01" required><br>
+    <label>Código Entrega:</label><input type="text" name="codigoEntregaMateriaPrima" required><br>
+    <label>Data Estimada Entrega:</label><input type="date" name="dataEstimadaEntregaMateriaPrima" required><br>
+    <button type="submit">Salvar</button>
+</form>
+<a href="/materia_prima">← Voltar</a>
+</body>
+</html>

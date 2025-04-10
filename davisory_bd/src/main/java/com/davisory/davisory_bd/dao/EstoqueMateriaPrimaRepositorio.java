@@ -60,4 +60,17 @@ public class EstoqueMateriaPrimaRepositorio {
             e.printStackTrace();
         }
     }    
+    public void inserir(EstoqueMateriaPrima estoque) {
+        String sql = "INSERT INTO EstoqueMateriaPrima (fk_MateriaPrima_idMateriaPrima, quantidadeMateriaPrima) VALUES (?, ?)";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    
+            stmt.setInt(1, estoque.getFkMateriaPrimaId());
+            stmt.setInt(2, estoque.getQuantidadeMateriaPrima());
+            stmt.executeUpdate();
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
