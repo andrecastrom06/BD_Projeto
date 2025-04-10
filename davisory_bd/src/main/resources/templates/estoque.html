@@ -20,7 +20,7 @@
                 <td th:text="${item.materiaPrima.nomeMateriaPrima}"></td>
                 <td th:text="${item.estoque.quantidadeMateriaPrima}"></td>
                 <td>
-                    <a th:href="@{'/estoque/materia-prima/editar/' + ${item.estoque.idEstoqueMateriaPrima} + '/' + ${item.materiaPrima.idMateriaPrima}}">Editar</a>
+                    <a th:href="@{'/estoque/materia-prima/editar/' + ${item.estoque.idEstoqueMateriaPrima} + '/' + ${item.materiaPrima.idMateriaPrima}}" class="btn"> Editar</a>
                 </td>
             </tr>
         </tbody>
@@ -40,7 +40,7 @@
                 <td th:text="${e.produto.nomeProduto}"></td>
                 <td th:text="${e.estoque.quantidadeProduto}"></td>
                 <td>
-                    <a th:href="@{'/estoque/produto/editar/' + ${e.estoque.idEstoqueProduto} + '/' + ${e.produto.idProduto}}">Editar</a>
+                    <a th:href="@{'/estoque/produto/editar/' + ${e.estoque.idEstoqueProduto} + '/' + ${e.produto.idProduto}}" class="btn">Editar</a>
                 </td>
             </tr>
         </tbody>

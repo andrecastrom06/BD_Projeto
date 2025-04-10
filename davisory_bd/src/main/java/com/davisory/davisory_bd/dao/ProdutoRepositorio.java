@@ -56,16 +56,34 @@ public class ProdutoRepositorio {
     }
 
     public void inserirProduto(Produto produto) {
-        String sql = "INSERT INTO Produto (nomeProduto, descricaoProduto, precoProduto) VALUES (?, ?, ?)";
-
-        try (Connection conn = ConexaoBD.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, produto.getNomeProduto());
-            stmt.setString(2, produto.getDescricaoProduto());
-            stmt.setDouble(3, produto.getPrecoProduto());
-            stmt.executeUpdate();
-
+        String sqlProduto = "INSERT INTO Produto (nomeProduto, descricaoProduto, precoProduto) VALUES (?, ?, ?)";
+        String sqlEstoque = "INSERT INTO EstoqueProduto (fk_Produto_idProduto, quantidadeProduto) VALUES (?, ?)";
+    
+        try (Connection conn = ConexaoBD.conectar()) {
+            conn.setAutoCommit(false); 
+            try (PreparedStatement stmtProduto = conn.prepareStatement(sqlProduto, Statement.RETURN_GENERATED_KEYS)) {
+                stmtProduto.setString(1, produto.getNomeProduto());
+                stmtProduto.setString(2, produto.getDescricaoProduto());
+                stmtProduto.setDouble(3, produto.getPrecoProduto());
+                stmtProduto.executeUpdate();
+                try (ResultSet generatedKeys = stmtProduto.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int idGerado = generatedKeys.getInt(1);
+                        produto.setIdProduto(idGerado);
+                        try (PreparedStatement stmtEstoque = conn.prepareStatement(sqlEstoque)) {
+                            stmtEstoque.setInt(1, idGerado);
+                            stmtEstoque.setInt(2, 0);
+                            stmtEstoque.executeUpdate();
+                        }
+                    } else {
+                        conn.rollback();
+                        throw new SQLException("Falha ao obter o ID do produto.");
+                    }
+                }
+            }
+    
+            conn.commit(); // confirma transação
+    
         } catch (SQLException e) {
             e.printStackTrace();
         }
