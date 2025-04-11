@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Atendimento</title>
+</head>
+<body>
+    <a href="/atendimentos">← Voltar</a>
+    <h1>Adicionar Atendimento</h1>
+
+    <form th:action="@{/atendimentos/salvar}" th:object="${atendimento}" method="post">
+
+        <label for="cliente">Cliente:</label>
+        <select id="cliente" th:field="*{cpfCnpjCliente}" required>
+            <option value="">Selecione um cliente</option>
+            <option th:each="c : ${clientes}"
+                    th:value="${c.cpfCnpjCliente}"
+                    th:text="|${c.nomeCliente} (${c.cpfCnpjCliente})|">
+            </option>
+        </select>
+        <br/>
+
+        <label for="funcionario">Funcionário Administrativo:</label>
+        <select id="funcionario" th:field="*{idFuncionarioAdministrativo}" required>
+            <option value="">Selecione um funcionário</option>
+            <option th:each="f : ${funcionarios}"
+                    th:value="${f.idFuncionario}"
+                    th:text="${f.nomeFuncionario}">
+            </option>
+        </select>
+        <br/>
+
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>

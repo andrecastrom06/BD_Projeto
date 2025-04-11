@@ -7,6 +7,7 @@
 <body>
     <a href="/" class="botao-voltar">← Voltar</a> 
     <h1>Atendimentos</h1>
+    <a href="/atendimentos/novo">+ Adicionar Atendimento</a>
     <table border="1">
         <tr>
             <th>CPF/CNPJ Cliente</th>
@@ -16,7 +17,7 @@
         <tr th:each="a : ${atendimentos}">
             <td th:text="${a.cpfCnpjCliente}"></td>
             <td th:text="${a.nomeFuncionario}"></td>
-            <td th:text="${a.dataAtendimento}"></td>
+            <td th:text="${a.dataAtendimento}"></td>      
         </tr>        
     </table>
 </body>

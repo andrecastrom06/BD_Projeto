@@ -4,14 +4,14 @@ import java.sql.Timestamp;
 
 public class Atendimento {
     private String cpfCnpjCliente;
-    private int idFuncionarioAdministrativo;
+    private Integer idFuncionarioAdministrativo;
     private Timestamp dataAtendimento;
 
     public String getCpfCnpjCliente() { return cpfCnpjCliente; }
     public void setCpfCnpjCliente(String cpfCnpjCliente) { this.cpfCnpjCliente = cpfCnpjCliente; }
 
-    public int getIdFuncionarioAdministrativo() { return idFuncionarioAdministrativo; }
-    public void setIdFuncionarioAdministrativo(int idFuncionarioAdministrativo) {
+    public Integer getIdFuncionarioAdministrativo() { return idFuncionarioAdministrativo; }
+    public void setIdFuncionarioAdministrativo(Integer idFuncionarioAdministrativo) {
         this.idFuncionarioAdministrativo = idFuncionarioAdministrativo;
     }
 

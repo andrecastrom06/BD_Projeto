@@ -1,6 +1,7 @@
 package com.davisory.davisory_bd.dao;
 
 import com.davisory.davisory_bd.dto.AtendimentoDTO;
+import com.davisory.davisory_bd.model.Atendimento;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,4 +44,64 @@ public class AtendimentoRepositorio {
 
         return lista;
     }
+
+    public Atendimento buscarPorCpfCliente(String cpf) {
+        String sql = "SELECT * FROM Atende WHERE fk_Cliente_cpfCnpjCliente = ?";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, cpf);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Atendimento a = new Atendimento();
+                    a.setCpfCnpjCliente(rs.getString("fk_Cliente_cpfCnpjCliente"));
+                    a.setIdFuncionarioAdministrativo(rs.getInt("fk_Administrativo_Funcionario_idFuncionario"));
+                    a.setDataAtendimento(rs.getTimestamp("dataAtendimento"));
+                    return a;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public void inserir(Atendimento a) {
+        String sql = "INSERT INTO Atende (fk_Cliente_cpfCnpjCliente, fk_Administrativo_Funcionario_idFuncionario, dataAtendimento) VALUES (?, ?, ?)";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, a.getCpfCnpjCliente());
+            stmt.setInt(2, a.getIdFuncionarioAdministrativo());
+            stmt.setTimestamp(3, a.getDataAtendimento());
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }    
+    
+    public void atualizar(Atendimento a) {
+        String sql = "UPDATE Atende SET fk_Administrativo_Funcionario_idFuncionario = ?, dataAtendimento = ? WHERE fk_Cliente_cpfCnpjCliente = ?";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, a.getIdFuncionarioAdministrativo());
+            stmt.setTimestamp(2, a.getDataAtendimento());
+            stmt.setString(3, a.getCpfCnpjCliente());
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public boolean existe(String cpf) {
+        String sql = "SELECT 1 FROM Atende WHERE fk_Cliente_cpfCnpjCliente = ?";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, cpf);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }    
 }
