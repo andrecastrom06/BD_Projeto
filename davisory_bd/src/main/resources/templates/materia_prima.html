@@ -5,10 +5,14 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
 </head>
 <body>
+
     <a href="/" class="botao-voltar">← Voltar</a> 
+
     <h1>Matéria-Prima</h1>
 
-    <a href="/materia_prima/adicionar" class="botao-adicionar">+ Adicionar Matéria-Prima</a>
+    <div style="margin-bottom: 20px;">
+        <a href="/materia_prima/adicionar" class="botao-adicionar">+ Adicionar Matéria-Prima</a>
+    </div>
 
     <table border="1">
         <thead>
@@ -26,7 +30,9 @@
                 <td th:text="${m.valorMateriaPrima}"></td>
                 <td th:text="${m.codigoEntregaMateriaPrima}"></td>
                 <td th:text="${m.dataEstimadaEntregaMateriaPrima}"></td>
-                <td><a th:href="@{'/materia_prima/editar/' + ${m.idMateriaPrima}}">Editar</a></td>
+                <td>
+                    <a th:href="@{'/materia_prima/editar/' + ${m.idMateriaPrima}}">Editar</a>
+                </td>
             </tr>
         </tbody>
     </table>

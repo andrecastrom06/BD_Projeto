@@ -7,6 +7,7 @@
 <body>
     <a href="/" class="botao-voltar">← Voltar</a> 
     <h1>Lista de Fornecedores</h1>
+    <a href="/fornecedor/novo">+ Adicionar Fornecedor</a>
     <table border="1">
         <tr>
             <th>CNPJ</th>
@@ -14,6 +15,7 @@
             <th>Telefone</th>
             <th>Email</th>
             <th>Endereço</th>
+            <th>Ações</th>
         </tr>
         <tr th:each="fornecedor : ${fornecedores}">
             <td th:text="${fornecedor.cnpjFornecedor}"></td>
@@ -24,6 +26,9 @@
                 <a th:href="@{'/enderecos/' + ${fornecedor.fkEnderecoId}}" class="botao-endereco">
                     Ver Endereço
                 </a>
+            </td>
+            <td>
+                <a th:href="@{'/fornecedor/editar/' + ${fornecedor.cnpjFornecedor}}">Editar</a>
             </td>
         </tr>
     </table>

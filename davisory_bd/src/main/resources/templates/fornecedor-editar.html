@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Fornecedor</title>
+</head>
+<body>
+    <h1>Editar Fornecedor</h1>
+    <form th:action="@{/fornecedor/salvar}" method="post">
+        <input type="hidden" name="cnpjFornecedor" th:value="${fornecedor.cnpjFornecedor}" />
+        
+        <label>Nome:</label>
+        <input type="text" name="nomeFornecedor" th:value="${fornecedor.nomeFornecedor}" /><br/>
+
+        <label>Telefone:</label>
+        <input type="text" name="telefoneFornecedor" th:value="${fornecedor.telefoneFornecedor}" /><br/>
+
+        <label>Email:</label>
+        <input type="email" name="emailFornecedor" th:value="${fornecedor.emailFornecedor}" /><br/>
+
+        <label>Endereço:</label>
+        <select name="fkEnderecoId">
+            <option th:each="endereco : ${enderecos}"
+                    th:value="${endereco.idEndereco}"
+                    th:text="${endereco.rua + ', ' + endereco.numero}"
+                    th:selected="${endereco.idEndereco == fornecedor.fkEnderecoId}">
+            </option>
+        </select><br/>
+
+        <button type="submit">Salvar</button>
+    </form>
+    <a href="/fornecedores">← Voltar</a>
+</body>
+</html>
