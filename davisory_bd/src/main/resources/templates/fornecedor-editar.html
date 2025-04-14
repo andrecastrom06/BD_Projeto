@@ -2,32 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Editar Fornecedor</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/editarfuncionario.css}">
 </head>
 <body>
-    <h1>Editar Fornecedor</h1>
-    <form th:action="@{/fornecedor/salvar}" method="post">
-        <input type="hidden" name="cnpjFornecedor" th:value="${fornecedor.cnpjFornecedor}" />
-        
-        <label>Nome:</label>
-        <input type="text" name="nomeFornecedor" th:value="${fornecedor.nomeFornecedor}" /><br/>
 
-        <label>Telefone:</label>
-        <input type="text" name="telefoneFornecedor" th:value="${fornecedor.telefoneFornecedor}" /><br/>
+    <a href="/fornecedores" class="botao-voltar">← Voltar</a>
 
-        <label>Email:</label>
-        <input type="email" name="emailFornecedor" th:value="${fornecedor.emailFornecedor}" /><br/>
+    <div class="container">
+        <h1 style="text-align: center; color: #0074D9; margin-bottom: 2rem;">Editar Fornecedor</h1>
 
-        <label>Endereço:</label>
-        <select name="fkEnderecoId">
-            <option th:each="endereco : ${enderecos}"
-                    th:value="${endereco.idEndereco}"
-                    th:text="${endereco.rua + ', ' + endereco.numero}"
-                    th:selected="${endereco.idEndereco == fornecedor.fkEnderecoId}">
-            </option>
-        </select><br/>
+        <form th:action="@{/fornecedor/salvar}" method="post">
 
-        <button type="submit">Salvar</button>
-    </form>
-    <a href="/fornecedores">← Voltar</a>
+            <input type="hidden" name="cnpjFornecedor" th:value="${fornecedor.cnpjFornecedor}" />
+
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nomeFornecedor" th:value="${fornecedor.nomeFornecedor}" required />
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefoneFornecedor" th:value="${fornecedor.telefoneFornecedor}" required />
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="emailFornecedor" th:value="${fornecedor.emailFornecedor}" required />
+
+            <label for="endereco">Endereço:</label>
+            <select id="endereco" name="fkEnderecoId" required>
+                <option value="" disabled>Selecione um endereço</option>
+                <option th:each="endereco : ${enderecos}"
+                        th:value="${endereco.idEndereco}"
+                        th:text="${endereco.rua + ', ' + endereco.numero}"
+                        th:selected="${endereco.idEndereco == fornecedor.fkEnderecoId}">
+                </option>
+            </select>
+
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+
 </body>
 </html>
