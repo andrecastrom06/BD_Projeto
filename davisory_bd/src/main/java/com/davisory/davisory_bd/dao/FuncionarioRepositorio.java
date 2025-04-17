@@ -264,4 +264,19 @@ public class FuncionarioRepositorio {
         }
         return lista;
     }
+
+    public String obterHierarquiaChefe(Funcionario funcionario) {
+        StringBuilder hierarquia = new StringBuilder(funcionario.getNomeFuncionario());
+        Integer idChefe = funcionario.getChefeFuncionario();    
+        while (idChefe != null) {
+            Funcionario chefe = buscarPorId(idChefe);
+            if (chefe != null) {
+                hierarquia.insert(0, chefe.getNomeFuncionario() + " → ");
+                idChefe = chefe.getChefeFuncionario();
+            } else {
+                break;
+            }
+        }
+        return hierarquia.toString();
+    }    
 }

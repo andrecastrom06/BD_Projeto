@@ -66,15 +66,8 @@ public class FuncionarioController {
         List<FuncionarioComChefeDTO> dtos = new ArrayList<>();
 
         for (Funcionario f : funcionarios) {
-            String nomeChefe = null;
-            if (f.getChefeFuncionario() != null) {
-                Funcionario chefe = repositorio.buscarPorId(f.getChefeFuncionario());
-                nomeChefe = chefe != null ? chefe.getNomeFuncionario() : "Sem chefe";
-            } else {
-                nomeChefe = "Sem chefe";
-            }
-
-            dtos.add(new FuncionarioComChefeDTO(f.getNomeFuncionario(), nomeChefe));
+            String hierarquia = repositorio.obterHierarquiaChefe(f);
+            dtos.add(new FuncionarioComChefeDTO(f.getNomeFuncionario(), hierarquia));
         }
 
         model.addAttribute("funcionarios", dtos);
@@ -130,5 +123,26 @@ public class FuncionarioController {
         model.addAttribute("chefes", chefes);
         model.addAttribute("funcionario", new Funcionario());
         return "formularioFuncionario";
+    }
+
+    @GetMapping("/funcionarios/adicionarChefe")
+    public String exibirFormularioAtribuirChefe(Model model) {
+        List<Funcionario> funcionarios = repositorio.listarTodosFuncionarios();
+        model.addAttribute("funcionarios", funcionarios);
+        return "adicionarChefe";
+    }
+
+    @PostMapping("/funcionarios/adicionarChefe")
+    public String atribuirChefe(
+        @RequestParam("funcionarioId") int funcionarioId,
+        @RequestParam(value = "chefeId", required = false) Integer chefeId) {
+
+        Funcionario funcionario = repositorio.buscarPorId(funcionarioId);
+        if (funcionario != null) {
+            funcionario.setChefeFuncionario(chefeId);
+            repositorio.atualizarFuncionarioCompleto(funcionario);
+        }
+
+        return "redirect:/chefes";
     }
 }
