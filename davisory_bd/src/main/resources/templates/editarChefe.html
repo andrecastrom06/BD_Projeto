@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Hierarquia</title>
+</head>
+<body>
+    <a href="/chefes" class="botao-voltar">← Voltar</a> 
+    <h1>Editar Chefe de [[${funcionario.nomeFuncionario}]]</h1>
+
+    <form th:action="@{/funcionarios/editarChefe}" method="post">
+        <input type="hidden" name="funcionarioId" th:value="${funcionario.idFuncionario}" />
+
+        <label for="chefeId">Chefe:</label>
+        <select id="chefeId" name="chefeId">
+            <option value="">Sem chefe</option>
+            <option th:each="c : ${funcionarios}" 
+                    th:value="${c.idFuncionario}" 
+                    th:text="${c.nomeFuncionario}" 
+                    th:selected="${c.idFuncionario == funcionario.chefeFuncionario}">
+            </option>
+        </select>
+
+        <br><br>
+        <button type="submit">Atualizar</button>
+    </form>
+</body>
+</html>

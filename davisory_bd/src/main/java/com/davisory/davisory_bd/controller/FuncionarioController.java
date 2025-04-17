@@ -145,4 +145,27 @@ public class FuncionarioController {
 
         return "redirect:/chefes";
     }
+
+    @GetMapping("/funcionarios/editarChefe/{id}")
+    public String exibirFormularioEditarChefe(@PathVariable("id") int id, Model model) {
+        Funcionario funcionario = repositorio.buscarPorId(id);
+        List<Funcionario> todosFuncionarios = repositorio.listarTodosFuncionarios();
+        model.addAttribute("funcionario", funcionario);
+        model.addAttribute("funcionarios", todosFuncionarios);
+        return "editarChefe";
+    }
+
+    @PostMapping("/funcionarios/editarChefe")
+    public String atualizarChefe(
+        @RequestParam("funcionarioId") int funcionarioId,
+        @RequestParam(value = "chefeId", required = false) Integer chefeId) {
+
+        Funcionario funcionario = repositorio.buscarPorId(funcionarioId);
+        if (funcionario != null) {
+            funcionario.setChefeFuncionario(chefeId);
+            repositorio.atualizarFuncionarioCompleto(funcionario);
+        }
+
+        return "redirect:/chefes";
+    }
 }

@@ -14,10 +14,14 @@
         <tr>
             <th>Nome</th>
             <th>Nome Chefe</th>
+            <th>Ações</th>
         </tr>
         <tr th:each="f : ${funcionarios}">
             <td th:text="${f.nomeFuncionario}"></td>
             <td th:text="${f.nomeChefe}"></td>
+            <td>
+                <a class="btn">Editar</a>
+            </td>
         </tr>        
     </table>
 </body>
