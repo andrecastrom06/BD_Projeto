@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Endereço</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form.css}">
+</head>
+<body>
+    <a href="/enderecos" class="botao-voltar">← Voltar</a>
+    <h1>Editar Endereço</h1>
+
+    <form th:action="@{/enderecos/editar}" th:object="${endereco}" method="post">
+        <input type="hidden" th:field="*{idEndereco}" />
+
+        <label>Estado:</label>
+        <input type="text" th:field="*{estado}" required /><br/>
+
+        <label>Cidade:</label>
+        <input type="text" th:field="*{cidade}" required /><br/>
+
+        <label>Bairro:</label>
+        <input type="text" th:field="*{bairro}" required /><br/>
+
+        <label>Rua:</label>
+        <input type="text" th:field="*{rua}" required /><br/>
+
+        <label>Número:</label>
+        <input type="number" th:field="*{numero}" required /><br/>
+        
+        <label>Complemento:</label>
+        <input type="text" th:field="*{complemento}" /><br/>
+
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>

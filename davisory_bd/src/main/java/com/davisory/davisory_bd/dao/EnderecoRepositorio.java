@@ -57,13 +57,29 @@ public class EnderecoRepositorio {
         String sql = "INSERT INTO Endereco (estado, cidade, bairro, rua, complemento, numero) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-    
             stmt.setString(1, endereco.getEstado());
             stmt.setString(2, endereco.getCidade());
             stmt.setString(3, endereco.getBairro());
             stmt.setString(4, endereco.getRua());
             stmt.setString(5, endereco.getComplemento());
             stmt.setInt(6, endereco.getNumero());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void atualizar(Endereco endereco) {
+        String sql = "UPDATE Endereco SET estado=?, cidade=?, bairro=?, rua=?, complemento=?, numero=? WHERE idEndereco=?";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, endereco.getEstado());
+            stmt.setString(2, endereco.getCidade());
+            stmt.setString(3, endereco.getBairro());
+            stmt.setString(4, endereco.getRua());
+            stmt.setString(5, endereco.getComplemento());
+            stmt.setInt(6, endereco.getNumero());
+            stmt.setInt(7, endereco.getIdEndereco());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
