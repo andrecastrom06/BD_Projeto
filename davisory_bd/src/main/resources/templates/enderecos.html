@@ -7,6 +7,9 @@
 <body>
     <a href="/" class="botao-voltar">← Voltar</a> 
     <h1>Endereços</h1>
+    <div style="margin-bottom: 20px;">
+        <a href="/enderecos/adicionar" class="btn">+ Adicionar Endereço</a>
+    </div>
     <table border="1">
         <thead>
             <tr>
@@ -14,8 +17,8 @@
                 <th>Cidade</th>
                 <th>Bairro</th>
                 <th>Rua</th>
-                <th>Complemento</th>
                 <th>Número</th>
+                <th>Complemento</th>
             </tr>
         </thead>
         <tbody>
@@ -24,8 +27,8 @@
                 <td th:text="${e.cidade}"></td>
                 <td th:text="${e.bairro}"></td>
                 <td th:text="${e.rua}"></td>
-                <td th:text="${e.complemento}"></td>
                 <td th:text="${e.numero}"></td>
+                <td th:text="${e.complemento}"></td>
             </tr>
         </tbody>
     </table>

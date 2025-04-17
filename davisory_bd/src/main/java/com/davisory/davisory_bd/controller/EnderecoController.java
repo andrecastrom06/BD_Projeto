@@ -5,7 +5,10 @@ import com.davisory.davisory_bd.model.Endereco;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import java.util.List;
 
 @Controller
@@ -24,5 +27,18 @@ public class EnderecoController {
         Endereco endereco = repo.buscarPorId(id);
         model.addAttribute("endereco", endereco);
         return "endereco-detalhe";
+    }
+
+    @GetMapping("/enderecos/adicionar")
+    public String mostrarFormulario(Model model) {
+        model.addAttribute("endereco", new Endereco());
+        return "endereco-form";
+    }
+
+    @PostMapping("/enderecos/adicionar")
+    public String adicionarEndereco(@ModelAttribute Endereco endereco) {
+        EnderecoRepositorio repo = new EnderecoRepositorio();
+        repo.inserir(endereco);
+        return "redirect:/enderecos";
     }
 }
