@@ -1,7 +1,6 @@
 package com.davisory.davisory_bd.dao;
 
 import com.davisory.davisory_bd.model.Produto;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,6 @@ public class ProdutoRepositorio {
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 Produto produto = new Produto();
                 produto.setIdProduto(rs.getInt("idProduto"));
@@ -24,7 +22,6 @@ public class ProdutoRepositorio {
                 produto.setPrecoProduto(rs.getDouble("precoProduto"));
                 lista.add(produto);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -36,7 +33,6 @@ public class ProdutoRepositorio {
 
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -48,7 +44,6 @@ public class ProdutoRepositorio {
                     return produto;
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,9 +76,7 @@ public class ProdutoRepositorio {
                     }
                 }
             }
-    
-            conn.commit(); // confirma transação
-    
+            conn.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,13 +87,11 @@ public class ProdutoRepositorio {
 
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, produto.getNomeProduto());
             stmt.setString(2, produto.getDescricaoProduto());
             stmt.setDouble(3, produto.getPrecoProduto());
             stmt.setInt(4, produto.getIdProduto());
             stmt.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -111,10 +102,8 @@ public class ProdutoRepositorio {
 
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setInt(1, id);
             stmt.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

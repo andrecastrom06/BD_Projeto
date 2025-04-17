@@ -5,18 +5,15 @@ import com.davisory.davisory_bd.dao.ClienteRepositorio;
 import com.davisory.davisory_bd.dao.FuncionarioRepositorio;
 import com.davisory.davisory_bd.dto.AtendimentoDTO;
 import com.davisory.davisory_bd.model.Atendimento;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
 public class AtendimentoController {
-
     private final AtendimentoRepositorio atendimentoRepositorio = new AtendimentoRepositorio();
     private final ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
     private final FuncionarioRepositorio funcionarioRepositorio = new FuncionarioRepositorio();
@@ -32,11 +29,9 @@ public class AtendimentoController {
     public String novoAtendimentoForm(Model model) {
         Atendimento atendimento = new Atendimento();
         atendimento.setDataAtendimento(Timestamp.valueOf(LocalDateTime.now()));
-
         model.addAttribute("atendimento", atendimento);
         model.addAttribute("clientes", clienteRepositorio.listarTodos());
         model.addAttribute("funcionarios", funcionarioRepositorio.listarAdministrativos());
-
         return "atendimentos-form";
     }
 

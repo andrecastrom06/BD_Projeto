@@ -4,14 +4,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.davisory.davisory_bd.dao.ClienteRepositorio;
 import com.davisory.davisory_bd.dao.FuncionarioRepositorio;
 import com.davisory.davisory_bd.dao.PedidoRepositorio;
@@ -33,14 +31,12 @@ public class PedidoController {
     public String exibirPaginaPedidos(Model model) {
         List<Pedido> pedidos = pedidoRepositorio.listarPedidos();
         List<PedidoDetalhado> pedidosDetalhados = new ArrayList<>();
-
         for (Pedido pedido : pedidos) {
             Produto produto = produtoRepositorio.buscarPorId(pedido.getIdProduto());
             Funcionario funcionario = funcionarioRepositorio.buscarPorId(pedido.getIdFuncionario());
             PedidoDetalhado dto = new PedidoDetalhado(pedido, produto, funcionario);
             pedidosDetalhados.add(dto);
         }
-
         model.addAttribute("pedidosDetalhados", pedidosDetalhados);
         return "pedidos";
     }
@@ -71,7 +67,6 @@ public class PedidoController {
         pedido.setIdProduto(idProduto);
         pedido.setIdFuncionario(idFuncionario);
         pedido.setCpfCnpjCliente(cpfCnpjCliente);
-
         pedidoRepositorio.inserir(pedido);
         return "redirect:/pedidos";
     }
@@ -104,7 +99,6 @@ public class PedidoController {
         pedido.setIdProduto(idProduto);
         pedido.setIdFuncionario(idFuncionario);
         pedido.setCpfCnpjCliente(cpfCnpjCliente);
-
         pedidoRepositorio.atualizar(pedido);
         return "redirect:/pedidos";
     }
@@ -114,11 +108,9 @@ public class PedidoController {
         Pedido pedido = pedidoRepositorio.buscarPorId(id);
         Produto produto = produtoRepositorio.buscarPorId(pedido.getIdProduto());
         Funcionario funcionario = funcionarioRepositorio.buscarPorId(pedido.getIdFuncionario());
-
         model.addAttribute("pedido", pedido);
         model.addAttribute("produto", produto);
         model.addAttribute("funcionario", funcionario);
-
         return "pedido_detalhado";
     }
 }

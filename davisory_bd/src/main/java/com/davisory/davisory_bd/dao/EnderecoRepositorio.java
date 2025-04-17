@@ -10,11 +10,9 @@ public class EnderecoRepositorio {
     public List<Endereco> listar() {
         List<Endereco> lista = new ArrayList<>();
         String sql = "SELECT * FROM Endereco";
-
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 Endereco e = new Endereco();
                 e.setIdEndereco(rs.getInt("idEndereco"));
@@ -26,11 +24,9 @@ public class EnderecoRepositorio {
                 e.setNumero(rs.getInt("numero"));
                 lista.add(e);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return lista;
     }
 

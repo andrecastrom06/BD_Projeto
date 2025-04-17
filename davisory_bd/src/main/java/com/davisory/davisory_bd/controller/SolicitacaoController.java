@@ -16,6 +16,5 @@ public class SolicitacaoController {
         List<SolicitacaoDTO> solicitacoes = repo.listarSolicitacoesComNomes();
         model.addAttribute("solicitacoes", solicitacoes);
         return "solicitacoes";
-    }
-    
+    }   
 }

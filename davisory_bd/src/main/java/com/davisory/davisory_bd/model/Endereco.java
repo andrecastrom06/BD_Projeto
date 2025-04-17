@@ -9,7 +9,6 @@ public class Endereco {
     private String complemento;
     private int numero;
 
-    // Getters e Setters
     public int getIdEndereco() {
         return idEndereco;
     }

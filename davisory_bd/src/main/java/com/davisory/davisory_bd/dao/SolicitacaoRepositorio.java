@@ -24,7 +24,6 @@ public class SolicitacaoRepositorio {
         try (Connection conn = ConexaoBD.conectar();
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 SolicitacaoDTO dto = new SolicitacaoDTO(
                     rs.getString("cnpjFornecedor"),
@@ -34,12 +33,9 @@ public class SolicitacaoRepositorio {
                 );
                 lista.add(dto);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return lista;
     }
-
 }

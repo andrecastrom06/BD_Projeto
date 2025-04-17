@@ -4,14 +4,12 @@ import com.davisory.davisory_bd.dao.ClienteRepositorio;
 import com.davisory.davisory_bd.dao.EnderecoRepositorio;
 import com.davisory.davisory_bd.model.Cliente;
 import com.davisory.davisory_bd.model.Endereco;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.List;
 
 @Controller
@@ -56,18 +54,16 @@ public class ClienteController {
         @RequestParam("nome") String nome,
         @RequestParam("telefone") String telefone,
         @RequestParam("email") String email,
-        @RequestParam("idEndereco") int idEndereco // novo campo do form
+        @RequestParam("idEndereco") int idEndereco
     ) {
         Cliente cliente = new Cliente();
         cliente.setCpfCnpjCliente(cpfCnpj);
         cliente.setNomeCliente(nome);
         cliente.setTelefoneCliente(telefone);
         cliente.setEmailCliente(email);
-
         EnderecoRepositorio enderecoRepositorio = new EnderecoRepositorio();
         Endereco endereco = enderecoRepositorio.buscarPorId(idEndereco);
-        cliente.setEndereco(endereco); // associar endereço ao cliente
-
+        cliente.setEndereco(endereco);
         clienteRepositorio.inserir(cliente);
         return "redirect:/clientes";
     }
@@ -80,4 +76,3 @@ public class ClienteController {
         return "adicionarcliente";
     }
 }
-

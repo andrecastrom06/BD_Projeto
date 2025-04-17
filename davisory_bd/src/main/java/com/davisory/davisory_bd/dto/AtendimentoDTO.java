@@ -6,10 +6,8 @@ public class AtendimentoDTO {
     private String cpfCnpjCliente;
     private String nomeFuncionario;
     private LocalDateTime dataAtendimento;
-
-    public AtendimentoDTO() {
-    }
-
+    public AtendimentoDTO() {}
+    
     public AtendimentoDTO(String cpfCnpjCliente, String nomeFuncionario, LocalDateTime dataAtendimento) {
         this.cpfCnpjCliente = cpfCnpjCliente;
         this.nomeFuncionario = nomeFuncionario;

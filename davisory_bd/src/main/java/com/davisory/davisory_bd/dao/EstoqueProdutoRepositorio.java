@@ -1,7 +1,6 @@
 package com.davisory.davisory_bd.dao;
 
 import com.davisory.davisory_bd.model.EstoqueProduto;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +10,9 @@ public class EstoqueProdutoRepositorio {
     public List<EstoqueProduto> listar() {
         List<EstoqueProduto> lista = new ArrayList<>();
         String sql = "SELECT * FROM EstoqueProduto";
-
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 EstoqueProduto ep = new EstoqueProduto();
                 ep.setIdEstoqueProduto(rs.getInt("idEstoqueProduto"));
@@ -23,13 +20,12 @@ public class EstoqueProdutoRepositorio {
                 ep.setQuantidadeProduto(rs.getInt("quantidadeProduto"));
                 lista.add(ep);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return lista;
     }
+
     public EstoqueProduto buscarPorId(int id, int produtoId) {
         String sql = "SELECT * FROM EstoqueProduto WHERE idEstoqueProduto = ? AND fk_Produto_idProduto = ?";
         try (Connection conn = ConexaoBD.conectar();
@@ -62,5 +58,4 @@ public class EstoqueProdutoRepositorio {
             e.printStackTrace();
         }
     }
-    
 }

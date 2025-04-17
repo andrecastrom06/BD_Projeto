@@ -3,7 +3,6 @@ package com.davisory.davisory_bd.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.davisory.davisory_bd.model.Administrativo;
 import com.davisory.davisory_bd.model.Funcionario;
 import com.davisory.davisory_bd.model.Operacional;
@@ -17,11 +16,9 @@ public class FuncionarioRepositorio {
             FROM Funcionario f 
             JOIN Administrativo a ON f.idFuncionario = a.fk_Funcionario_idFuncionario
         """;
-
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 Administrativo adm = new Administrativo();
                 adm.setIdFuncionario(rs.getInt("idFuncionario"));
@@ -33,7 +30,6 @@ public class FuncionarioRepositorio {
                 adm.setCargo(rs.getString("cargoFuncionarioAdministrativo"));
                 lista.add(adm);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,7 +47,6 @@ public class FuncionarioRepositorio {
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 Operacional op = new Operacional();
                 op.setIdFuncionario(rs.getInt("idFuncionario"));
@@ -61,7 +56,6 @@ public class FuncionarioRepositorio {
                 op.setEmpregado(rs.getBoolean("empregado"));
                 lista.add(op);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,7 +75,6 @@ public class FuncionarioRepositorio {
                     f.setSalarioFuncionario(rs.getDouble("salarioFuncionario"));
                     f.setChefeFuncionario(rs.getObject("chefeFuncionario", Integer.class));
                     f.setEmpregado(rs.getBoolean("empregado"));
-
                     String sqlCargo = "SELECT cargoFuncionarioAdministrativo FROM Administrativo WHERE fk_Funcionario_idFuncionario = ?";
                     try (PreparedStatement stmt2 = conn.prepareStatement(sqlCargo)) {
                         stmt2.setInt(1, id);
@@ -91,7 +84,6 @@ public class FuncionarioRepositorio {
                             }
                         }
                     }
-
                     return f;
                 }
             }
@@ -126,7 +118,6 @@ public class FuncionarioRepositorio {
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 Funcionario f = new Funcionario();
                 f.setIdFuncionario(rs.getInt("idFuncionario"));
@@ -136,7 +127,6 @@ public class FuncionarioRepositorio {
                 f.setEmpregado(rs.getBoolean("empregado"));
                 lista.add(f);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -172,7 +162,6 @@ public class FuncionarioRepositorio {
                 stmt.setInt(5, f.getIdFuncionario());
                 stmt.executeUpdate();
             }
-
             if (f.getCargo() != null) {
                 try (PreparedStatement stmt2 = conn.prepareStatement(sqlCargo)) {
                     stmt2.setString(1, f.getCargo());
@@ -180,7 +169,6 @@ public class FuncionarioRepositorio {
                     stmt2.executeUpdate();
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -215,29 +203,23 @@ public class FuncionarioRepositorio {
 
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
             stmt.setString(1, f.getNomeFuncionario());
             stmt.setDouble(2, f.getSalarioFuncionario());
-
             if (f.getChefeFuncionario() != null) {
                 stmt.setInt(3, f.getChefeFuncionario());
             } else {
                 stmt.setNull(3, Types.INTEGER);
             }
-
             stmt.setBoolean(4, f.isEmpregado());
             stmt.executeUpdate();
-
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     novoId = rs.getInt(1);
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return novoId;
     }
 
@@ -248,7 +230,6 @@ public class FuncionarioRepositorio {
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 Funcionario f = new Funcionario();
                 f.setIdFuncionario(rs.getInt("idFuncionario"));
@@ -258,7 +239,6 @@ public class FuncionarioRepositorio {
                 f.setEmpregado(rs.getBoolean("empregado"));
                 lista.add(f);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

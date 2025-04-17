@@ -20,7 +20,6 @@ public class Funcionario {
     public String getCargo() { return cargo; }
     public void setCargo(String cargo) { this.cargo = cargo; }
 
-
     public Integer getChefeFuncionario() { return chefeFuncionario; }
     public void setChefeFuncionario(Integer chefeFuncionario) { this.chefeFuncionario = chefeFuncionario; }
 

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.davisory.davisory_bd.model.Pedido;
 
 public class PedidoRepositorio {
@@ -18,7 +17,6 @@ public class PedidoRepositorio {
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 Pedido pedido = new Pedido();
                 pedido.setIdPedido(rs.getInt("idPedido"));
@@ -31,7 +29,6 @@ public class PedidoRepositorio {
                 pedido.setCpfCnpjCliente(rs.getString("fk_Cliente_cpfCnpjCliente"));
                 pedidos.add(pedido);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -41,10 +38,8 @@ public class PedidoRepositorio {
     public Pedido buscarPorId(int id) {
         String sql = "SELECT * FROM Pedido WHERE idPedido = ?";
         Pedido p = null;
-    
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-    
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -59,11 +54,9 @@ public class PedidoRepositorio {
                     p.setCpfCnpjCliente(rs.getString("fk_Cliente_cpfCnpjCliente")); // ← esse aqui
                 }
             }
-    
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    
         return p;
     }    
 
@@ -72,7 +65,6 @@ public class PedidoRepositorio {
     
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-    
             stmt.setTimestamp(1, pedido.getDataPedido());
             stmt.setString(2, pedido.getCodigoEntregaPedido());
             stmt.setInt(3, pedido.getQuantidadePedido());
@@ -80,9 +72,7 @@ public class PedidoRepositorio {
             stmt.setInt(5, pedido.getIdProduto());
             stmt.setInt(6, pedido.getIdFuncionario());
             stmt.setString(7, pedido.getCpfCnpjCliente());
-    
             stmt.executeUpdate();
-    
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -93,7 +83,6 @@ public class PedidoRepositorio {
     
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-    
             stmt.setString(1, pedido.getCodigoEntregaPedido());
             stmt.setInt(2, pedido.getQuantidadePedido());
             stmt.setDouble(3, pedido.getPrecoUnitarioPedido());
@@ -101,14 +90,9 @@ public class PedidoRepositorio {
             stmt.setInt(5, pedido.getIdFuncionario());
             stmt.setString(6, pedido.getCpfCnpjCliente());
             stmt.setInt(7, pedido.getIdPedido());
-    
             stmt.executeUpdate();
-    
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-    
-    
 }

@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.List;
 
 @Controller
@@ -27,10 +26,8 @@ public class FornecedorController {
     public String editar(@PathVariable String cnpj, Model model) {
         FornecedorRepositorio fornecedorRepo = new FornecedorRepositorio();
         EnderecoRepositorio enderecoRepo = new EnderecoRepositorio();
-
         Fornecedor fornecedor = fornecedorRepo.buscarPorCnpj(cnpj);
         List<Endereco> enderecos = enderecoRepo.listar();
-
         model.addAttribute("fornecedor", fornecedor);
         model.addAttribute("enderecos", enderecos);
         return "fornecedor-editar";

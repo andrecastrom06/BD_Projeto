@@ -2,14 +2,12 @@ package com.davisory.davisory_bd.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.davisory.davisory_bd.dao.FuncionarioRepositorio;
 import com.davisory.davisory_bd.dto.FuncionarioComChefeDTO;
 import com.davisory.davisory_bd.model.Administrativo;
@@ -25,10 +23,8 @@ public class FuncionarioController {
     public String listarFuncionarios(Model model) {
         List<Administrativo> administrativos = repositorio.listarAdministrativos();
         List<Operacional> operacionais = repositorio.listarOperacionais();
-
         model.addAttribute("administrativos", administrativos);
         model.addAttribute("operacionais", operacionais);
-
         return "funcionarios";
     }
 
@@ -47,7 +43,6 @@ public class FuncionarioController {
         @RequestParam(value = "chefe", required = false) Integer chefe,
         @RequestParam("empregado") boolean empregado,
         @RequestParam("cargo") String cargo) {
-
         Funcionario f = new Funcionario();
         f.setIdFuncionario(id);
         f.setNomeFuncionario(nome);
@@ -55,7 +50,6 @@ public class FuncionarioController {
         f.setChefeFuncionario(chefe);
         f.setEmpregado(empregado);
         f.setCargo(cargo);
-
         repositorio.atualizarFuncionarioCompleto(f);
         return "redirect:/funcionarios";
     }
@@ -64,12 +58,10 @@ public class FuncionarioController {
     public String listarFuncionariosComChefes(Model model) {
         List<Funcionario> funcionarios = repositorio.listarFuncionariosComChefes();
         List<FuncionarioComChefeDTO> dtos = new ArrayList<>();
-
         for (Funcionario f : funcionarios) {
             String hierarquia = repositorio.obterHierarquiaChefe(f);
             dtos.add(new FuncionarioComChefeDTO(f.getIdFuncionario(), f.getNomeFuncionario(), hierarquia));
         }
-
         model.addAttribute("funcionarios", dtos);
         return "chefes";
     }
@@ -87,13 +79,11 @@ public class FuncionarioController {
     public String atualizarChefe(
         @RequestParam("funcionarioId") int funcionarioId,
         @RequestParam(value = "chefeId", required = false) Integer chefeId) {
-
         Funcionario funcionario = repositorio.buscarPorId(funcionarioId);
         if (funcionario != null) {
             funcionario.setChefeFuncionario(chefeId);
             repositorio.atualizarFuncionarioCompleto(funcionario);
         }
-
         return "redirect:/chefes";
     }
 }

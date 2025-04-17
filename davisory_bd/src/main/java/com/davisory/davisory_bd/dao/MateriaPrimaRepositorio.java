@@ -14,7 +14,6 @@ public class MateriaPrimaRepositorio {
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-    
             while (rs.next()) {
                 MateriaPrima m = new MateriaPrima();
                 m.setIdMateriaPrima(rs.getInt("idMateriaPrima"));
@@ -24,11 +23,9 @@ public class MateriaPrimaRepositorio {
                 m.setDataEstimadaEntregaMateriaPrima(rs.getDate("dataEstimadaEntregaMateriaPrima"));
                 lista.add(m);
             }
-    
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    
         return lista;
     }
     
@@ -36,10 +33,8 @@ public class MateriaPrimaRepositorio {
         String sql = "SELECT * FROM MateriaPrima WHERE idMateriaPrima = ?";
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-    
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-    
             if (rs.next()) {
                 MateriaPrima m = new MateriaPrima();
                 m.setIdMateriaPrima(rs.getInt("idMateriaPrima"));
@@ -49,46 +44,41 @@ public class MateriaPrimaRepositorio {
                 m.setDataEstimadaEntregaMateriaPrima(rs.getDate("dataEstimadaEntregaMateriaPrima"));
                 return m;
             }
-    
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    
         return null;
     }    
+
     public int inserir(MateriaPrima materia) {
         String sql = "INSERT INTO MateriaPrima (nomeMateriaPrima, valorMateriaPrima, codigoEntregaMateriaPrima, dataEstimadaEntregaMateriaPrima) VALUES (?, ?, ?, ?)";
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-    
             stmt.setString(1, materia.getNomeMateriaPrima());
             stmt.setDouble(2, materia.getValorMateriaPrima());
             stmt.setString(3, materia.getCodigoEntregaMateriaPrima());
             stmt.setDate(4, materia.getDataEstimadaEntregaMateriaPrima());
             stmt.executeUpdate();
-    
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 return rs.getInt(1);
             }
-    
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return -1;
     }
+
     public void atualizar(MateriaPrima materia) {
         String sql = "UPDATE MateriaPrima SET nomeMateriaPrima=?, valorMateriaPrima=?, codigoEntregaMateriaPrima=?, dataEstimadaEntregaMateriaPrima=? WHERE idMateriaPrima=?";
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-    
             stmt.setString(1, materia.getNomeMateriaPrima());
             stmt.setDouble(2, materia.getValorMateriaPrima());
             stmt.setString(3, materia.getCodigoEntregaMateriaPrima());
             stmt.setDate(4, materia.getDataEstimadaEntregaMateriaPrima());
             stmt.setInt(5, materia.getIdMateriaPrima());
             stmt.executeUpdate();
-    
         } catch (SQLException e) {
             e.printStackTrace();
         }

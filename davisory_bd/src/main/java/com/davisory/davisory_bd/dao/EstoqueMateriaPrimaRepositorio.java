@@ -10,11 +10,9 @@ public class EstoqueMateriaPrimaRepositorio {
     public List<EstoqueMateriaPrima> listar() {
         List<EstoqueMateriaPrima> lista = new ArrayList<>();
         String sql = "SELECT * FROM EstoqueMateriaPrima";
-
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 EstoqueMateriaPrima e = new EstoqueMateriaPrima();
                 e.setIdEstoqueMateriaPrima(rs.getInt("idEstoqueMateriaPrima"));
@@ -22,12 +20,12 @@ public class EstoqueMateriaPrimaRepositorio {
                 e.setQuantidadeMateriaPrima(rs.getInt("quantidadeMateriaPrima"));
                 lista.add(e);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return lista;
     }
+
     public EstoqueMateriaPrima buscarPorId(int id, int materiaId) {
         String sql = "SELECT * FROM EstoqueMateriaPrima WHERE idEstoqueMateriaPrima = ? AND fk_MateriaPrima_idMateriaPrima = ?";
         try (Connection conn = ConexaoBD.conectar();
@@ -60,15 +58,14 @@ public class EstoqueMateriaPrimaRepositorio {
             e.printStackTrace();
         }
     }    
+    
     public void inserir(EstoqueMateriaPrima estoque) {
         String sql = "INSERT INTO EstoqueMateriaPrima (fk_MateriaPrima_idMateriaPrima, quantidadeMateriaPrima) VALUES (?, ?)";
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-    
             stmt.setInt(1, estoque.getFkMateriaPrimaId());
             stmt.setInt(2, estoque.getQuantidadeMateriaPrima());
             stmt.executeUpdate();
-    
         } catch (SQLException e) {
             e.printStackTrace();
         }

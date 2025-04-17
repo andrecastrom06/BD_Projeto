@@ -14,18 +14,15 @@ public class MontagemRepositorio {
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 Montagem m = new Montagem();
                 m.setIdFuncionarioOperacional(rs.getInt("fk_Operacional_Funcionario_idFuncionario"));
                 m.setIdPedido(rs.getInt("fk_Pedido_idPedido"));
                 lista.add(m);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return lista;
     }
 }

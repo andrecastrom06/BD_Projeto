@@ -1,4 +1,3 @@
 package com.davisory.davisory_bd.model;
 
-public class Operacional extends Funcionario {
-}
+public class Operacional extends Funcionario {}

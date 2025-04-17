@@ -5,7 +5,6 @@ import com.davisory.davisory_bd.model.Produto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -43,7 +42,6 @@ public class ProdutoController {
         produto.setNomeProduto(nome);
         produto.setDescricaoProduto(descricao);
         produto.setPrecoProduto(preco);
-
         produtoRepositorio.atualizarProduto(produto);
         return "redirect:/produtos";
     }
@@ -64,9 +62,7 @@ public class ProdutoController {
         produto.setNomeProduto(nomeProduto);
         produto.setDescricaoProduto(descricaoProduto);
         produto.setPrecoProduto(precoProduto);
-
         produtoRepositorio.inserirProduto(produto);
-
         return "redirect:/produtos";
     }
 }
