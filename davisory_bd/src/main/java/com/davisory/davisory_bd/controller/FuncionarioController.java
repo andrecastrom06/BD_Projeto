@@ -67,83 +67,11 @@ public class FuncionarioController {
 
         for (Funcionario f : funcionarios) {
             String hierarquia = repositorio.obterHierarquiaChefe(f);
-            dtos.add(new FuncionarioComChefeDTO(f.getNomeFuncionario(), hierarquia));
+            dtos.add(new FuncionarioComChefeDTO(f.getIdFuncionario(), f.getNomeFuncionario(), hierarquia));
         }
 
         model.addAttribute("funcionarios", dtos);
         return "chefes";
-    }
-
-    @GetMapping("/funcionarios/adicionar")
-    public String exibirFormularioAdicao(Model model) {
-        List<Funcionario> chefes = repositorio.listarTodosFuncionarios();
-        model.addAttribute("chefes", chefes);
-        model.addAttribute("funcionario", new Funcionario());
-        return "adicionarFuncionario";
-    }
-
-    @PostMapping("/funcionarios/adicionar")
-    public String adicionarFuncionario(
-        @RequestParam("nome") String nome,
-        @RequestParam("salario") double salario,
-        @RequestParam(value = "chefe", required = false) Integer chefe,
-        @RequestParam("tipo") String tipoFuncionario,
-        @RequestParam(value = "cargo", required = false) String cargo
-    ) {
-        Funcionario f;
-
-        if ("Administrativo".equals(tipoFuncionario)) {
-            Administrativo adm = new Administrativo();
-            adm.setCargoFuncionarioAdministrativo(cargo);
-            adm.setCargo(cargo);
-            f = adm;
-        } else {
-            f = new Operacional();
-        }
-
-        f.setNomeFuncionario(nome);
-        f.setSalarioFuncionario(salario);
-        f.setChefeFuncionario(chefe);
-        f.setEmpregado(true);
-
-        int novoId = repositorio.inserir(f);
-
-        if ("Administrativo".equals(tipoFuncionario)) {
-            repositorio.inserirAdministrativo(novoId, cargo);
-        } else {
-            repositorio.inserirOperacional(novoId);
-        }
-
-        return "redirect:/funcionarios";
-    }
-
-    @GetMapping("/funcionarios/formulario")
-    public String mostrarFormulario(Model model) {
-        List<Funcionario> chefes = repositorio.listarTodosFuncionarios();
-        model.addAttribute("chefes", chefes);
-        model.addAttribute("funcionario", new Funcionario());
-        return "formularioFuncionario";
-    }
-
-    @GetMapping("/funcionarios/adicionarChefe")
-    public String exibirFormularioAtribuirChefe(Model model) {
-        List<Funcionario> funcionarios = repositorio.listarTodosFuncionarios();
-        model.addAttribute("funcionarios", funcionarios);
-        return "adicionarChefe";
-    }
-
-    @PostMapping("/funcionarios/adicionarChefe")
-    public String atribuirChefe(
-        @RequestParam("funcionarioId") int funcionarioId,
-        @RequestParam(value = "chefeId", required = false) Integer chefeId) {
-
-        Funcionario funcionario = repositorio.buscarPorId(funcionarioId);
-        if (funcionario != null) {
-            funcionario.setChefeFuncionario(chefeId);
-            repositorio.atualizarFuncionarioCompleto(funcionario);
-        }
-
-        return "redirect:/chefes";
     }
 
     @GetMapping("/funcionarios/editarChefe/{id}")
