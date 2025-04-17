@@ -35,13 +35,15 @@ public class ProdutoController {
             @RequestParam("id") int id,
             @RequestParam("nome") String nome,
             @RequestParam("descricao") String descricao,
-            @RequestParam("preco") double preco
+            @RequestParam("preco") double preco,
+            @RequestParam("statusProduto") boolean ativo
     ) {
         Produto produto = new Produto();
         produto.setIdProduto(id);
         produto.setNomeProduto(nome);
         produto.setDescricaoProduto(descricao);
         produto.setPrecoProduto(preco);
+        produto.setAtivo(ativo);
         produtoRepositorio.atualizarProduto(produto);
         return "redirect:/produtos";
     }

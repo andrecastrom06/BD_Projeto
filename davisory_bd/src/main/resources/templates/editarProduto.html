@@ -24,9 +24,14 @@
             <label for="preco">Preço:</label>
             <input type="number" step="0.01" id="preco" name="preco" th:value="${produto.precoProduto}" required />
 
+            <label for="statusProduto">Status:</label>
+            <select id="statusProduto" name="statusProduto">
+                <option th:value="true" th:text="'Ativo'" th:selected="${produto.ativo}"></option>
+                <option th:value="false" th:text="'Inativo'" th:selected="${!produto.ativo}"></option>
+            </select>
+
             <button type="submit">Salvar</button>
         </form>
     </div>
-
 </body>
 </html>

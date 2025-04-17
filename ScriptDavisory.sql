@@ -32,7 +32,8 @@ CREATE TABLE Produto (
     idProduto INT PRIMARY KEY AUTO_INCREMENT,
     nomeProduto VARCHAR(255) NOT NULL,
     descricaoProduto TEXT NOT NULL,
-    precoProduto DECIMAL(10,2) NOT NULL CHECK (precoProduto >= 0)
+    precoProduto DECIMAL(10,2) NOT NULL CHECK (precoProduto >= 0),
+    ativo BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE EstoqueProduto (
@@ -174,22 +175,22 @@ INSERT INTO MateriaPrima (nomeMateriaPrima, valorMateriaPrima, codigoEntregaMate
 ('Aro de Ajuste Universal', 19.80, 'ENT114', '2025-05-01'),
 ('Kit de Tratamento Antirreflexo', 58.70, 'ENT115', '2025-05-02');
 
-INSERT INTO Produto (nomeProduto, descricaoProduto, precoProduto) VALUES 
-('Óculos Solar RayFlex RX3000', 'Óculos de sol com lentes polarizadas e armação de titânio escovado. Ideal para direção e uso diário.', 629.90),
-('Óculos de Grau VisionLine V-101', 'Armação de acetato resistente com hastes flexíveis. Compatível com lentes multifocais.', 428.50),
-('Óculos Unissex UrbanLook U202', 'Modelo leve e moderno com lentes antirreflexo. Design ideal para o dia a dia.', 489.00),
-('Óculos de Sol Classic Bold C55', 'Estilo retrô com lentes UV400. Armação preta com acabamento fosco.', 589.90),
-('Óculos Infantil ColorView Kids', 'Óculos resistente para crianças com armação colorida em polímero flexível.', 229.90),
-('Óculos Feminino BelleVie 3040', 'Design elegante com detalhes dourados nas hastes. Lentes com proteção contra luz azul.', 519.80),
-('Óculos de Grau TitanFlex 3.0', 'Armação em titânio leve e flexível. Ideal para quem busca conforto o dia todo.', 679.50),
-('Óculos Solar Esportivo ProActive X', 'Modelo esportivo com lentes espelhadas e apoio nasal emborrachado.', 599.00),
-('Óculos de Grau SlimFit H02', 'Design fino e discreto, com armação em aço inoxidável e ponte dupla.', 388.40),
-('Óculos Unissex StreetLine Neo', 'Estilo casual com acabamento em madeira sintética. Lentes antirrisco.', 474.20),
-('Óculos Masculino BoldSquare', 'Armação robusta quadrada com acabamento acetinado. Lentes com filtro UV.', 499.90),
-('Óculos Feminino DelicateView F13', 'Armação transparente com hastes em rosé gold. Super leve e moderna.', 545.60),
-('Óculos Infantil FlexPlay', 'Material flexível à prova de impacto. Ideal para crianças ativas.', 199.00),
-('Óculos de Sol Aviador GoldFlash', 'Clássico modelo aviador com lentes espelhadas douradas e ponte dupla.', 612.30),
-('Óculos Masculino Executivo LineX', 'Design sóbrio com armação preta fosca e lentes antirreflexo.', 455.00);
+INSERT INTO Produto (nomeProduto, descricaoProduto, precoProduto, ativo) VALUES 
+('Óculos Solar RayFlex RX3000', 'Óculos de sol com lentes polarizadas e armação de titânio escovado. Ideal para direção e uso diário.', 629.90, TRUE),
+('Óculos de Grau VisionLine V-101', 'Armação de acetato resistente com hastes flexíveis. Compatível com lentes multifocais.', 428.50, TRUE),
+('Óculos Unissex UrbanLook U202', 'Modelo leve e moderno com lentes antirreflexo. Design ideal para o dia a dia.', 489.00, TRUE),
+('Óculos de Sol Classic Bold C55', 'Estilo retrô com lentes UV400. Armação preta com acabamento fosco.', 589.90, FALSE),
+('Óculos Infantil ColorView Kids', 'Óculos resistente para crianças com armação colorida em polímero flexível.', 229.90, TRUE),
+('Óculos Feminino BelleVie 3040', 'Design elegante com detalhes dourados nas hastes. Lentes com proteção contra luz azul.', 519.80, TRUE),
+('Óculos de Grau TitanFlex 3.0', 'Armação em titânio leve e flexível. Ideal para quem busca conforto o dia todo.', 679.50, TRUE),
+('Óculos Solar Esportivo ProActive X', 'Modelo esportivo com lentes espelhadas e apoio nasal emborrachado.', 599.00, TRUE),
+('Óculos de Grau SlimFit H02', 'Design fino e discreto, com armação em aço inoxidável e ponte dupla.', 388.40, FALSE),
+('Óculos Unissex StreetLine Neo', 'Estilo casual com acabamento em madeira sintética. Lentes antirrisco.', 474.20, TRUE),
+('Óculos Masculino BoldSquare', 'Armação robusta quadrada com acabamento acetinado. Lentes com filtro UV.', 499.90, TRUE),
+('Óculos Feminino DelicateView F13', 'Armação transparente com hastes em rosé gold. Super leve e moderna.', 545.60, TRUE),
+('Óculos Infantil FlexPlay', 'Material flexível à prova de impacto. Ideal para crianças ativas.', 199.00, FALSE),
+('Óculos de Sol Aviador GoldFlash', 'Clássico modelo aviador com lentes espelhadas douradas e ponte dupla.', 612.30, TRUE),
+('Óculos Masculino Executivo LineX', 'Design sóbrio com armação preta fosca e lentes antirreflexo.', 455.00, FALSE);
 
 INSERT INTO EstoqueProduto (fk_Produto_idProduto, quantidadeProduto) VALUES 
 (1, 12),

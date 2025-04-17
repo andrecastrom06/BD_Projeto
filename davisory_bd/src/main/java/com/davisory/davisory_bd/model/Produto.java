@@ -5,14 +5,16 @@ public class Produto {
     private String nomeProduto;
     private String descricaoProduto;
     private double precoProduto;
+    private boolean ativo;
 
     public Produto() {}
 
-    public Produto(int idProduto, String nomeProduto, String descricaoProduto, double precoProduto) {
+    public Produto(int idProduto, String nomeProduto, String descricaoProduto, double precoProduto, boolean ativo) {
         this.idProduto = idProduto;
         this.nomeProduto = nomeProduto;
         this.descricaoProduto = descricaoProduto;
         this.precoProduto = precoProduto;
+        this.ativo = ativo;
     }
 
     public int getIdProduto() {
@@ -45,5 +47,13 @@ public class Produto {
 
     public void setPrecoProduto(double precoProduto) {
         this.precoProduto = precoProduto;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }
