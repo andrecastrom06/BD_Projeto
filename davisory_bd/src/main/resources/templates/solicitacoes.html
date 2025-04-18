@@ -9,16 +9,20 @@
     <h1>Solicitações</h1>
     <table border="1">
         <tr>
-            <th>CNPJ Fornecedor</th>
+            <th>Nome Fornecedor</th>
             <th>Nome Matéria-Prima</th>
             <th>Nome Func. Administrativo</th>
             <th>Data da Solicitação</th>
+            <th>Ações</th>
         </tr>
         <tr th:each="s : ${solicitacoes}">
-            <td th:text="${s.cnpjFornecedor}"></td>
+            <td th:text="${s.nomeFornecedor}"></td>
             <td th:text="${s.nomeMateriaPrima}"></td>
             <td th:text="${s.nomeFuncionarioAdministrativo}"></td>
             <td th:text="${s.dataSolicitacao}"></td>
+            <td>
+                <a class="botao-editar">Editar</a>
+            </td>
         </tr>        
     </table>
 </body>

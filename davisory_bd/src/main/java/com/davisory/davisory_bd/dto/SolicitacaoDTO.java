@@ -7,15 +7,16 @@ public class SolicitacaoDTO {
     private String nomeMateriaPrima;
     private String nomeFuncionarioAdministrativo;
     private LocalDateTime dataSolicitacao;
+    private String nomeFornecedor;
 
     public SolicitacaoDTO() {}
 
-    public SolicitacaoDTO(String cnpjFornecedor, String nomeMateriaPrima, String nomeFuncionarioAdministrativo, LocalDateTime dataSolicitacao) {
-        this.cnpjFornecedor = cnpjFornecedor;
+    public SolicitacaoDTO(String nomeFornecedor, String nomeMateriaPrima, String nomeFuncionarioAdministrativo, LocalDateTime dataSolicitacao) {
+        this.nomeFornecedor = nomeFornecedor;
         this.nomeMateriaPrima = nomeMateriaPrima;
         this.nomeFuncionarioAdministrativo = nomeFuncionarioAdministrativo;
         this.dataSolicitacao = dataSolicitacao;
-    }
+    }    
 
     public String getCnpjFornecedor() {
         return cnpjFornecedor;
@@ -47,5 +48,13 @@ public class SolicitacaoDTO {
 
     public void setDataSolicitacao(LocalDateTime dataSolicitacao) {
         this.dataSolicitacao = dataSolicitacao;
+    }
+
+    public String getNomeFornecedor() {
+        return nomeFornecedor;
+    }
+    
+    public void setNomeFornecedor(String nomeFornecedor) {
+        this.nomeFornecedor = nomeFornecedor;
     }
 }
