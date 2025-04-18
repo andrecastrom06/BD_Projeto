@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Montagem</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
+</head>
+<body>
+    <a href="/montagens" class="botao-voltar">← Voltar</a> 
+    <h1>Editar Montagem</h1>
+    <form th:action="@{/montagens/editar}" th:object="${montagem}" method="post">
+        <label>Funcionário Operacional:</label>
+        <select th:field="*{idFuncionarioOperacional}">
+            <option th:each="f : ${funcionarios}" 
+                    th:value="${f.idFuncionario}" 
+                    th:text="${f.nomeFuncionario}"></option>
+        </select>
+        <label>Pedido:</label>
+        <select th:field="*{idPedido}">
+            <option th:each="p : ${pedidos}" 
+                    th:value="${p.idPedido}" 
+                    th:text="${p.codigoEntregaPedido}"></option>
+        </select>
+        <input type="hidden" th:field="*{idFuncionarioOriginal}" />
+        <input type="hidden" th:field="*{idPedidoOriginal}" />
+        <button type="submit">Salvar</button>
+    </form>        
+</body>
+</html>

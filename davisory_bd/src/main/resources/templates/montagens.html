@@ -14,12 +14,17 @@
         <tr>
             <th>Funcionário Operacional</th>
             <th>Pedido</th>
+            <th>Ações</th>
         </tr>
         <tr th:each="m : ${montagens}">
             <td th:text="${m.funcionario.nomeFuncionario}"></td>
             <td>
                 <a th:href="@{'/pedidos/' + ${m.pedido.idPedido}}" class="botao-endereco">Ver Pedido</a>
             </td>
+            <td>
+                <a th:href="@{'/montagens/editar?idPedido=' + ${m.pedido.idPedido} + '&idFuncionario=' + ${m.funcionario.idFuncionario}}"
+                   class="botao-editar">Editar</a>
+            </td>            
         </tr>
     </table>
 </body>
