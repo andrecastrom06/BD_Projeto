@@ -10,14 +10,18 @@
     <a href="/atendimentos/novo">+ Adicionar Atendimento</a>
     <table border="1">
         <tr>
-            <th>CPF/CNPJ Cliente</th>
+            <th>Nome Cliente</th>
             <th>Nome Funcionário Administrativo</th>
             <th>Data do Atendimento</th>
+            <th>Ações</th>
         </tr>
         <tr th:each="a : ${atendimentos}">
-            <td th:text="${a.cpfCnpjCliente}"></td>
+            <td th:text="${a.nomeCliente}"></td>
             <td th:text="${a.nomeFuncionario}"></td>
-            <td th:text="${a.dataAtendimento}"></td>      
+            <td th:text="${a.dataAtendimento}"></td>
+            <td>
+                <a th:href="@{'/atendimentos/deletar/' + ${a.cpfCliente} + '/' + ${a.idFuncionario}}">Excluir</a>
+            </td>
         </tr>        
     </table>
 </body>

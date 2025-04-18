@@ -41,4 +41,11 @@ public class AtendimentoController {
         atendimentoRepositorio.inserir(atendimento);
         return "redirect:/atendimentos";
     }
+
+    @GetMapping("/atendimentos/deletar/{cpf}/{idFuncionario}")
+    public String deletarAtendimento(@PathVariable("cpf") String cpf,
+                                    @PathVariable("idFuncionario") int idFuncionario) {
+        atendimentoRepositorio.deletar(cpf, idFuncionario);
+        return "redirect:/atendimentos";
+    }
 }

@@ -3,23 +3,25 @@ package com.davisory.davisory_bd.dto;
 import java.time.LocalDateTime;
 
 public class AtendimentoDTO {
-    private String cpfCnpjCliente;
+    private String nomeCliente;
     private String nomeFuncionario;
     private LocalDateTime dataAtendimento;
+    private String cpfCliente;
+    private Integer idFuncionario;
     public AtendimentoDTO() {}
     
-    public AtendimentoDTO(String cpfCnpjCliente, String nomeFuncionario, LocalDateTime dataAtendimento) {
-        this.cpfCnpjCliente = cpfCnpjCliente;
+    public AtendimentoDTO(String nomeCliente, String nomeFuncionario, LocalDateTime dataAtendimento) {
+        this.nomeCliente = nomeCliente;
         this.nomeFuncionario = nomeFuncionario;
         this.dataAtendimento = dataAtendimento;
     }
 
-    public String getCpfCnpjCliente() {
-        return cpfCnpjCliente;
+    public String getNomeCliente() {
+        return nomeCliente;
     }
 
-    public void setCpfCnpjCliente(String cpfCnpjCliente) {
-        this.cpfCnpjCliente = cpfCnpjCliente;
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
     }
 
     public String getNomeFuncionario() {
@@ -36,5 +38,21 @@ public class AtendimentoDTO {
 
     public void setDataAtendimento(LocalDateTime dataAtendimento) {
         this.dataAtendimento = dataAtendimento;
+    }
+
+    public String getCpfCliente() {
+        return cpfCliente;
+    }
+
+    public void setCpfCliente(String cpfCliente) {
+        this.cpfCliente = cpfCliente;
+    }
+
+    public Integer getIdFuncionario() {
+        return idFuncionario;
+    }
+
+    public void setIdFuncionario(Integer idFuncionario) {
+        this.idFuncionario = idFuncionario;
     }
 }
