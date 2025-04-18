@@ -25,4 +25,16 @@ public class MontagemRepositorio {
         }
         return lista;
     }
+
+    public void salvar(Montagem montagem) {
+        String sql = "INSERT INTO Monta (fk_Operacional_Funcionario_idFuncionario, fk_Pedido_idPedido) VALUES (?, ?)";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, montagem.getIdFuncionarioOperacional());
+            stmt.setInt(2, montagem.getIdPedido());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }    
 }

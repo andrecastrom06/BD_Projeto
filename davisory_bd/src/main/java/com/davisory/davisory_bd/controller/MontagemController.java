@@ -8,6 +8,8 @@ import com.davisory.davisory_bd.model.Montagem;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,5 +30,24 @@ public class MontagemController {
         }
         model.addAttribute("montagens", detalhados);
         return "montagens";
+    }
+
+    @GetMapping("/montagens/adicionar")
+    public String mostrarFormularioAdicionar(Model model) {
+        PedidoRepositorio pedidoRepo = new PedidoRepositorio();
+        FuncionarioRepositorio funcRepo = new FuncionarioRepositorio();
+
+        model.addAttribute("pedidos", pedidoRepo.listarPedidos());
+        model.addAttribute("funcionarios", funcRepo.listarOperacionais());
+        model.addAttribute("montagem", new Montagem());
+
+        return "form-montagem";
+    }
+
+    @PostMapping("/montagens/adicionar")
+    public String adicionar(Montagem montagem) {
+        MontagemRepositorio repo = new MontagemRepositorio();
+        repo.salvar(montagem);
+        return "redirect:/montagens";
     }
 }
