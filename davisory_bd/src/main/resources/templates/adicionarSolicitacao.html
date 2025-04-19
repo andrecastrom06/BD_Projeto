@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Solicitação</title>
+</head>
+<body>
+    <h1>Nova Solicitação</h1>
+
+    <form action="/solicitacoes/adicionar" method="post">
+        <!-- Fornecedor -->
+        <label for="fornecedor">Fornecedor:</label>
+        <select name="cnpjFornecedor" id="fornecedor" required>
+            <option value="">Selecione um fornecedor</option>
+            <th:block th:each="fornecedor : ${fornecedores}">
+                <option th:value="${fornecedor.cnpjFornecedor}" th:text="${fornecedor.nomeFornecedor}"></option>
+            </th:block>
+        </select>
+        <br><br>
+
+        <!-- Matéria-Prima -->
+        <label for="materiaPrima">Matéria-Prima:</label>
+        <select name="idMateriaPrima" id="materiaPrima" required>
+            <option value="">Selecione uma matéria-prima</option>
+            <th:block th:each="materia : ${materiasPrimas}">
+                <option th:value="${materia.idMateriaPrima}" th:text="${materia.nomeMateriaPrima}"></option>
+            </th:block>
+        </select>
+        <br><br>
+
+        <!-- Funcionário Administrativo -->
+        <label for="funcionario">Funcionário Administrativo:</label>
+        <select name="idFuncionario" id="funcionario" required>
+            <option value="">Selecione um funcionário</option>
+            <th:block th:each="adm : ${administrativos}">
+                <option th:value="${adm.idFuncionario}" th:text="${adm.nomeFuncionario}"></option>
+            </th:block>
+        </select>
+        <br><br>
+
+        <button type="submit">Salvar Solicitação</button>
+    </form>
+
+    <a href="/solicitacoes">Voltar para Lista</a>
+</body>
+</html>

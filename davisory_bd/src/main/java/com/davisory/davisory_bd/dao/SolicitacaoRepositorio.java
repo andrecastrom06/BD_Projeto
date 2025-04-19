@@ -1,6 +1,8 @@
 package com.davisory.davisory_bd.dao;
 
 import com.davisory.davisory_bd.dto.SolicitacaoDTO;
+import com.davisory.davisory_bd.model.Solicitacao;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +40,29 @@ public class SolicitacaoRepositorio {
             e.printStackTrace();
         }
         return lista;
+    }
+    public void inserir(Solicitacao solicitacao) {
+        String sql = """
+            INSERT INTO Solicita (
+                fk_Fornecedor_cnpjFornecedor, 
+                fk_MateriaPrima_idMateriaPrima, 
+                fk_Administrativo_Funcionario_idFuncionario, 
+                dataSolicitacao
+            ) VALUES (?, ?, ?, ?)
+        """;
+
+        try (Connection conn = ConexaoBD.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, solicitacao.getCnpjFornecedor());
+            stmt.setInt(2, solicitacao.getIdMateriaPrima());
+            stmt.setInt(3, solicitacao.getIdFuncionario());
+            stmt.setTimestamp(4, Timestamp.valueOf(solicitacao.getDataSolicitacao()));
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Idealmente use um logger aqui
+        }
     }
 }
