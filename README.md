@@ -34,7 +34,7 @@ Acompanhe nossa equipe para estar ciente dos nossos projetos :
 
 ## Processo de projeto
   - Caso queira mais detalhes sobre nosso processo descrito em etapas do começo até a finalização do projeto, acesse : https://docs.google.com/document/d/1RaJv51FO-OfHOLRIb1fyvZKLld-sElfNIdHY5CPsPfM/edit?usp=sharing
-  - Última atualização feita no dia 09/04/2025.
+  - Última atualização feita no dia 21/04/2025.
 
 </details>
 
