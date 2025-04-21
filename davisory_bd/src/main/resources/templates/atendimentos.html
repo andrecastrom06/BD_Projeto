@@ -7,7 +7,8 @@
 <body>
     <a href="/" class="botao-voltar">← Voltar</a> 
     <h1>Atendimentos</h1>
-    <a href="/atendimentos/novo">+ Adicionar Atendimento</a>
+    <a href="/atendimentos/novo" class="btn">+ Adicionar Atendimento</a>
+    <p></p>
     <table border="1">
         <tr>
             <th>Nome Cliente</th>
@@ -20,7 +21,7 @@
             <td th:text="${a.nomeFuncionario}"></td>
             <td th:text="${a.dataAtendimento}"></td>
             <td>
-                <a th:href="@{'/atendimentos/deletar/' + ${a.cpfCliente} + '/' + ${a.idFuncionario}}">Excluir</a>
+                <a th:href="@{'/atendimentos/deletar/' + ${a.cpfCliente} + '/' + ${a.idFuncionario}}" class="btn">Excluir</a>
             </td>
         </tr>        
     </table>

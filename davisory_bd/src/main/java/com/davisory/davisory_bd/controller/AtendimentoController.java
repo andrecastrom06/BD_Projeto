@@ -1,16 +1,21 @@
 package com.davisory.davisory_bd.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import com.davisory.davisory_bd.dao.AtendimentoRepositorio;
 import com.davisory.davisory_bd.dao.ClienteRepositorio;
 import com.davisory.davisory_bd.dao.FuncionarioRepositorio;
 import com.davisory.davisory_bd.dto.AtendimentoDTO;
 import com.davisory.davisory_bd.model.Atendimento;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Controller
 public class AtendimentoController {
@@ -32,7 +37,7 @@ public class AtendimentoController {
         model.addAttribute("atendimento", atendimento);
         model.addAttribute("clientes", clienteRepositorio.listarTodos());
         model.addAttribute("funcionarios", funcionarioRepositorio.listarAdministrativos());
-        return "atendimentos-form";
+        return "adicionaratendimento";
     }
 
     @PostMapping("/atendimentos/salvar")
