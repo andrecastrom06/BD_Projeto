@@ -8,7 +8,7 @@
     <a href="/" class="botao-voltar">← Voltar</a> 
     <h1>Solicitações</h1>
 
-    <a th:href="@{/solicitacoes/nova}" class="botao-adicionar">+ Adicionar Solicitação</a>
+    <a th:href="@{/solicitacoes/nova}" class="btn">+ Adicionar Solicitação</a>
     <table border="1">
         <tr>
             <th>Nome Fornecedor</th>
@@ -17,14 +17,15 @@
             <th>Data da Solicitação</th>
             <th>Ações</th>
         </tr>
+        <p></p>
         <tr th:each="s : ${solicitacoes}">
             <td th:text="${s.nomeFornecedor}"></td>
             <td th:text="${s.nomeMateriaPrima}"></td>
             <td th:text="${s.nomeFuncionarioAdministrativo}"></td>
             <td th:text="${s.dataSolicitacao}"></td>
             <td>
-                <a th:href="@{/solicitacoes/editar(cnpj=${s.cnpjFornecedor}, idMateria=${s.idMateriaPrima}, idFunc=${s.idFuncionario})}" class="botao-editar">Editar</a>
-                <a th:href="@{'/solicitacoes/deletar/' + ${s.cnpjFornecedor} + '/' + ${s.idMateriaPrima} + '/' + ${s.idFuncionario}}" class="botao-excluir">Excluir</a>
+                <a th:href="@{/solicitacoes/editar(cnpj=${s.cnpjFornecedor}, idMateria=${s.idMateriaPrima}, idFunc=${s.idFuncionario})}" class="btn">Editar</a>
+                <a th:href="@{'/solicitacoes/deletar/' + ${s.cnpjFornecedor} + '/' + ${s.idMateriaPrima} + '/' + ${s.idFuncionario}}" class="btn">Excluir</a>
             </td>
         </tr>        
     </table>
