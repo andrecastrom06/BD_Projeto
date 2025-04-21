@@ -2,13 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/editarmontagem.css">
     <title>Nova Solicitação</title>
 </head>
 <body>
+
+    <a href="/solicitacoes" class="botao-voltar">Voltar para Lista</a>
     <h1>Nova Solicitação</h1>
 
     <form action="/solicitacoes/adicionar" method="post">
-        <!-- Fornecedor -->
         <label for="fornecedor">Fornecedor:</label>
         <select name="cnpjFornecedor" id="fornecedor" required>
             <option value="">Selecione um fornecedor</option>
@@ -18,7 +20,6 @@
         </select>
         <br><br>
 
-        <!-- Matéria-Prima -->
         <label for="materiaPrima">Matéria-Prima:</label>
         <select name="idMateriaPrima" id="materiaPrima" required>
             <option value="">Selecione uma matéria-prima</option>
@@ -28,7 +29,6 @@
         </select>
         <br><br>
 
-        <!-- Funcionário Administrativo -->
         <label for="funcionario">Funcionário Administrativo:</label>
         <select name="idFuncionario" id="funcionario" required>
             <option value="">Selecione um funcionário</option>
@@ -41,6 +41,5 @@
         <button type="submit">Salvar Solicitação</button>
     </form>
 
-    <a href="/solicitacoes">Voltar para Lista</a>
 </body>
 </html>

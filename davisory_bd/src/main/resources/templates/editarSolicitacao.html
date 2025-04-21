@@ -2,18 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/editarSolicitacao.css">
     <title>Editar Solicitação</title>
 </head>
 <body>
+    <a href="/solicitacoes" class="botao-voltar">Voltar para Lista</a>
     <h1>Editar Solicitação</h1>
 
     <form action="/solicitacoes/editar" method="post">
-        <!-- Campos ocultos para os IDs originais -->
         <input type="hidden" name="cnpjAntigo" th:value="${solicitacao.cnpjFornecedor}">
         <input type="hidden" name="idMateriaAntiga" th:value="${solicitacao.idMateriaPrima}">
         <input type="hidden" name="idFuncAntigo" th:value="${solicitacao.idFuncionario}">
 
-        <!-- Fornecedor -->
         <label for="fornecedor">Fornecedor:</label>
         <select name="cnpjFornecedor" id="fornecedor" required>
             <option value="">Selecione um fornecedor</option>
@@ -35,7 +35,6 @@
         </select>
         <br><br>
 
-        <!-- Funcionário Administrativo -->
         <label for="funcionario">Funcionário Administrativo:</label>
         <select name="idFuncionario" id="funcionario" required>
             <option value="">Selecione um funcionário</option>
@@ -49,6 +48,5 @@
         <button type="submit">Salvar</button>
     </form>
 
-    <a href="/solicitacoes">Voltar para Lista</a>
 </body>
 </html>
