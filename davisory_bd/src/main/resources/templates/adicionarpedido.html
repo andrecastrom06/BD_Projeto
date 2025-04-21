@@ -2,45 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/adicionarPedido.css">
     <title>Adicionar Pedido</title>
-    <style>
-        form {
-            max-width: 500px;
-            margin: 40px auto;
-            padding: 30px;
-            background-color: #f9f9f9;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            font-family: sans-serif;
-        }
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-        select, input {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-        button {
-            margin-top: 20px;
-            padding: 10px 15px;
-            background-color: #3f6edd;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover {
-            background-color: #1c3ac2;
-        }
-    </style>
 </head>
 <body>
+    <a href="/" class="botao-voltar">← Voltar</a> 
     <form action="/pedidos/adicionar" method="post">
         <label for="produto">Produto:</label>
         <select id="produto" name="idProduto" required>
