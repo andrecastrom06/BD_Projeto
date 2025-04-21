@@ -64,12 +64,12 @@ public class SolicitacaoController {
 
     @GetMapping("/solicitacoes/editar")
     public String editarSolicitacaoForm(
-        @RequestParam("cnpj") String cnpj,
-        @RequestParam("idMateria") int idMateria,
-        @RequestParam("idFunc") int idFunc,
+        @RequestParam("cnpj") String cnpjFornecedor,
+        @RequestParam("idMateria") int idMateriaPrima,
+        @RequestParam("idFunc") int idFuncionario,
         Model model
     ) {
-        Solicitacao solicitacao = new SolicitacaoRepositorio().buscarPorId(cnpj, idMateria, idFunc);
+        Solicitacao solicitacao = new SolicitacaoRepositorio().buscarPorId(cnpjFornecedor, idMateriaPrima, idFuncionario);
         model.addAttribute("solicitacao", solicitacao);
         model.addAttribute("fornecedores", new FornecedorRepositorio().listar());
         model.addAttribute("materiasPrimas", new MateriaPrimaRepositorio().listar());
@@ -79,15 +79,19 @@ public class SolicitacaoController {
 
     @PostMapping("/solicitacoes/editar")
     public String salvarEdicaoSolicitacao(
+        @RequestParam("cnpjAntigo") String cnpjAntigo,
+        @RequestParam("idMateriaAntiga") int idMateriaAntiga,
+        @RequestParam("idFuncAntigo") int idFuncAntigo,
+
         @RequestParam("cnpjFornecedor") String cnpjFornecedor,
         @RequestParam("idMateriaPrima") int idMateriaPrima,
         @RequestParam("idFuncionario") int idFuncionario
     ) {
-        Solicitacao solicitacao = new SolicitacaoRepositorio().buscarPorId(cnpjFornecedor, idMateriaPrima, idFuncionario);
+        Solicitacao solicitacao = new SolicitacaoRepositorio().buscarPorId(cnpjAntigo, idMateriaAntiga, idFuncAntigo);
         solicitacao.setCnpjFornecedor(cnpjFornecedor);
         solicitacao.setIdMateriaPrima(idMateriaPrima);
         solicitacao.setIdFuncionario(idFuncionario);
-        new SolicitacaoRepositorio().atualizar(solicitacao);
+        new SolicitacaoRepositorio().atualizar(solicitacao, cnpjAntigo, idMateriaAntiga, idFuncAntigo);
         return "redirect:/solicitacoes";
     }
 }

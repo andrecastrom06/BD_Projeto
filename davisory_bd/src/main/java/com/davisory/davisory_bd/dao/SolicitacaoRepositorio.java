@@ -72,14 +72,14 @@ public class SolicitacaoRepositorio {
         }
     }
 
-    public Solicitacao buscarPorId(String cnpj, int idMateria, int idFunc) {
+    public Solicitacao buscarPorId(String cnpjFornecedor, int idMateriaPrima, int idFuncionario) {
         String sql = "SELECT * FROM Solicita WHERE fk_Fornecedor_cnpjFornecedor = ? AND fk_MateriaPrima_idMateriaPrima = ? AND fk_Administrativo_Funcionario_idFuncionario = ?";
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
     
-            stmt.setString(1, cnpj);
-            stmt.setInt(2, idMateria);
-            stmt.setInt(3, idFunc);
+            stmt.setString(1, cnpjFornecedor);
+            stmt.setInt(2, idMateriaPrima);
+            stmt.setInt(3, idFuncionario);
     
             ResultSet rs = stmt.executeQuery();
     
@@ -97,7 +97,7 @@ public class SolicitacaoRepositorio {
         return null;
     }   
     
-    public void atualizar(Solicitacao solicitacao) {
+    public void atualizar(Solicitacao solicitacao, String cnpjAntigo, int idMateriaAntiga, int idFuncAntigo) {
         String sql = """
             UPDATE Solicita
             SET fk_Fornecedor_cnpjFornecedor = ?, fk_MateriaPrima_idMateriaPrima = ?, fk_Administrativo_Funcionario_idFuncionario = ?
@@ -105,17 +105,15 @@ public class SolicitacaoRepositorio {
         """;
         try (Connection conn = ConexaoBD.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-    
             stmt.setString(1, solicitacao.getCnpjFornecedor());
             stmt.setInt(2, solicitacao.getIdMateriaPrima());
             stmt.setInt(3, solicitacao.getIdFuncionario());
-            stmt.setString(4, solicitacao.getCnpjFornecedor());
-            stmt.setInt(5, solicitacao.getIdMateriaPrima());
-            stmt.setInt(6, solicitacao.getIdFuncionario());
-    
+            stmt.setString(4, cnpjAntigo);     
+            stmt.setInt(5, idMateriaAntiga);     
+            stmt.setInt(6, idFuncAntigo);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }       
+    }         
 }
