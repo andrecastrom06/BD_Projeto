@@ -8,14 +8,18 @@ public class SolicitacaoDTO {
     private String nomeFuncionarioAdministrativo;
     private LocalDateTime dataSolicitacao;
     private String nomeFornecedor;
+    private int idMateriaPrima;
+    private int idFuncionario;
 
     public SolicitacaoDTO() {}
 
-    public SolicitacaoDTO(String nomeFornecedor, String nomeMateriaPrima, String nomeFuncionarioAdministrativo, LocalDateTime dataSolicitacao) {
+    public SolicitacaoDTO(String nomeFornecedor, String nomeMateriaPrima, String nomeFuncionarioAdministrativo, LocalDateTime dataSolicitacao, int idMateriaPrima, int idFuncionario) {
         this.nomeFornecedor = nomeFornecedor;
         this.nomeMateriaPrima = nomeMateriaPrima;
         this.nomeFuncionarioAdministrativo = nomeFuncionarioAdministrativo;
         this.dataSolicitacao = dataSolicitacao;
+        this.idMateriaPrima = idMateriaPrima;
+        this.idFuncionario = idFuncionario;
     }    
 
     public String getCnpjFornecedor() {
@@ -56,5 +60,21 @@ public class SolicitacaoDTO {
     
     public void setNomeFornecedor(String nomeFornecedor) {
         this.nomeFornecedor = nomeFornecedor;
+    }
+
+    public int getIdMateriaPrima() {
+        return idMateriaPrima;
+    }
+
+    public void setIdMateriaPrima(int idMateriaPrima) {
+        this.idMateriaPrima = idMateriaPrima;
+    }
+
+    public int getIdFuncionario() {
+        return idFuncionario;
+    }
+
+    public void setIdFuncionario(int idFuncionario) {
+        this.idFuncionario = idFuncionario;
     }
 }

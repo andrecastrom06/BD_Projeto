@@ -56,8 +56,38 @@ public class SolicitacaoController {
 
         return "redirect:/solicitacoes";
     }
+    
     @GetMapping("/solicitacoes/adicionar")
     public String handleGetInvalido() {
-        return "redirect:/solicitacoes/nova"; // Ou alguma view de erro amigável
+        return "redirect:/solicitacoes/nova";
+    }
+
+    @GetMapping("/solicitacoes/editar")
+    public String editarSolicitacaoForm(
+        @RequestParam("cnpj") String cnpj,
+        @RequestParam("idMateria") int idMateria,
+        @RequestParam("idFunc") int idFunc,
+        Model model
+    ) {
+        Solicitacao solicitacao = new SolicitacaoRepositorio().buscarPorId(cnpj, idMateria, idFunc);
+        model.addAttribute("solicitacao", solicitacao);
+        model.addAttribute("fornecedores", new FornecedorRepositorio().listar());
+        model.addAttribute("materiasPrimas", new MateriaPrimaRepositorio().listar());
+        model.addAttribute("administrativos", new FuncionarioRepositorio().listarAdministrativos());
+        return "editarSolicitacao";
+    }
+
+    @PostMapping("/solicitacoes/editar")
+    public String salvarEdicaoSolicitacao(
+        @RequestParam("cnpjFornecedor") String cnpjFornecedor,
+        @RequestParam("idMateriaPrima") int idMateriaPrima,
+        @RequestParam("idFuncionario") int idFuncionario
+    ) {
+        Solicitacao solicitacao = new SolicitacaoRepositorio().buscarPorId(cnpjFornecedor, idMateriaPrima, idFuncionario);
+        solicitacao.setCnpjFornecedor(cnpjFornecedor);
+        solicitacao.setIdMateriaPrima(idMateriaPrima);
+        solicitacao.setIdFuncionario(idFuncionario);
+        new SolicitacaoRepositorio().atualizar(solicitacao);
+        return "redirect:/solicitacoes";
     }
 }

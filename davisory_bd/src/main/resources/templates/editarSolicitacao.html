@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Solicitação</title>
+</head>
+<body>
+    <h1>Editar Solicitação</h1>
+
+    <form action="/solicitacoes/editar" method="post">
+        <!-- Campos ocultos para os IDs originais -->
+        <input type="hidden" name="originalCnpjFornecedor" th:value="${solicitacao.cnpjFornecedor}">
+        <input type="hidden" name="originalIdMateriaPrima" th:value="${solicitacao.idMateriaPrima}">
+        <input type="hidden" name="originalIdFuncionario" th:value="${solicitacao.idFuncionario}">
+
+        <!-- Fornecedor -->
+        <label for="fornecedor">Fornecedor:</label>
+        <select name="cnpjFornecedor" id="fornecedor" required>
+            <option value="">Selecione um fornecedor</option>
+            <option th:each="fornecedor : ${fornecedores}"
+                    th:value="${fornecedor.cnpjFornecedor}"
+                    th:text="${fornecedor.nomeFornecedor}"
+                    th:selected="${fornecedor.cnpjFornecedor == solicitacao.cnpjFornecedor}"></option>
+        </select>
+        <br><br>
+
+        <!-- Matéria-Prima -->
+        <label for="materiaPrima">Matéria-Prima:</label>
+        <select name="idMateriaPrima" id="materiaPrima" required>
+            <option value="">Selecione uma matéria-prima</option>
+            <option th:each="materia : ${materiasPrimas}"
+                    th:value="${materia.idMateriaPrima}"
+                    th:text="${materia.nomeMateriaPrima}"
+                    th:selected="${materia.idMateriaPrima == solicitacao.idMateriaPrima}"></option>
+        </select>
+        <br><br>
+
+        <!-- Funcionário Administrativo -->
+        <label for="funcionario">Funcionário Administrativo:</label>
+        <select name="idFuncionario" id="funcionario" required>
+            <option value="">Selecione um funcionário</option>
+            <option th:each="adm : ${administrativos}"
+                    th:value="${adm.idFuncionario}"
+                    th:text="${adm.nomeFuncionario}"
+                    th:selected="${adm.idFuncionario == solicitacao.idFuncionario}"></option>
+        </select>
+        <br><br>
+
+        <button type="submit">Salvar</button>
+    </form>
+
+    <a href="/solicitacoes">Voltar para Lista</a>
+</body>
+</html>
