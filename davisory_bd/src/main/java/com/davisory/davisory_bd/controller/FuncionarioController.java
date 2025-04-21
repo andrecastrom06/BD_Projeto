@@ -2,12 +2,14 @@ package com.davisory.davisory_bd.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.davisory.davisory_bd.dao.FuncionarioRepositorio;
 import com.davisory.davisory_bd.dto.FuncionarioComChefeDTO;
 import com.davisory.davisory_bd.model.Administrativo;
@@ -52,6 +54,12 @@ public class FuncionarioController {
         f.setCargo(cargo);
         repositorio.atualizarFuncionarioCompleto(f);
         return "redirect:/funcionarios";
+    }
+
+    @GetMapping("/funcionarios/adicionar")
+    public String mostrarFormularioAdicionar(Model model) {
+        model.addAttribute("funcionario", new Funcionario());
+        return "adicionarFuncionario";
     }
 
     @GetMapping("/chefes")
