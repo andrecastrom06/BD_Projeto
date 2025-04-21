@@ -72,7 +72,7 @@ public class ClienteController {
     public String exibirFormularioAdicao(Model model) {
         EnderecoRepositorio enderecoRepositorio = new EnderecoRepositorio();
         model.addAttribute("cliente", new Cliente());
-        model.addAttribute("enderecos", enderecoRepositorio.listar()); // lista de endereços
+        model.addAttribute("enderecos", enderecoRepositorio.listar());
         return "adicionarcliente";
     }
 }

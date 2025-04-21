@@ -1,6 +1,7 @@
 package com.davisory.davisory_bd.dao;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import com.davisory.davisory_bd.model.Administrativo;
@@ -258,5 +259,36 @@ public class FuncionarioRepositorio {
             }
         }
         return hierarquia.toString();
-    }    
+    }
+    
+    public static Funcionario acharAdministrativoPorNomeEData(String nome, LocalDate dataContratacao) {
+        String sql = """
+            SELECT f.*, a.cargoFuncionarioAdministrativo
+            FROM Funcionario f
+            JOIN Administrativo a ON f.idFuncionario = a.fk_Funcionario_idFuncionario
+            WHERE f.nomeFuncionario = ? AND f.dataContratacaoFuncionario = ?
+        """;
+
+        try (Connection conn = ConexaoBD.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, nome);
+            stmt.setDate(2, Date.valueOf(dataContratacao));
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Administrativo adm = new Administrativo();
+                    adm.setIdFuncionario(rs.getInt("idFuncionario"));
+                    adm.setNomeFuncionario(rs.getString("nomeFuncionario"));
+                    adm.setSalarioFuncionario(rs.getDouble("salarioFuncionario"));
+                    adm.setChefeFuncionario(rs.getObject("chefeFuncionario", Integer.class));
+                    adm.setEmpregado(rs.getBoolean("empregado"));
+                    adm.setCargoFuncionarioAdministrativo(rs.getString("cargoFuncionarioAdministrativo"));
+                    adm.setCargo(rs.getString("cargoFuncionarioAdministrativo"));
+                    return adm;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
