@@ -115,5 +115,18 @@ public class SolicitacaoRepositorio {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }         
+    }
+    
+    public void deletar(String cnpj, int idMateria, int idFuncionario) {
+        String sql = "DELETE FROM Solicita WHERE fk_Fornecedor_cnpjFornecedor = ? AND fk_MateriaPrima_idMateriaPrima = ? AND fk_Administrativo_Funcionario_idFuncionario = ?";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, cnpj);
+            stmt.setInt(2, idMateria);
+            stmt.setInt(3, idFuncionario);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }    
 }

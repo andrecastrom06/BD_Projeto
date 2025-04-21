@@ -23,7 +23,8 @@
             <td th:text="${s.nomeFuncionarioAdministrativo}"></td>
             <td th:text="${s.dataSolicitacao}"></td>
             <td>
-                <a th:href="@{/solicitacoes/editar(cnpj=${s.cnpjFornecedor}, idMateria=${s.idMateriaPrima}, idFunc=${s.idFuncionario})}" class="botao-editar">Editar</a>    
+                <a th:href="@{/solicitacoes/editar(cnpj=${s.cnpjFornecedor}, idMateria=${s.idMateriaPrima}, idFunc=${s.idFuncionario})}" class="botao-editar">Editar</a>
+                <a th:href="@{'/solicitacoes/deletar/' + ${s.cnpjFornecedor} + '/' + ${s.idMateriaPrima} + '/' + ${s.idFuncionario}}" class="botao-excluir">Excluir</a>
             </td>
         </tr>        
     </table>

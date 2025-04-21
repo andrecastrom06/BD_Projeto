@@ -10,6 +10,7 @@ import com.davisory.davisory_bd.model.Solicitacao;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -92,6 +93,14 @@ public class SolicitacaoController {
         solicitacao.setIdMateriaPrima(idMateriaPrima);
         solicitacao.setIdFuncionario(idFuncionario);
         new SolicitacaoRepositorio().atualizar(solicitacao, cnpjAntigo, idMateriaAntiga, idFuncAntigo);
+        return "redirect:/solicitacoes";
+    }
+
+    @GetMapping("/solicitacoes/deletar/{cnpj}/{idMateria}/{idFuncionario}")
+    public String deletarSolicitacao(@PathVariable("cnpj") String cnpj,
+                                    @PathVariable("idMateria") int idMateria,
+                                    @PathVariable("idFuncionario") int idFuncionario) {
+        new SolicitacaoRepositorio().deletar(cnpj, idMateria, idFuncionario);
         return "redirect:/solicitacoes";
     }
 }
