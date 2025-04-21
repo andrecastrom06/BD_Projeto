@@ -11,7 +11,7 @@
     <h1>Matéria-Prima</h1>
 
     <div style="margin-bottom: 20px;">
-        <a href="/materia_prima/adicionar" class="botao-adicionar">+ Adicionar Matéria-Prima</a>
+        <a href="/materia_prima/adicionar" class="btn">+ Adicionar Matéria-Prima</a>
     </div>
 
     <table border="1">
@@ -31,7 +31,7 @@
                 <td th:text="${m.codigoEntregaMateriaPrima}"></td>
                 <td th:text="${m.dataEstimadaEntregaMateriaPrima}"></td>
                 <td>
-                    <a th:href="@{'/materia_prima/editar/' + ${m.idMateriaPrima}}">Editar</a>
+                    <a th:href="@{'/materia_prima/editar/' + ${m.idMateriaPrima}}" class="btn">Editar</a>
                 </td>
             </tr>
         </tbody>

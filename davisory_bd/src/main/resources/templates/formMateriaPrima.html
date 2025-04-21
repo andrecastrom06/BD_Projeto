@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" href="/css/materiaPrima.css">
     <title>Adicionar Matéria-Prima</title>
 </head>
 <body>
+<a href="/materia_prima" class="botao-voltar">← Voltar</a>
 <h1>Nova Matéria-Prima</h1>
 <form action="/materia_prima/adicionar" method="post">
     <label>Nome:</label><input type="text" name="nomeMateriaPrima" required><br>
@@ -12,6 +14,5 @@
     <label>Data Estimada Entrega:</label><input type="date" name="dataEstimadaEntregaMateriaPrima" required><br>
     <button type="submit">Salvar</button>
 </form>
-<a href="/materia_prima">← Voltar</a>
 </body>
 </html>
