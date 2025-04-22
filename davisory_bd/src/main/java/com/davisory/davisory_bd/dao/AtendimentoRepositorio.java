@@ -67,8 +67,8 @@ public class AtendimentoRepositorio {
     public void inserir(Atendimento a) {
         String sql = "INSERT INTO Atende (fk_Cliente_cpfCnpjCliente, fk_Administrativo_Funcionario_idFuncionario, dataAtendimento) VALUES (?, ?, ?)";
         try (Connection conn = ConexaoBD.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, a.getNomeCliente());
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, a.getCpfCnpjCliente());
             stmt.setInt(2, a.getIdFuncionarioAdministrativo());
             stmt.setTimestamp(3, a.getDataAtendimento());
             stmt.executeUpdate();
