@@ -21,7 +21,7 @@
             <td th:text="${a.nomeFuncionario}"></td>
             <td th:text="${a.dataAtendimento}"></td>
             <td>
-                <a th:href="@{'/atendimentos/deletar/' + ${a.cpfCliente} + '/' + ${a.idFuncionario}}" class="btn">Excluir</a>
+                <a th:href="@{'/atendimentos/deletar/' + ${a.cpfCliente} + '/' + ${a.idFuncionario}}" class="btn_excluir">Excluir</a>
             </td>
         </tr>        
     </table>
