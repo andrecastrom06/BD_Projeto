@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import com.davisory.davisory_bd.dao.FuncionarioRepositorio;
 import com.davisory.davisory_bd.dto.LoginDTO;
 import com.davisory.davisory_bd.model.Funcionario;
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 public class LoginController {
@@ -21,7 +23,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginDTO loginDTO, Model model) {
+    public String login(@ModelAttribute LoginDTO loginDTO, HttpSession session, Model model) {
         String nome = loginDTO.getNome();
         String dataStr = loginDTO.getData_contratacao().replaceAll("/", "");
         try {
@@ -29,6 +31,7 @@ public class LoginController {
             LocalDate dataContratacao = LocalDate.parse(dataStr, formatter);
             Funcionario funcionario = FuncionarioRepositorio.acharAdministrativoPorNomeEData(nome, dataContratacao);
             if (funcionario != null) {
+                session.setAttribute("usuarioLogado", funcionario); // salvar funcionario logado na sessão
                 return "inicio";
             } else {
                 model.addAttribute("erro", "Login ou senha incorretos.");

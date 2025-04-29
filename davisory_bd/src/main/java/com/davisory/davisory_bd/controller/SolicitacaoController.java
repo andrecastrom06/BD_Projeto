@@ -5,7 +5,10 @@ import com.davisory.davisory_bd.dao.FuncionarioRepositorio;
 import com.davisory.davisory_bd.dao.MateriaPrimaRepositorio;
 import com.davisory.davisory_bd.dao.SolicitacaoRepositorio;
 import com.davisory.davisory_bd.dto.SolicitacaoDTO;
+import com.davisory.davisory_bd.model.Funcionario;
 import com.davisory.davisory_bd.model.Solicitacao;
+
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,17 +47,20 @@ public class SolicitacaoController {
     public String adicionarSolicitacao(
         @RequestParam String cnpjFornecedor,
         @RequestParam int idMateriaPrima,
-        @RequestParam int idFuncionario
+        HttpSession session
     ) {
+        Funcionario funcionarioLogado = (Funcionario) session.getAttribute("usuarioLogado");
+        if (funcionarioLogado == null) {
+            return "redirect:/"; // se não estiver logado
+        }
+
         Solicitacao solicitacao = new Solicitacao();
         solicitacao.setCnpjFornecedor(cnpjFornecedor);
         solicitacao.setIdMateriaPrima(idMateriaPrima);
-        solicitacao.setIdFuncionario(idFuncionario);
+        solicitacao.setIdFuncionario(funcionarioLogado.getIdFuncionario());
         solicitacao.setDataSolicitacao(LocalDateTime.now());
 
-        SolicitacaoRepositorio solicitacaoRepo = new SolicitacaoRepositorio();
-        solicitacaoRepo.inserir(solicitacao);
-
+        new SolicitacaoRepositorio().inserir(solicitacao);
         return "redirect:/solicitacoes";
     }
     
