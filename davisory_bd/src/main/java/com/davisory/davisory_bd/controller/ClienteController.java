@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 @Controller
@@ -26,8 +28,10 @@ public class ClienteController {
     
     @GetMapping("/clientes/editar/{cpfCnpj}")
     public String editarCliente(@PathVariable String cpfCnpj, Model model) {
-        Cliente cliente = clienteRepositorio.buscarPorCpfCnpj(cpfCnpj);
-        model.addAttribute("cliente", cliente);
+        if (!model.containsAttribute("cliente")) {
+            Cliente cliente = clienteRepositorio.buscarPorCpfCnpj(cpfCnpj);
+            model.addAttribute("cliente", cliente);
+        }
         return "editarCliente";
     }
 
@@ -37,10 +41,10 @@ public class ClienteController {
         @RequestParam String nome,
         @RequestParam String telefone,
         @RequestParam String email,
-        Model model
+        RedirectAttributes redirectAttributes
     ) {
+        Cliente cliente = new Cliente();
         try {
-            Cliente cliente = new Cliente();
             cliente.setCpfCnpjCliente(cpfCnpj); 
             cliente.setNomeCliente(nome);
             cliente.setTelefoneCliente(telefone); 
@@ -49,17 +53,15 @@ public class ClienteController {
 
             return "redirect:/clientes";  
         } catch (IllegalArgumentException e) {
-            model.addAttribute("erro", e.getMessage()); 
-            Cliente cliente = new Cliente();
+            redirectAttributes.addFlashAttribute("erro", e.getMessage());
             cliente.setCpfCnpjCliente(cpfCnpj);
             cliente.setNomeCliente(nome);
-            cliente.setTelefoneCliente(telefone);
             cliente.setEmailCliente(email);
-            model.addAttribute("cliente", cliente);
-            return "editarCliente";  
+            redirectAttributes.addFlashAttribute("cliente", cliente);
+            return "redirect:/clientes/editar/" + cpfCnpj;
         }
     }
-   
+    
     @PostMapping("/clientes/adicionar")
     public String adicionarCliente(
         @RequestParam String cpfCnpj,
@@ -68,7 +70,7 @@ public class ClienteController {
         @RequestParam String email,
         @RequestParam int idEndereco,
         Model model
-    ) {
+    ) { 
         try {
             Cliente cliente = new Cliente();
             cliente.setCpfCnpjCliente(cpfCnpj);  
