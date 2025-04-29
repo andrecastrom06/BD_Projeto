@@ -6,9 +6,8 @@ import com.davisory.davisory_bd.model.Endereco;
 import com.davisory.davisory_bd.model.Fornecedor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -33,8 +32,18 @@ public class FornecedorController {
         return "fornecedor-editar";
     }
 
-    @org.springframework.web.bind.annotation.PostMapping("/fornecedor/salvar")
-    public String salvar(Fornecedor fornecedor) {
+    @PostMapping("/fornecedor/salvar")
+    public String salvar(@ModelAttribute Fornecedor fornecedor, Model model) {
+        String telefoneOriginal = fornecedor.getTelefoneFornecedor();
+        String apenasNumeros = telefoneOriginal.replaceAll("\\D", ""); // remove () e -
+
+        if (!apenasNumeros.matches("\\d{11}")) {
+            EnderecoRepositorio enderecoRepo = new EnderecoRepositorio();
+            model.addAttribute("fornecedor", fornecedor);
+            model.addAttribute("enderecos", enderecoRepo.listar());
+            model.addAttribute("erroTelefone", "O número de telefone deve conter exatamente 11 dígitos, incluindo o DDD e o número.");
+            return "fornecedor-editar";
+        }
         FornecedorRepositorio repo = new FornecedorRepositorio();
         repo.atualizar(fornecedor);
         return "redirect:/fornecedores";
@@ -49,7 +58,18 @@ public class FornecedorController {
     }
 
     @PostMapping("/fornecedor/salvar-novo")
-    public String salvarNovo(Fornecedor fornecedor) {
+    public String salvarNovo(@ModelAttribute Fornecedor fornecedor, Model model) {
+        String telefoneOriginal = fornecedor.getTelefoneFornecedor();
+        String apenasNumeros = telefoneOriginal.replaceAll("\\D", "");
+
+        if (!apenasNumeros.matches("\\d{11}")) {
+            EnderecoRepositorio enderecoRepo = new EnderecoRepositorio();
+            model.addAttribute("fornecedor", fornecedor);
+            model.addAttribute("enderecos", enderecoRepo.listar());
+            model.addAttribute("erroTelefone", "O número de telefone deve conter exatamente 11 dígitos, incluindo o DDD e o número.");
+            return "fornecedor-form";
+        }
+
         FornecedorRepositorio repo = new FornecedorRepositorio();
         repo.inserir(fornecedor);
         return "redirect:/fornecedores";
