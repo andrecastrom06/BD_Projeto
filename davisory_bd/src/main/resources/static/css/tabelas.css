@@ -83,3 +83,9 @@ a {
     cursor: pointer;
     font-size: 14px;
 }
+
+.grafico-container {
+    width: 400px;
+    height: 250px;
+    margin: auto;
+}

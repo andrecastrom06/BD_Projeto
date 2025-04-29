@@ -45,5 +45,44 @@
             </tr>            
         </tbody>
     </table>
+
+    <div style="margin-top: 40px;">
+        <h2>Gráfico de Distribuição de Clientes por Inicial</h2>
+        <canvas id="graficoClientes" width="300" height="150"></canvas>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:inline="javascript">
+        const clientes = [[${clientes}]];
+        const contagemIniciais = {};
+    
+        clientes.forEach(c => {
+            let inicial = c.nomeCliente.charAt(0).toUpperCase();
+            contagemIniciais[inicial] = (contagemIniciais[inicial] || 0) + 1;
+        });
+    
+        const labels = Object.keys(contagemIniciais);
+        const dados = Object.values(contagemIniciais);
+    
+        const ctx = document.getElementById('graficoClientes').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Clientes por Inicial',
+                    data: dados,
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>    
 </body>
 </html>
