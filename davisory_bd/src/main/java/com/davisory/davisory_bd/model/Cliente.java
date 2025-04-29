@@ -10,10 +10,10 @@ public class Cliente {
     public Cliente() {}
 
     public Cliente(String cpfCnpjCliente, String nomeCliente, String telefoneCliente, String emailCliente) {
-        this.cpfCnpjCliente = cpfCnpjCliente;
+        setCpfCnpjCliente(cpfCnpjCliente);
         this.nomeCliente = nomeCliente;
-        this.telefoneCliente = telefoneCliente;
-        this.emailCliente = emailCliente;
+        setTelefoneCliente(telefoneCliente);
+        setEmailCliente(emailCliente);
     }
 
     public String getCpfCnpjCliente() {
@@ -21,7 +21,11 @@ public class Cliente {
     }
 
     public void setCpfCnpjCliente(String cpfCnpjCliente) {
-        this.cpfCnpjCliente = cpfCnpjCliente;
+        if (cpfCnpjCliente != null && cpfCnpjCliente.matches("\\d{11}|\\d{14}")) {
+            this.cpfCnpjCliente = cpfCnpjCliente;
+        } else {
+            throw new IllegalArgumentException("CPF/CNPJ deve conter 11 ou 14 dígitos numéricos.");
+        }
     }
 
     public String getNomeCliente() {
@@ -37,15 +41,28 @@ public class Cliente {
     }
 
     public void setTelefoneCliente(String telefoneCliente) {
-        this.telefoneCliente = telefoneCliente;
-    }
+        if (telefoneCliente != null) {
+            String telefoneLimpo = telefoneCliente.replaceAll("\\D", "");
+            if (telefoneLimpo.length() == 11) {
+                this.telefoneCliente = telefoneLimpo;
+            } else {
+                throw new IllegalArgumentException("Telefone deve conter 11 dígitos numéricos após remover formatação.");
+            }
+        } else {
+            throw new IllegalArgumentException("Telefone não pode ser nulo.");
+        }
+    }    
 
     public String getEmailCliente() {
         return emailCliente;
     }
 
     public void setEmailCliente(String emailCliente) {
-        this.emailCliente = emailCliente;
+        if (emailCliente != null && emailCliente.contains("@")) {
+            this.emailCliente = emailCliente;
+        } else {
+            throw new IllegalArgumentException("Email inválido: deve conter '@'.");
+        }
     }
 
     public Endereco getEndereco() {

@@ -9,6 +9,9 @@
 
     <div class="container">
         <h2 style="text-align:center; color:#0074D9; margin-bottom: 1.5rem;">Editar Cliente</h2>
+        <div th:if="${erro}" class="erro-mensagem" style="color: red; margin-bottom: 1rem;">
+            <p th:text="${erro}"></p>
+        </div>
         <form th:action="@{/clientes/atualizar}" method="post">
             <input type="hidden" th:value="${cliente.cpfCnpjCliente}" name="cpfCnpj"/>
 

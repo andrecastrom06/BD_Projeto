@@ -20,5 +20,11 @@ public class Atendimento {
     public void setDataAtendimento(Timestamp dataAtendimento) { this.dataAtendimento = dataAtendimento; }
 
     public String getCpfCnpjCliente() { return cpfCnpjCliente; }
-    public void setCpfCnpjCliente(String cpfCnpjCliente) { this.cpfCnpjCliente = cpfCnpjCliente; }
+    public void setCpfCnpjCliente(String cpfCnpjCliente) {
+        if (cpfCnpjCliente != null && cpfCnpjCliente.matches("\\d{11}|\\d{14}")) {
+            this.cpfCnpjCliente = cpfCnpjCliente;
+        } else {
+            throw new IllegalArgumentException("CPF/CNPJ inválido: deve conter apenas números e ter 11 (CPF) ou 14 (CNPJ) dígitos.");
+        }        
+    }    
 }

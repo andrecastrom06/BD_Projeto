@@ -36,16 +36,28 @@ public class ClienteController {
         @RequestParam String cpfCnpj,
         @RequestParam String nome,
         @RequestParam String telefone,
-        @RequestParam String email
+        @RequestParam String email,
+        Model model
     ) {
-        Cliente cliente = new Cliente();
-        cliente.setCpfCnpjCliente(cpfCnpj);
-        cliente.setNomeCliente(nome);
-        cliente.setTelefoneCliente(telefone);
-        cliente.setEmailCliente(email);
+        try {
+            Cliente cliente = new Cliente();
+            cliente.setCpfCnpjCliente(cpfCnpj); 
+            cliente.setNomeCliente(nome);
+            cliente.setTelefoneCliente(telefone); 
+            cliente.setEmailCliente(email); 
+            clienteRepositorio.atualizar(cliente);
 
-        clienteRepositorio.atualizar(cliente);
-        return "redirect:/clientes";
+            return "redirect:/clientes";  
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("erro", e.getMessage()); 
+            Cliente cliente = new Cliente();
+            cliente.setCpfCnpjCliente(cpfCnpj);
+            cliente.setNomeCliente(nome);
+            cliente.setTelefoneCliente(telefone);
+            cliente.setEmailCliente(email);
+            model.addAttribute("cliente", cliente);
+            return "editarCliente";  
+        }
     }
    
     @PostMapping("/clientes/adicionar")
@@ -54,18 +66,30 @@ public class ClienteController {
         @RequestParam String nome,
         @RequestParam String telefone,
         @RequestParam String email,
-        @RequestParam int idEndereco
+        @RequestParam int idEndereco,
+        Model model
     ) {
-        Cliente cliente = new Cliente();
-        cliente.setCpfCnpjCliente(cpfCnpj);
-        cliente.setNomeCliente(nome);
-        cliente.setTelefoneCliente(telefone);
-        cliente.setEmailCliente(email);
-        EnderecoRepositorio enderecoRepositorio = new EnderecoRepositorio();
-        Endereco endereco = enderecoRepositorio.buscarPorId(idEndereco);
-        cliente.setEndereco(endereco);
-        clienteRepositorio.inserir(cliente);
-        return "redirect:/clientes";
+        try {
+            Cliente cliente = new Cliente();
+            cliente.setCpfCnpjCliente(cpfCnpj);  
+            cliente.setNomeCliente(nome);
+            cliente.setTelefoneCliente(telefone);
+            cliente.setEmailCliente(email);
+            
+            EnderecoRepositorio enderecoRepositorio = new EnderecoRepositorio();
+            Endereco endereco = enderecoRepositorio.buscarPorId(idEndereco);
+            cliente.setEndereco(endereco);
+            
+            clienteRepositorio.inserir(cliente);
+            return "redirect:/clientes";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("erro", e.getMessage());
+            
+            EnderecoRepositorio enderecoRepositorio = new EnderecoRepositorio();
+            model.addAttribute("enderecos", enderecoRepositorio.listar());
+            
+            return "adicionarcliente";
+        }
     }
 
     @GetMapping("/clientes/adicionar")

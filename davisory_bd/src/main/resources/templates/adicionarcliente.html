@@ -9,6 +9,10 @@
 
     <a href="/clientes" class="botao-voltar">Voltar</a>
 <div class="container">
+    <h1>Adicionar Cliente</h1>
+    <div th:if="${erro}" class="erro-mensagem" style="color: red;">
+        <p th:text="${erro}"></p>
+    </div>
     <form action="/clientes/adicionar" method="post">
         <label for="cpfCnpj">CPF/CNPJ:</label>
         <input type="text" name="cpfCnpj" id="cpfCnpj" required>
