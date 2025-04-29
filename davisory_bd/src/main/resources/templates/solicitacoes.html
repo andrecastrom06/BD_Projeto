@@ -25,7 +25,7 @@
             <td th:text="${s.dataSolicitacao}"></td>
             <td>
                 <a th:href="@{/solicitacoes/editar(cnpj=${s.cnpjFornecedor}, idMateria=${s.idMateriaPrima}, idFunc=${s.idFuncionario})}" class="btn">Editar</a>
-                <a th:href="@{'/solicitacoes/deletar/' + ${s.cnpjFornecedor} + '/' + ${s.idMateriaPrima} + '/' + ${s.idFuncionario}}" class="btn_excluir">Excluir</a>
+                <a th:href="@{'/solicitacoes/deletar/' + ${s.cnpjFornecedor} + '/' + ${s.idMateriaPrima} + '/' + ${s.idFuncionario}}" class="btn_excluir" onclick="return confirm('Tem certeza que deseja excluir esta solicitação?');">Excluir</a>
             </td>
         </tr>        
     </table>

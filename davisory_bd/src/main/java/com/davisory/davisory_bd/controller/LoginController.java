@@ -23,9 +23,9 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@ModelAttribute LoginDTO loginDTO, Model model) {
         String nome = loginDTO.getNome();
-        String dataStr = loginDTO.getData_contratacao();
+        String dataStr = loginDTO.getData_contratacao().replaceAll("/", "");
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
             LocalDate dataContratacao = LocalDate.parse(dataStr, formatter);
             Funcionario funcionario = FuncionarioRepositorio.acharAdministrativoPorNomeEData(nome, dataContratacao);
             if (funcionario != null) {
