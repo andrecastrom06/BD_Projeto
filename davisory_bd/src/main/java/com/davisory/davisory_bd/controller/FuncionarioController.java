@@ -30,7 +30,7 @@ public class FuncionarioController {
     }
 
     @GetMapping("/funcionarios/editar/{id}")
-    public String editarFuncionario(@PathVariable("id") int id, Model model) {
+    public String editarFuncionario(@PathVariable int id, Model model) {
         Funcionario funcionario = repositorio.buscarPorId(id);
         model.addAttribute("funcionario", funcionario);
         return "editarFuncionario";
@@ -38,12 +38,12 @@ public class FuncionarioController {
 
     @PostMapping("/funcionarios/atualizar")
     public String atualizarFuncionario(
-        @RequestParam("id") int id,
-        @RequestParam("nome") String nome,
-        @RequestParam("salario") double salario,
-        @RequestParam(value = "chefe", required = false) Integer chefe,
-        @RequestParam("empregado") boolean empregado,
-        @RequestParam("cargo") String cargo) {
+        @RequestParam int id,
+        @RequestParam String nome,
+        @RequestParam double salario,
+        @RequestParam(required = false) Integer chefe,
+        @RequestParam boolean empregado,
+        @RequestParam String cargo) {
         Funcionario f = new Funcionario();
         f.setIdFuncionario(id);
         f.setNomeFuncionario(nome);
@@ -74,7 +74,7 @@ public class FuncionarioController {
     }
 
     @GetMapping("/funcionarios/editarChefe/{id}")
-    public String exibirFormularioEditarChefe(@PathVariable("id") int id, Model model) {
+    public String exibirFormularioEditarChefe(@PathVariable int id, Model model) {
         Funcionario funcionario = repositorio.buscarPorId(id);
         List<Funcionario> todosFuncionarios = repositorio.listarTodosFuncionarios();
         model.addAttribute("funcionario", funcionario);
@@ -84,8 +84,8 @@ public class FuncionarioController {
 
     @PostMapping("/funcionarios/editarChefe")
     public String atualizarChefe(
-        @RequestParam("funcionarioId") int funcionarioId,
-        @RequestParam(value = "chefeId", required = false) Integer chefeId) {
+        @RequestParam int funcionarioId,
+        @RequestParam(required = false) Integer chefeId) {
         Funcionario funcionario = repositorio.buscarPorId(funcionarioId);
         if (funcionario != null) {
             funcionario.setChefeFuncionario(chefeId);

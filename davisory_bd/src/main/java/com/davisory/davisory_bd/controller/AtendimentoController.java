@@ -48,8 +48,8 @@ public class AtendimentoController {
     }
 
     @GetMapping("/atendimentos/deletar/{cpf}/{idFuncionario}")
-    public String deletarAtendimento(@PathVariable("cpf") String cpf,
-                                    @PathVariable("idFuncionario") int idFuncionario) {
+    public String deletarAtendimento(@PathVariable String cpf,
+                                    @PathVariable int idFuncionario) {
         atendimentoRepositorio.deletar(cpf, idFuncionario);
         return "redirect:/atendimentos";
     }

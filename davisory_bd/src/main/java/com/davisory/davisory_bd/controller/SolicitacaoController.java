@@ -42,9 +42,9 @@ public class SolicitacaoController {
 
     @PostMapping("/solicitacoes/adicionar")
     public String adicionarSolicitacao(
-        @RequestParam("cnpjFornecedor") String cnpjFornecedor,
-        @RequestParam("idMateriaPrima") int idMateriaPrima,
-        @RequestParam("idFuncionario") int idFuncionario
+        @RequestParam String cnpjFornecedor,
+        @RequestParam int idMateriaPrima,
+        @RequestParam int idFuncionario
     ) {
         Solicitacao solicitacao = new Solicitacao();
         solicitacao.setCnpjFornecedor(cnpjFornecedor);
@@ -80,13 +80,13 @@ public class SolicitacaoController {
 
     @PostMapping("/solicitacoes/editar")
     public String salvarEdicaoSolicitacao(
-        @RequestParam("cnpjAntigo") String cnpjAntigo,
-        @RequestParam("idMateriaAntiga") int idMateriaAntiga,
-        @RequestParam("idFuncAntigo") int idFuncAntigo,
+        @RequestParam String cnpjAntigo,
+        @RequestParam int idMateriaAntiga,
+        @RequestParam int idFuncAntigo,
 
-        @RequestParam("cnpjFornecedor") String cnpjFornecedor,
-        @RequestParam("idMateriaPrima") int idMateriaPrima,
-        @RequestParam("idFuncionario") int idFuncionario
+        @RequestParam String cnpjFornecedor,
+        @RequestParam int idMateriaPrima,
+        @RequestParam int idFuncionario
     ) {
         Solicitacao solicitacao = new SolicitacaoRepositorio().buscarPorId(cnpjAntigo, idMateriaAntiga, idFuncAntigo);
         solicitacao.setCnpjFornecedor(cnpjFornecedor);
@@ -97,9 +97,9 @@ public class SolicitacaoController {
     }
 
     @GetMapping("/solicitacoes/deletar/{cnpj}/{idMateria}/{idFuncionario}")
-    public String deletarSolicitacao(@PathVariable("cnpj") String cnpj,
-                                    @PathVariable("idMateria") int idMateria,
-                                    @PathVariable("idFuncionario") int idFuncionario) {
+    public String deletarSolicitacao(@PathVariable String cnpj,
+                                    @PathVariable int idMateria,
+                                    @PathVariable int idFuncionario) {
         new SolicitacaoRepositorio().deletar(cnpj, idMateria, idFuncionario);
         return "redirect:/solicitacoes";
     }

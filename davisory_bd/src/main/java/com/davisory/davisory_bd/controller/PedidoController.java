@@ -52,12 +52,12 @@ public class PedidoController {
 
     @PostMapping("/pedidos/adicionar")
     public String adicionarPedido(
-        @RequestParam("codigoEntrega") String codigoEntrega,
-        @RequestParam("quantidade") int quantidade,
-        @RequestParam("precoUnitario") double precoUnitario,
-        @RequestParam("idProduto") int idProduto,
-        @RequestParam("idFuncionario") int idFuncionario,
-        @RequestParam("cpfCnpjCliente") String cpfCnpjCliente
+        @RequestParam String codigoEntrega,
+        @RequestParam int quantidade,
+        @RequestParam double precoUnitario,
+        @RequestParam int idProduto,
+        @RequestParam int idFuncionario,
+        @RequestParam String cpfCnpjCliente
     ) {
         Pedido pedido = new Pedido();
         pedido.setDataPedido(new Timestamp(new Date().getTime()));
@@ -72,7 +72,7 @@ public class PedidoController {
     }
 
     @GetMapping("/pedidos/editar/{id}")
-    public String editarPedido(@PathVariable("id") int id, Model model) {
+    public String editarPedido(@PathVariable int id, Model model) {
         Pedido pedido = pedidoRepositorio.buscarPorId(id);
         model.addAttribute("pedido", pedido);
         model.addAttribute("produtos", produtoRepositorio.listarProdutos());
@@ -83,13 +83,13 @@ public class PedidoController {
 
     @PostMapping("/pedidos/atualizar")
     public String atualizarPedido(
-        @RequestParam("id") int id,
-        @RequestParam("codigoEntrega") String codigoEntrega,
-        @RequestParam("quantidade") int quantidade,
-        @RequestParam("precoUnitario") double precoUnitario,
-        @RequestParam("idProduto") int idProduto,
-        @RequestParam("idFuncionario") int idFuncionario,
-        @RequestParam("cpfCnpjCliente") String cpfCnpjCliente
+        @RequestParam int id,
+        @RequestParam String codigoEntrega,
+        @RequestParam int quantidade,
+        @RequestParam double precoUnitario,
+        @RequestParam int idProduto,
+        @RequestParam int idFuncionario,
+        @RequestParam String cpfCnpjCliente
     ) {
         Pedido pedido = new Pedido();
         pedido.setIdPedido(id);

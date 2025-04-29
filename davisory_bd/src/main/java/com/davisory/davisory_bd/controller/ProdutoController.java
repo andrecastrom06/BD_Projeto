@@ -20,7 +20,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/produtos/editar/{id}")
-    public String exibirFormularioEdicao(@PathVariable("id") int id, Model model) {
+    public String exibirFormularioEdicao(@PathVariable int id, Model model) {
         Produto produto = produtoRepositorio.buscarPorId(id);
         if (produto != null) {
             model.addAttribute("produto", produto);
@@ -32,10 +32,10 @@ public class ProdutoController {
 
     @PostMapping("/produtos/atualizar")
     public String atualizarProduto(
-            @RequestParam("id") int id,
-            @RequestParam("nome") String nome,
-            @RequestParam("descricao") String descricao,
-            @RequestParam("preco") double preco,
+            @RequestParam int id,
+            @RequestParam String nome,
+            @RequestParam String descricao,
+            @RequestParam double preco,
             @RequestParam("statusProduto") boolean ativo
     ) {
         Produto produto = new Produto();
@@ -56,9 +56,9 @@ public class ProdutoController {
 
     @PostMapping("/produtos/adicionar")
     public String adicionarProduto(
-        @RequestParam("nomeProduto") String nomeProduto,
-        @RequestParam("descricaoProduto") String descricaoProduto,
-        @RequestParam("precoProduto") double precoProduto
+        @RequestParam String nomeProduto,
+        @RequestParam String descricaoProduto,
+        @RequestParam double precoProduto
     ) {
         Produto produto = new Produto();
         produto.setNomeProduto(nomeProduto);

@@ -25,7 +25,7 @@ public class ClienteController {
     }
     
     @GetMapping("/clientes/editar/{cpfCnpj}")
-    public String editarCliente(@PathVariable("cpfCnpj") String cpfCnpj, Model model) {
+    public String editarCliente(@PathVariable String cpfCnpj, Model model) {
         Cliente cliente = clienteRepositorio.buscarPorCpfCnpj(cpfCnpj);
         model.addAttribute("cliente", cliente);
         return "editarCliente";
@@ -33,10 +33,10 @@ public class ClienteController {
 
     @PostMapping("/clientes/atualizar")
     public String atualizarCliente(
-        @RequestParam("cpfCnpj") String cpfCnpj,
-        @RequestParam("nome") String nome,
-        @RequestParam("telefone") String telefone,
-        @RequestParam("email") String email
+        @RequestParam String cpfCnpj,
+        @RequestParam String nome,
+        @RequestParam String telefone,
+        @RequestParam String email
     ) {
         Cliente cliente = new Cliente();
         cliente.setCpfCnpjCliente(cpfCnpj);
@@ -50,11 +50,11 @@ public class ClienteController {
    
     @PostMapping("/clientes/adicionar")
     public String adicionarCliente(
-        @RequestParam("cpfCnpj") String cpfCnpj,
-        @RequestParam("nome") String nome,
-        @RequestParam("telefone") String telefone,
-        @RequestParam("email") String email,
-        @RequestParam("idEndereco") int idEndereco
+        @RequestParam String cpfCnpj,
+        @RequestParam String nome,
+        @RequestParam String telefone,
+        @RequestParam String email,
+        @RequestParam int idEndereco
     ) {
         Cliente cliente = new Cliente();
         cliente.setCpfCnpjCliente(cpfCnpj);

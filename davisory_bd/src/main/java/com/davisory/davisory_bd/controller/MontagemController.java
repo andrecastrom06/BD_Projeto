@@ -54,8 +54,8 @@ public class MontagemController {
     }
 
     @GetMapping("/montagens/editar")
-    public String editarMontagem(@RequestParam("idPedido") int idPedido,
-                                @RequestParam("idFuncionario") int idFuncionario,
+    public String editarMontagem(@RequestParam int idPedido,
+                                @RequestParam int idFuncionario,
                                 Model model) {
         MontagemRepositorio montagemRepo = new MontagemRepositorio();
         Montagem montagem = montagemRepo.buscarPorIds(idFuncionario, idPedido);
