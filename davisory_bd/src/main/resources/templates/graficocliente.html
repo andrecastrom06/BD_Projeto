@@ -1,51 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lista de Clientes</title>
+    <title>Clientes por Bairro</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="topo">
         <a href="/clientes" class="botao-voltar">← Voltar</a> 
     </div>
 
+    <h1>Distribuição de Clientes por Bairro</h1>
+
     <div style="margin-top: 40px;">
-        <h2>Gráfico de Distribuição de Clientes por Inicial</h2>
-        <canvas id="graficoClientes" width="300" height="150"></canvas>
+        <canvas id="graficoBairros" width="600" height="300"></canvas>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script th:inline="javascript">
         const clientes = [[${clientes}]];
-        const contagemIniciais = {};
-    
+        const contagemBairros = {};
+
         clientes.forEach(c => {
-            let inicial = c.nomeCliente.charAt(0).toUpperCase();
-            contagemIniciais[inicial] = (contagemIniciais[inicial] || 0) + 1;
+            if (c.endereco && c.endereco.bairro) {
+                const bairro = c.endereco.bairro;
+                contagemBairros[bairro] = (contagemBairros[bairro] || 0) + 1;
+            }
         });
-    
-        const labels = Object.keys(contagemIniciais);
-        const dados = Object.values(contagemIniciais);
-    
-        const ctx = document.getElementById('graficoClientes').getContext('2d');
+
+        const labels = Object.keys(contagemBairros);
+        const dados = Object.values(contagemBairros);
+
+        const ctx = document.getElementById('graficoBairros').getContext('2d');
         new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Clientes por Inicial',
+                    label: 'Clientes por Bairro',
                     data: dados,
-                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(0, 123, 255, 0.6)',
+                    borderColor: 'rgba(0, 86, 179, 1)',
                     borderWidth: 1
                 }]
             },
             options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true },
+                    title: {
+                        display: true,
+                        text: 'Número de Clientes por Bairro'
+                    }
+                },
                 scales: {
-                    y: { beginAtZero: true }
+                    y: {
+                        beginAtZero: true,
+                        ticks: { precision: 0 }
+                    }
                 }
             }
         });
-    </script>    
+    </script>
 </body>
 </html>
