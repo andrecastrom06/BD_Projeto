@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.davisory.davisory_bd.dao.ClienteRepositorio;
 import com.davisory.davisory_bd.dao.EnderecoRepositorio;
 import com.davisory.davisory_bd.model.Cliente;
@@ -102,5 +101,12 @@ public class ClienteController {
         model.addAttribute("cliente", new Cliente());
         model.addAttribute("enderecos", enderecoRepositorio.listar());
         return "adicionarcliente";
+    }
+
+    @GetMapping("/clientes/grafico")
+    public String exibirGraficoClientes(Model model) {
+        List<Cliente> clientes = clienteRepositorio.listarTodos();
+        model.addAttribute("clientes", clientes);
+        return "graficocliente";
     }
 }
