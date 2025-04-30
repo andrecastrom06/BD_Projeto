@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Davisory - Sistema de Gestão</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/inicio.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
 </head>
 <body>
 
@@ -12,13 +12,16 @@
     <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Davisory - Sistema de Gestão de Óticas</h1>
 </header>
 
-<main>
+<main>  
     <form action="/login" method="post">
+        <div th:if="${erro}" class="mensagem-erro">
+            <p th:text="${erro}"></p>
+        </div>
         <label for="login">Login:</label>
         <input type="text" id="login" name="nome" required>
 
         <label for="senha">Senha:</label>
-        <input type="text" id="senha" name="data_contratacao" required>
+        <input type="password" id="senha" name="data_contratacao" required>
 
         <button type="submit">Entrar</button>
     </form>

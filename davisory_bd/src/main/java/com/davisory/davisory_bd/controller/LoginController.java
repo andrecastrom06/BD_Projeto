@@ -41,7 +41,7 @@ public class LoginController {
                 return "login";
             }
         } catch (DateTimeParseException e) {
-            model.addAttribute("erro", "Senha inválida.");
+            model.addAttribute("erro", "Login / senha inválida.");
             return "login";
         }
     }
