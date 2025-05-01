@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Davisory - Sistema de Gestão</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/paginaLogin.css}">
 </head>
 <body>
 
@@ -21,10 +21,25 @@
         <input type="text" id="login" name="nome" required>
 
         <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="data_contratacao" required>
+        <div style="position: relative;">
+            <input type="password" id="senha" name="data_contratacao" required>
+            <span onclick="toggleSenha()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+                👀
+            </span>
+        </div>        
 
         <button type="submit">Entrar</button>
     </form>
 </main>
-
 </body>
+
+<script>
+    function toggleSenha() {
+        const input = document.getElementById('senha');
+        if (input.type === 'password') {
+            input.type = 'text';
+        } else {
+            input.type = 'password';
+        }
+    }
+</script>
