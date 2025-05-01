@@ -1,7 +1,9 @@
 package com.davisory.davisory_bd.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -99,5 +101,24 @@ public class FuncionarioController {
         List<Funcionario> funcionarios = repositorio.listarTodosFuncionarios();
         model.addAttribute("funcionarios", funcionarios);
         return "graficosalarios";
+    }
+
+    @GetMapping("/funcionarios/grafico-chefe")
+    public String graficoSubordinados(Model model) {
+        List<Funcionario> todos = repositorio.listarTodosFuncionarios();
+        Map<String, Integer> subordinadosPorChefe = new HashMap<>();
+
+        for (Funcionario chefe : todos) {
+            long count = todos.stream()
+                .filter(f -> f.getChefeFuncionario() != null && f.getChefeFuncionario().equals(chefe.getIdFuncionario()))
+                .count();
+
+            if (count > 0) {
+                subordinadosPorChefe.put(chefe.getNomeFuncionario(), (int) count);
+            }
+        }
+
+        model.addAttribute("subordinados", subordinadosPorChefe);
+        return "grafico-subordinados";
     }
 }

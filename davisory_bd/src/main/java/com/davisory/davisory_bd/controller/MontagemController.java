@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MontagemController {
@@ -79,5 +81,22 @@ public class MontagemController {
         MontagemRepositorio repo = new MontagemRepositorio();
         repo.atualizar(montagem);
         return "redirect:/montagens";
+    }
+
+    @GetMapping("/montagens/grafico")
+    public String graficoMontagensPorFuncionario(Model model) {
+        MontagemRepositorio montagemRepo = new MontagemRepositorio();
+        FuncionarioRepositorio funcRepo = new FuncionarioRepositorio();
+        List<Montagem> montagens = montagemRepo.listar();
+        Map<String, Integer> contagemPorFuncionario = new HashMap<>();
+        for (Montagem m : montagens) {
+            var funcionario = funcRepo.buscarPorId(m.getIdFuncionarioOperacional());
+            if (funcionario != null) {
+                String nome = funcionario.getNomeFuncionario();
+                contagemPorFuncionario.put(nome, contagemPorFuncionario.getOrDefault(nome, 0) + 1);
+            }
+        }
+        model.addAttribute("contagemFuncionarios", contagemPorFuncionario);
+        return "grafico-montagens-funcionario";
     }
 }

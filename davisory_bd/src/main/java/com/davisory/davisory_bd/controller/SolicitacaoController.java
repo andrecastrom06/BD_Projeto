@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class SolicitacaoController {
@@ -108,5 +110,21 @@ public class SolicitacaoController {
                                     @PathVariable int idFuncionario) {
         new SolicitacaoRepositorio().deletar(cnpj, idMateria, idFuncionario);
         return "redirect:/solicitacoes";
+    }
+
+    @GetMapping("/solicitacoes/grafico")
+    public String graficoSolicitacoesPorFuncionario(Model model) {
+        SolicitacaoRepositorio repo = new SolicitacaoRepositorio();
+        List<SolicitacaoDTO> solicitacoes = repo.listarSolicitacoesComNomes();
+
+        Map<String, Integer> contagemPorFuncionario = new HashMap<>();
+
+        for (SolicitacaoDTO s : solicitacoes) {
+            String nome = s.getNomeFuncionarioAdministrativo();
+            contagemPorFuncionario.put(nome, contagemPorFuncionario.getOrDefault(nome, 0) + 1);
+        }
+
+        model.addAttribute("contagemFuncionarios", contagemPorFuncionario);
+        return "grafico-solicitacoes-funcionario";
     }
 }

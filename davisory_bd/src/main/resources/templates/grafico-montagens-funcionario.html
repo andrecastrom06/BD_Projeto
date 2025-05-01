@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gráfico de Montagens por Funcionário</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <a href="/montagens" class="botao-voltar">← Voltar</a>
+    <h1>Montagens por Funcionário</h1>
+
+    <canvas id="graficoMontagens" width="800" height="400"></canvas>
+
+    <script th:inline="javascript">
+        const dados = [[${contagemFuncionarios}]];
+        const nomes = Object.keys(dados);
+        const quantidades = Object.values(dados);
+
+        const ctx = document.getElementById('graficoMontagens').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: nomes,
+                datasets: [{
+                    label: 'Quantidade de Montagens',
+                    data: quantidades,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Montagens por Funcionário'
+                    },
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { precision: 0 }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

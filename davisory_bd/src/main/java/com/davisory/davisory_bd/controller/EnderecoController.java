@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class EnderecoController {
@@ -53,5 +55,19 @@ public class EnderecoController {
         Endereco endereco = repo.buscarPorId(id);
         model.addAttribute("endereco", endereco);
         return "endereco-detalhe";
+    }
+
+    @GetMapping("/enderecos/grafico")
+    public String graficoBairros(Model model) {
+        EnderecoRepositorio repo = new EnderecoRepositorio();
+        List<Endereco> enderecos = repo.listar();
+
+        Map<String, Long> contagemPorBairro = enderecos.stream()
+            .collect(Collectors.groupingBy(
+                Endereco::getBairro, Collectors.counting()
+            ));
+
+        model.addAttribute("bairros", contagemPorBairro);
+        return "grafico-bairros";
     }
 }
