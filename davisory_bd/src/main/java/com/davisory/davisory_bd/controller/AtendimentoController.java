@@ -2,7 +2,9 @@ package com.davisory.davisory_bd.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,5 +54,20 @@ public class AtendimentoController {
                                     @PathVariable int idFuncionario) {
         atendimentoRepositorio.deletar(cpf, idFuncionario);
         return "redirect:/atendimentos";
+    }
+
+    @GetMapping("/atendimentos/grafico")
+    public String graficoAtendimentosPorFuncionario(Model model) {
+        List<AtendimentoDTO> atendimentos = atendimentoRepositorio.listarAtendimentosComFuncionario();
+
+        Map<String, Integer> contagemPorFuncionario = new HashMap<>();
+
+        for (AtendimentoDTO a : atendimentos) {
+            String nomeFuncionario = a.getNomeFuncionario();
+            contagemPorFuncionario.put(nomeFuncionario, contagemPorFuncionario.getOrDefault(nomeFuncionario, 0) + 1);
+        }
+
+        model.addAttribute("contagemFuncionarios", contagemPorFuncionario);
+        return "grafico-atendimentos-funcionario";
     }
 }

@@ -9,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MateriaPrimaController {
@@ -55,5 +58,21 @@ public class MateriaPrimaController {
         MateriaPrimaRepositorio repo = new MateriaPrimaRepositorio();
         repo.atualizar(materia);
         return "redirect:/materia_prima";
+    }
+
+    @GetMapping("/materia_prima/grafico")
+    public String graficoPorValor(Model model) {
+        MateriaPrimaRepositorio repo = new MateriaPrimaRepositorio();
+        List<MateriaPrima> materias = repo.listar();
+
+        Map<Double, Integer> contagemPorValor = new HashMap<>();
+
+        for (MateriaPrima m : materias) {
+            double valor = m.getValorMateriaPrima();
+            contagemPorValor.put(valor, contagemPorValor.getOrDefault(valor, 0) + 1);
+        }
+
+        model.addAttribute("valoresAgrupados", contagemPorValor);
+        return "grafico-valores-materia";
     }
 }

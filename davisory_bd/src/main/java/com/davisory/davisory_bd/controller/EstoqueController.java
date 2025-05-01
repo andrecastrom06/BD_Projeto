@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class EstoqueController {
@@ -78,5 +80,18 @@ public class EstoqueController {
         EstoqueProdutoRepositorio repo = new EstoqueProdutoRepositorio();
         repo.atualizar(estoque);
         return "redirect:/estoque";
+    }
+
+    @GetMapping("/estoque/grafico")
+    public String exibirGraficoQuantidadeMateriaPrima(Model model) {
+        EstoqueMateriaPrimaRepositorio estoqueMateriaRepo = new EstoqueMateriaPrimaRepositorio();
+        List<EstoqueMateriaPrima> estoqueMateriaList = estoqueMateriaRepo.listar();
+        Map<Integer, Integer> quantidadeRepetida = new HashMap<>();
+        for (EstoqueMateriaPrima estoque : estoqueMateriaList) {
+            int quantidade = estoque.getQuantidadeMateriaPrima();
+            quantidadeRepetida.put(quantidade, quantidadeRepetida.getOrDefault(quantidade, 0) + 1);
+        }
+        model.addAttribute("quantidadeRepetida", quantidadeRepetida);
+        return "graficoQuantidadeMateriaPrima";
     }
 }

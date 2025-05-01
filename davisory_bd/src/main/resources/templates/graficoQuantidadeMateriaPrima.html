@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gráfico de Quantidade de Matéria-Prima</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <a href="/estoque" class="botao-voltar">← Voltar</a>
+    <h1>Quantidade de Matéria-Prima no Estoque</h1>
+    <p>Gráfico de quantas vezes uma quantidade de estoque se repete.</p>
+
+    <div style="margin-top: 40px;">
+        <canvas id="graficoQuantidade" width="600" height="300"></canvas>
+    </div>
+
+    <script th:inline="javascript">
+        const quantidadeRepetida = [[${quantidadeRepetida}]];
+        const labels = Object.keys(quantidadeRepetida);  
+        const dados = Object.values(quantidadeRepetida); 
+
+        const ctx = document.getElementById('graficoQuantidade').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Número de Vezes que a Quantidade Aparece',
+                    data: dados,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true },
+                    title: {
+                        display: true,
+                        text: 'Quantidade de Itens no Estoque (Repetições)'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { precision: 0 }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gráfico de Matérias-Primas por Valor</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <a href="/materia_prima" class="botao-voltar">← Voltar</a>
+    <h1>Matérias-Primas por Valor</h1>
+    <canvas id="graficoValor" width="600" height="400"></canvas>
+
+    <script th:inline="javascript">
+        const dados = [[${valoresAgrupados}]];
+        const valores = Object.keys(dados);
+        const quantidades = Object.values(dados);
+
+        const ctx = document.getElementById('graficoValor').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: valores,
+                datasets: [{
+                    label: 'Quantidade de Matérias-Primas',
+                    data: quantidades,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Quantidade de Matérias-Primas por Valor'
+                    },
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { precision: 0 }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
