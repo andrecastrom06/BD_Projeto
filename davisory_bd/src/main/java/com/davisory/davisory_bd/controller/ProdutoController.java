@@ -67,4 +67,10 @@ public class ProdutoController {
         produtoRepositorio.inserirProduto(produto);
         return "redirect:/produtos";
     }
+    @GetMapping("/produtos/grafico")
+    public String exibirGraficoPrecos(Model model) {
+        List<Produto> produtos = produtoRepositorio.listarProdutos();
+        model.addAttribute("produtos", produtos);
+        return "graficoprecos";
+    }
 }

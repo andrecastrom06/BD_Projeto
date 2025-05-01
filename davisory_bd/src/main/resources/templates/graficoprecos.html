@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Distribuição de Preços dos Produtos</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <a href="/produtos" class="botao-voltar">← Voltar</a> 
+    <h1>Distribuição de Preços dos Produtos</h1>
+
+    <div style="margin-top: 40px;">
+        <canvas id="graficoPrecos" width="600" height="300"></canvas>
+    </div>
+
+    <script th:inline="javascript">
+        const produtos = [[${produtos}]]; 
+        const contagemPrecos = {};
+
+        produtos.forEach(p => {
+            const preco = p.precoProduto;
+            contagemPrecos[preco] = (contagemPrecos[preco] || 0) + 1;
+        });
+
+        const labels = Object.keys(contagemPrecos); 
+        const dados = Object.values(contagemPrecos);
+
+        const ctx = document.getElementById('graficoPrecos').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Produtos por Preço',
+                    data: dados,
+                    backgroundColor: 'rgba(0, 123, 255, 0.6)',
+                    borderColor: 'rgba(0, 86, 179, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true },
+                    title: {
+                        display: true,
+                        text: 'Número de Produtos por Preço'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { precision: 0 }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

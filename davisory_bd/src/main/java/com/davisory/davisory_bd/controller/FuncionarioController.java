@@ -93,4 +93,11 @@ public class FuncionarioController {
         }
         return "redirect:/chefes";
     }
+
+    @GetMapping("/funcionarios/grafico")
+    public String exibirGraficoSalarios(Model model) {
+        List<Funcionario> funcionarios = repositorio.listarTodosFuncionarios();
+        model.addAttribute("funcionarios", funcionarios);
+        return "graficosalarios";
+    }
 }
