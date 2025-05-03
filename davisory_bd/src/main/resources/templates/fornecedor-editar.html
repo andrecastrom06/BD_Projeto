@@ -19,14 +19,12 @@
             <input type="text" id="nome" name="nomeFornecedor" th:value="${fornecedor.nomeFornecedor}" required />
 
             <label for="telefone">Telefone:</label>
-            <input type="text" id="telefone" name="telefoneFornecedor"
-            th:value="${fornecedor.telefoneFornecedor}"
-            pattern=".{14,}"  <!-- opcional, mas evita 5 dígitos -->
-            Digite o telefone no formato (DDD) 9XXXX-XXXX"
+            <input type="text" id="telefone" name="telefoneFornecedor" th:value="${fornecedor.telefoneFornecedor}" required />
             <p th:if="${erroTelefone}" style="color: red;" th:text="${erroTelefone}"></p>
 
             <label for="email">Email:</label>
             <input type="email" id="email" name="emailFornecedor" th:value="${fornecedor.emailFornecedor}" required />
+            <p th:if="${erroEmail}" style="color: red;" th:text="${erroEmail}"></p>
 
             <label for="endereco">Endereço:</label>
             <select id="endereco" name="fkEnderecoId" required>

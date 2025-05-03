@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="/css/fornecedor.css">
 <head>
     <title>Novo Fornecedor</title>
+    <link rel="stylesheet" href="/css/fornecedor.css">
 </head>
 <body>
     <a href="/fornecedores" class="botao-voltar">← Voltar</a>
     <h1>Cadastrar Novo Fornecedor</h1>
     <form th:action="@{/fornecedor/salvar-novo}" th:object="${fornecedor}" method="post">
+        
         <label>CNPJ:</label>
         <input type="text" th:field="*{cnpjFornecedor}" required/><br/>
+        <p th:if="${erroCnpj}" style="color: red;">[[${erroCnpj}]]</p>
 
         <label>Nome:</label>
         <input type="text" th:field="*{nomeFornecedor}" required/><br/>
 
         <label>Telefone:</label>
         <input type="text" th:field="*{telefoneFornecedor}" required/><br/>
+        <p th:if="${erroTelefone}" style="color: red;">[[${erroTelefone}]]</p>
 
         <label>Email:</label>
         <input type="email" th:field="*{emailFornecedor}" required/><br/>
+        <p th:if="${erroEmail}" style="color: red;">[[${erroEmail}]]</p>
 
         <label>Endereço:</label>
         <select th:field="*{fkEnderecoId}" required>
