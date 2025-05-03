@@ -28,7 +28,7 @@
             <td th:text="${produto.nomeProduto}"></td>
             <td th:text="${produto.descricaoProduto}"></td>
             <td th:text="${produto.precoProduto}"></td>
-            <td th:text="${produto.ativo ? 'Ativo' : 'Inativo'}"></td>
+            <td th:text="${produto.ativo ? 'Ativo' : 'Inativo'}" th:class="${produto.ativo ? 'status-ativo' : 'status-inativo'}"></td>
             <td>
                 <a class="btn" th:href="@{/produtos/editar/{id}(id=${produto.idProduto})}">Editar</a>
             </td>

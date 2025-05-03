@@ -3,34 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Adicionar Atendimento</title>
+    <link rel="stylesheet" th:href="@{/css/adicionaratendimento.css}">
 </head>
 <body>
-    <a href="/atendimentos">← Voltar</a>
-    <h1>Adicionar Atendimento</h1>
+    <div class="topo">
+        <a href="/atendimentos" class="botao-voltar">← Voltar</a>
+    </div>
 
-    <form th:action="@{/atendimentos/salvar}" th:object="${atendimento}" method="post">
+    <main>
+        <h1>Adicionar Atendimento</h1>
 
-        <label for="cliente">Cliente:</label>
-        <select id="cliente" th:field="*{cpfCnpjCliente}" required>
-            <option value="">Selecione um cliente</option>
-            <option th:each="c : ${clientes}"
-                    th:value="${c.cpfCnpjCliente}"
-                    th:text="|${c.nomeCliente} (${c.cpfCnpjCliente})|">
-            </option>
-        </select>
-        <br/>
+        <form th:action="@{/atendimentos/salvar}" th:object="${atendimento}" method="post">
 
-        <label for="funcionario">Funcionário Administrativo:</label>
-        <select id="funcionario" th:field="*{idFuncionarioAdministrativo}" required>
-            <option value="">Selecione um funcionário</option>
-            <option th:each="f : ${funcionarios}"
-                    th:value="${f.idFuncionario}"
-                    th:text="${f.nomeFuncionario}">
-            </option>
-        </select>
-        <br/>
+            <label for="cliente">Cliente:</label>
+            <select id="cliente" th:field="*{cpfCnpjCliente}" required>
+                <option value="">Selecione um cliente</option>
+                <option th:each="c : ${clientes}"
+                        th:value="${c.cpfCnpjCliente}"
+                        th:text="|${c.nomeCliente} (${c.cpfCnpjCliente})|">
+                </option>
+            </select>
 
-        <button type="submit">Salvar</button>
-    </form>
+            <label for="funcionario">Funcionário Administrativo:</label>
+            <select id="funcionario" th:field="*{idFuncionarioAdministrativo}" required>
+                <option value="">Selecione um funcionário</option>
+                <option th:each="f : ${funcionarios}"
+                        th:value="${f.idFuncionario}"
+                        th:text="${f.nomeFuncionario}">
+                </option>
+            </select>
+
+            <button type="submit">Salvar</button>
+        </form>
+    </main>
 </body>
 </html>
