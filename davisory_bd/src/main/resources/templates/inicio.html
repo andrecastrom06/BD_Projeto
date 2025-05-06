@@ -5,94 +5,44 @@
     <title>Davisory - Sistema de Gestão</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/css/inicio.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
-<header>
-    <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Davisory - Sistema de Gestão de Óticas</h1>
-</header>
-
-<main>
-    <section>
-        <h2 style="margin-bottom: 1.5rem;">Módulos Disponíveis</h2>
-        <div class="card-grid">
-            <a href="/clientes" style="text-decoration: none;">
-                <div class="card">
-                    <h3>Clientes</h3>
-                    <p>Gerencie informações dos clientes, endereços e contatos.</p>
-                </div>
-            </a>            
-            <a href="/funcionarios" style="text-decoration: none;">
-                <div class="card">
-                    <h3>Funcionários</h3>
-                    <p>Visualize e administre funcionários operacionais e administrativos.</p>
-                </div>
-            </a>
-            <a href="/produtos" style="text-decoration: none;">            
-                <div class="card">
-                    <h3>Produtos</h3>
-                    <p>Consulte e atualize o catálogo de óculos disponíveis para venda.</p>
-                </div>
-            </a>
-            <a href="/pedidos" style="text-decoration: none;">
-                <div class="card">
-                    <h3>Pedidos</h3>
-                    <p>Controle os pedidos realizados pelos clientes e os funcionários responsáveis.</p>
-                </div>
-            </a>
-            <a href="/estoque" style="text-decoration: none;">
-                <div class="card">
-                    <h3>Estoques</h3>
-                    <p>Acompanhe o estoque de matéria prima e de produto em tempo real.</p>
-                </div>
-            </a>
-            <a href="/fornecedores" style="text-decoration: none;">
-                <div class="card">
-                    <h3>Fornecedores</h3>
-                    <p>Gerencie os fornecedores e as solicitações de matéria-prima.</p>
-                </div>
-            </a>
-            <a href="/materia_prima" style="text-decoration: none;">
-                <div class="card">
-                    <h3>Matéria Prima</h3>
-                    <p>Gerencie matérias-primas utilizadas na produção dos óculos.</p>
-                </div>
-            </a>
-            <a href="/atendimentos" style="text-decoration: none;">
-                <div class="card">
-                    <h3>Atendimentos</h3>
-                    <p>Acompanhe os registros de atendimento feitos pelos funcionários administrativos.</p>
-                </div>
-            </a>
-            <a href="/solicitacoes" style="text-decoration: none;">
-                <div class="card">
-                    <h3>Solicitações</h3>
-                    <p>Visualize e registre solicitações de matéria-prima para os fornecedores.</p>
-                </div>
-            </a>
-            <a href="/montagens" style="text-decoration: none;">
-                <div class="card">
-                    <h3>Montagem</h3>
-                    <p>Controle a montagem dos pedidos realizada pelos operacionais.</p>
-                </div>
-            </a>
-            <a href="/chefes" style="text-decoration: none;">
-                <div class="card">
-                    <h3>Hierarquia de Chefia</h3>
-                    <p>Visualize a hierarquia entre os funcionários da empresa.</p>
-                </div>
-            </a>
-            <a href="/enderecos" style="text-decoration: none;">
-                <div class="card">
-                    <h3>Endereços</h3>
-                    <p>Controle os endereços dos clientes ou fornecedores.</p>
-                </div>
-            </a>
+<div class="container">
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>Davisory</h2>
+            <p>Sistema de Gestão</p>
         </div>
-    </section>
-</main>
+        <nav class="nav">
+            <a href="/clientes"><i class="fas fa-user"></i> Clientes</a>
+            <a href="/funcionarios"><i class="fas fa-users"></i> Funcionários</a>
+            <a href="/produtos"><i class="fas fa-glasses"></i> Produtos</a>
+            <a href="/pedidos"><i class="fas fa-shopping-cart"></i> Pedidos</a>
+            <a href="/estoque"><i class="fas fa-boxes"></i> Estoques</a>
+            <a href="/fornecedores"><i class="fas fa-truck"></i> Fornecedores</a>
+            <a href="/materia_prima"><i class="fas fa-cubes"></i> Matéria Prima</a>
+            <a href="/atendimentos"><i class="fas fa-headset"></i> Atendimentos</a>
+            <a href="/solicitacoes"><i class="fas fa-file-alt"></i> Solicitações</a>
+            <a href="/montagens"><i class="fas fa-tools"></i> Montagem</a>
+            <a href="/chefes"><i class="fas fa-sitemap"></i> Hierarquia</a>
+            <a href="/enderecos"><i class="fas fa-map-marker-alt"></i> Endereços</a>
+        </nav>
+    </aside>
 
-<footer>
+    <main class="content">
+        <header class="main-header">
+            <h1>Bem-vindo ao Sistema de Gestão Davisory</h1>
+        </header>
+        <section class="dashboard">
+            <h2>Módulos Disponíveis</h2>
+            <p>Escolha um módulo na barra lateral para começar.</p>
+        </section>
+    </main>
+</div>
+
+<footer class="footer">
     &copy; 2025 Davisory. Todos os direitos reservados.
 </footer>
 
