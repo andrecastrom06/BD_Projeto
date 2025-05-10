@@ -4,63 +4,140 @@
     <meta charset="UTF-8">
     <title>Lista de Funcionários</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
+    <style>
+        .layout {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 220px;
+            min-height: 100vh;
+            background-color: #0d47a1;
+            padding: 1rem;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .conteudo {
+            margin-left: 240px;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        .btn {
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .status-ativo {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-inativo {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-<a href="/inicio" class="botao-voltar">← Voltar</a> 
+<div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>Davisory</h2>
+            <p>Sistema de Gestão</p>
+        </div>
+        <nav class="nav">
+            <a href="/clientes"><i class="fas fa-user"></i> Clientes</a>
+            <a href="/funcionarios"><i class="fas fa-users"></i> Funcionários</a>
+            <a href="/produtos"><i class="fas fa-glasses"></i> Produtos</a>
+            <a href="/pedidos"><i class="fas fa-shopping-cart"></i> Pedidos</a>
+            <a href="/estoque"><i class="fas fa-boxes"></i> Estoques</a>
+            <a href="/fornecedores"><i class="fas fa-truck"></i> Fornecedores</a>
+            <a href="/materia_prima"><i class="fas fa-cubes"></i> Matéria Prima</a>
+            <a href="/atendimentos"><i class="fas fa-headset"></i> Atendimentos</a>
+            <a href="/solicitacoes"><i class="fas fa-file-alt"></i> Solicitações</a>
+            <a href="/montagens"><i class="fas fa-tools"></i> Montagem</a>
+            <a href="/chefes"><i class="fas fa-sitemap"></i> Hierarquia</a>
+            <a href="/enderecos"><i class="fas fa-map-marker-alt"></i> Endereços</a>
+        </nav>
+    </aside>
 
-<h1>Funcionários Administrativos</h1>
-<a class="btn" th:href="@{/funcionarios/adicionar}" style="margin-bottom: 20px; display: inline-block;">
-    + Adicionar Funcionário
-</a>
-<div style="margin-bottom: 10px;">
-    <a href="/funcionarios/grafico" class="btn">Gráfico de Funcionários</a>
+    <!-- Conteúdo principal -->
+    <div class="conteudo">
+        <a href="/inicio" class="botao-voltar">← Voltar</a> 
+
+        <h1>Funcionários Administrativos</h1>
+        <a class="btn" th:href="@{/funcionarios/adicionar}">+ Adicionar Funcionário</a>
+        <a href="/funcionarios/grafico" class="btn">Gráfico de Funcionários</a>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Salário</th>
+                <th>Função</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="adm : ${administrativos}">
+                <td th:text="${adm.nomeFuncionario}"></td>
+                <td th:text="${#numbers.formatDecimal(adm.salarioFuncionario, 1, 'COMMA', 2, 'POINT')}"></td>
+                <td th:text="${adm.cargoFuncionarioAdministrativo}"></td>
+                <td th:classappend="${adm.empregado} ? 'status-ativo' : 'status-inativo'"
+                    th:text="${adm.empregado} ? 'Ativo' : 'Inativo'"></td>
+                <td>
+                    <a class="btn" th:href="@{'/funcionarios/editar/' + ${adm.idFuncionario}}">Editar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h1>Funcionários Operacionais</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Salário</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="op : ${operacionais}">
+                <td th:text="${op.nomeFuncionario}"></td>
+                <td th:text="${#numbers.formatDecimal(op.salarioFuncionario, 1, 'COMMA', 2, 'POINT')}"></td>
+                <td th:classappend="${op.empregado} ? 'status-ativo' : 'status-inativo'"
+                    th:text="${op.empregado} ? 'Ativo' : 'Inativo'"></td>
+                <td>
+                    <a class="btn" th:href="@{'/funcionarios/editar/' + ${op.idFuncionario}}">Editar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<table>
-    <thead>
-    <tr>
-        <th>Nome</th>
-        <th>Salário</th>
-        <th>Função</th>
-        <th>Status</th>
-        <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="adm : ${administrativos}">
-        <td th:text="${adm.nomeFuncionario}"></td>
-        <td th:text="${#numbers.formatDecimal(adm.salarioFuncionario, 1, 'COMMA', 2, 'POINT')}"></td>
-        <td th:text="${adm.cargoFuncionarioAdministrativo}"></td>
-        <td th:classappend="${adm.empregado} ? 'status-ativo' : 'status-inativo'"
-            th:text="${adm.empregado} ? 'Ativo' : 'Inativo'"></td>
-        <td>
-            <a class="btn" th:href="@{'/funcionarios/editar/' + ${adm.idFuncionario}}">Editar</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<h1>Funcionários Operacionais</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Nome</th>
-        <th>Salário</th>
-        <th>Status</th>
-        <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="op : ${operacionais}">
-        <td th:text="${op.nomeFuncionario}"></td>
-        <td th:text="${#numbers.formatDecimal(op.salarioFuncionario, 1, 'COMMA', 2, 'POINT')}"></td>
-        <td th:classappend="${op.empregado} ? 'status-ativo' : 'status-inativo'"
-            th:text="${op.empregado} ? 'Ativo' : 'Inativo'"></td>
-        <td>
-            <a class="btn" th:href="@{'/funcionarios/editar/' + ${op.idFuncionario}}">Editar</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
 </body>
 </html>

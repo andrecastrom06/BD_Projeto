@@ -3,42 +3,105 @@
 <head>
     <title>Matéria-Prima</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
+    <style>
+        .layout {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 220px;
+            min-height: 100vh;
+            background-color: #0d47a1;
+            padding: 1rem;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .conteudo {
+            margin-left: 240px;
+            padding: 2rem;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>Davisory</h2>
+                <p>Sistema de Gestão</p>
+            </div>
+            <nav class="nav">
+                <a href="/clientes">Clientes</a>
+                <a href="/funcionarios">Funcionários</a>
+                <a href="/produtos">Produtos</a>
+                <a href="/pedidos">Pedidos</a>
+                <a href="/estoque">Estoques</a>
+                <a href="/fornecedores">Fornecedores</a>
+                <a href="/materia_prima">Matéria Prima</a>
+                <a href="/atendimentos">Atendimentos</a>
+                <a href="/solicitacoes">Solicitações</a>
+                <a href="/montagens">Montagem</a>
+                <a href="/chefes">Hierarquia</a>
+                <a href="/enderecos">Endereços</a>
+            </nav>
+        </aside>
 
-    <a href="/inicio" class="botao-voltar">← Voltar</a> 
+        <!-- Conteúdo principal -->
+        <div class="conteudo">
+            <h1>Matéria-Prima</h1>
 
-    <h1>Matéria-Prima</h1>
+            <div style="margin-bottom: 20px;">
+                <a href="/materia_prima/adicionar" class="btn">+ Adicionar Matéria-Prima</a>
+            </div>
 
-    <div style="margin-bottom: 20px;">
-        <a href="/materia_prima/adicionar" class="btn">+ Adicionar Matéria-Prima</a>
+            <div style="margin-bottom: 10px;">
+                <a href="/materia_prima/grafico" class="btn">Gráfico de Matéria Prima</a>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                        <th>Código de Entrega</th>
+                        <th>Data Estimada Entrega</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="m : ${materias}">
+                        <td th:text="${m.nomeMateriaPrima}"></td>
+                        <td th:text="${m.valorMateriaPrima}"></td>
+                        <td th:text="${m.codigoEntregaMateriaPrima}"></td>
+                        <td th:text="${m.dataEstimadaEntregaMateriaPrima}"></td>
+                        <td>
+                            <a th:href="@{'/materia_prima/editar/' + ${m.idMateriaPrima}}" class="btn">Editar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-
-    <div style="margin-bottom: 10px;">
-        <a href="/materia_prima/grafico" class="btn">Gráfico de Matéria Prima</a>
-    </div>
-
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Valor</th>
-                <th>Código de Entrega</th>
-                <th>Data Estimada Entrega</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="m : ${materias}">
-                <td th:text="${m.nomeMateriaPrima}"></td>
-                <td th:text="${m.valorMateriaPrima}"></td>
-                <td th:text="${m.codigoEntregaMateriaPrima}"></td>
-                <td th:text="${m.dataEstimadaEntregaMateriaPrima}"></td>
-                <td>
-                    <a th:href="@{'/materia_prima/editar/' + ${m.idMateriaPrima}}" class="btn">Editar</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </body>
 </html>

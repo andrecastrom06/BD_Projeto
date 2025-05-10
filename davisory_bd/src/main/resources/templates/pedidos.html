@@ -3,43 +3,107 @@
 <head>
     <title>Lista de Pedidos</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
+    <style>
+        .layout {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 220px;
+            min-height: 100vh;
+            background-color: #0d47a1;
+            padding: 1rem;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .conteudo {
+            margin-left: 240px;
+            padding: 2rem;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <a href="/inicio" class="botao-voltar">← Voltar</a> 
-    
-    <h1>Pedidos</h1>
-    
-    <div style="margin-bottom: 20px;">
-        <a href="/pedidos/adicionar" class="btn btn-primary">+ Adicionar Pedido</a>
-    </div>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>Davisory</h2>
+                <p>Sistema de Gestão</p>
+            </div>
+            <nav class="nav">
+                <a href="/clientes">Clientes</a>
+                <a href="/funcionarios">Funcionários</a>
+                <a href="/produtos">Produtos</a>
+                <a href="/pedidos">Pedidos</a>
+                <a href="/estoque">Estoques</a>
+                <a href="/fornecedores">Fornecedores</a>
+                <a href="/materia_prima">Matéria Prima</a>
+                <a href="/atendimentos">Atendimentos</a>
+                <a href="/solicitacoes">Solicitações</a>
+                <a href="/montagens">Montagem</a>
+                <a href="/chefes">Hierarquia</a>
+                <a href="/enderecos">Endereços</a>
+            </nav>
+        </aside>
 
-    <div style="margin-bottom: 10px;">
-        <a href="/pedidos/grafico" class="btn">Gráfico de Produtos</a>
-    </div>
+        <!-- Conteúdo principal -->
+        <div class="conteudo">
+            <h1>Pedidos</h1>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Data</th>
-                <th>Código Entrega</th>
-                <th>Quantidade</th>
-                <th>Preço Unitário</th>
-                <th>Nome Produto</th>
-                <th>Nome Funcionário</th>
-                <th>Cliente</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="detalhado : ${pedidosDetalhados}">
-                <td th:text="${detalhado.pedido.dataPedido}"></td>
-                <td th:text="${detalhado.pedido.codigoEntregaPedido}"></td>
-                <td th:text="${detalhado.pedido.quantidadePedido}"></td>
-                <td th:text="${detalhado.pedido.precoUnitarioPedido}"></td>
-                <td th:text="${detalhado.produto.nomeProduto}"></td>
-                <td th:text="${detalhado.funcionario.nomeFuncionario}"></td>
-                <td th:text="${detalhado.pedido.cpfCnpjCliente}"></td>
-            </tr>
-        </tbody>
-    </table>
+            <div style="margin-bottom: 20px;">
+                <a href="/pedidos/adicionar" class="btn btn-primary">+ Adicionar Pedido</a>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <a href="/pedidos/grafico" class="btn">Gráfico de Produtos</a>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Código Entrega</th>
+                        <th>Quantidade</th>
+                        <th>Preço Unitário</th>
+                        <th>Produto</th>
+                        <th>Funcionário</th>
+                        <th>Cliente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="detalhado : ${pedidosDetalhados}">
+                        <td th:text="${detalhado.pedido.dataPedido}"></td>
+                        <td th:text="${detalhado.pedido.codigoEntregaPedido}"></td>
+                        <td th:text="${detalhado.pedido.quantidadePedido}"></td>
+                        <td th:text="${detalhado.pedido.precoUnitarioPedido}"></td>
+                        <td th:text="${detalhado.produto.nomeProduto}"></td>
+                        <td th:text="${detalhado.funcionario.nomeFuncionario}"></td>
+                        <td th:text="${detalhado.pedido.cpfCnpjCliente}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

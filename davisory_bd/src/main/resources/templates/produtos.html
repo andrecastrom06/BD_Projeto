@@ -3,36 +3,106 @@
 <head>
     <title>Lista de Produtos</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
+    <style>
+        .layout {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 220px;
+            min-height: 100vh;
+            background-color: #0d47a1;
+            padding: 1rem;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .conteudo {
+            margin-left: 240px;
+            padding: 2rem;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <a href="/inicio" class="botao-voltar">← Voltar</a> 
-    <h1>Produtos</h1>
+    <div class="layout">
+        <!-- Menu lateral -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>Davisory</h2>
+                <p>Sistema de Gestão</p>
+            </div>
+            <nav class="nav">
+                <a href="/clientes">Clientes</a>
+                <a href="/funcionarios">Funcionários</a>
+                <a href="/produtos">Produtos</a>
+                <a href="/pedidos">Pedidos</a>
+                <a href="/estoque">Estoques</a>
+                <a href="/fornecedores">Fornecedores</a>
+                <a href="/materia_prima">Matéria Prima</a>
+                <a href="/atendimentos">Atendimentos</a>
+                <a href="/solicitacoes">Solicitações</a>
+                <a href="/montagens">Montagem</a>
+                <a href="/chefes">Hierarquia</a>
+                <a href="/enderecos">Endereços</a>
+            </nav>
+        </aside>
 
-    <div style="margin-bottom: 20px;">
-        <a href="/produtos/adicionar" class="btn">+ Adicionar Produto</a>
+        <!-- Conteúdo principal -->
+        <div class="conteudo">
+            <h1>Produtos</h1>
+
+            <div style="margin-bottom: 20px;">
+                <a href="/produtos/adicionar" class="btn">+ Adicionar Produto</a>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <a href="/produtos/grafico" class="btn">Gráfico de Produtos</a>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Preço</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="produto : ${produtos}">
+                        <td th:text="${produto.nomeProduto}"></td>
+                        <td th:text="${produto.descricaoProduto}"></td>
+                        <td th:text="${produto.precoProduto}"></td>
+                        <td th:text="${produto.ativo ? 'Ativo' : 'Inativo'}"
+                            th:classappend="${produto.ativo} ? 'status-ativo' : 'status-inativo'"></td>
+                        <td>
+                            <a class="btn" th:href="@{/produtos/editar/{id}(id=${produto.idProduto})}">Editar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>  
+        </div>
     </div>
-
-    <div style="margin-bottom: 10px;">
-        <a href="/produtos/grafico" class="btn">Gráfico de Produtos</a>
-    </div>
-
-    <table border="1">
-        <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Preço</th>
-            <th>Status</th>
-            <th>Ações</th>
-        </tr>
-        <tr th:each="produto : ${produtos}">
-            <td th:text="${produto.nomeProduto}"></td>
-            <td th:text="${produto.descricaoProduto}"></td>
-            <td th:text="${produto.precoProduto}"></td>
-            <td th:text="${produto.ativo ? 'Ativo' : 'Inativo'}" th:class="${produto.ativo ? 'status-ativo' : 'status-inativo'}"></td>
-            <td>
-                <a class="btn" th:href="@{/produtos/editar/{id}(id=${produto.idProduto})}">Editar</a>
-            </td>
-        </tr>
-    </table>    
 </body>
 </html>

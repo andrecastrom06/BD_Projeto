@@ -3,39 +3,110 @@
 <head>
     <title>Fornecedores</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
+    <style>
+        .layout {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 220px;
+            min-height: 100vh;
+            background-color: #0d47a1;
+            padding: 1rem;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .conteudo {
+            margin-left: 240px;
+            padding: 2rem;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <a href="/inicio" class="botao-voltar">← Voltar</a> 
-    <h1>Lista de Fornecedores</h1>
-    <div style="margin-bottom: 20px;">
-        <a href="/fornecedor/novo" class="btn">+ Adicionar Fornecedor</a>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>Davisory</h2>
+                <p>Sistema de Gestão</p>
+            </div>
+            <nav class="nav">
+                <a href="/clientes">Clientes</a>
+                <a href="/funcionarios">Funcionários</a>
+                <a href="/produtos">Produtos</a>
+                <a href="/pedidos">Pedidos</a>
+                <a href="/estoque">Estoques</a>
+                <a href="/fornecedores">Fornecedores</a>
+                <a href="/materia_prima">Matéria Prima</a>
+                <a href="/atendimentos">Atendimentos</a>
+                <a href="/solicitacoes">Solicitações</a>
+                <a href="/montagens">Montagem</a>
+                <a href="/chefes">Hierarquia</a>
+                <a href="/enderecos">Endereços</a>
+            </nav>
+        </aside>
+
+        <!-- Conteúdo principal -->
+        <div class="conteudo">
+            <h1>Lista de Fornecedores</h1>
+
+            <div style="margin-bottom: 20px;">
+                <a href="/fornecedor/novo" class="btn">+ Adicionar Fornecedor</a>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <a href="/fornecedor/grafico" class="btn">Gráfico de Fornecedor</a>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>CNPJ</th>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Endereço</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="fornecedor : ${fornecedores}">
+                        <td th:text="${fornecedor.cnpjFornecedor}"></td>
+                        <td th:text="${fornecedor.nomeFornecedor}"></td>
+                        <td th:text="${fornecedor.telefoneFornecedor}"></td>
+                        <td th:text="${fornecedor.emailFornecedor}"></td>
+                        <td>
+                            <a th:href="@{'/enderecos/' + ${fornecedor.fkEnderecoId}}" class="botao-endereco">
+                                Ver Endereço
+                            </a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/fornecedor/editar/' + ${fornecedor.cnpjFornecedor}}" class="btn">Editar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div style="margin-bottom: 10px;">
-        <a href="/fornecedor/grafico" class="btn">Gráfico de Fornecedor</a>
-    </div>
-    <table border="1">
-        <tr>
-            <th>CNPJ</th>
-            <th>Nome</th>
-            <th>Telefone</th>
-            <th>Email</th>
-            <th>Endereço</th>
-            <th>Ações</th>
-        </tr>
-        <tr th:each="fornecedor : ${fornecedores}">
-            <td th:text="${fornecedor.cnpjFornecedor}"></td>
-            <td th:text="${fornecedor.nomeFornecedor}"></td>
-            <td th:text="${fornecedor.telefoneFornecedor}"></td>
-            <td th:text="${fornecedor.emailFornecedor}"></td>
-            <td>
-                <a th:href="@{'/enderecos/' + ${fornecedor.fkEnderecoId}}" class="botao-endereco">
-                    Ver Endereço
-                </a>
-            </td>
-            <td>
-                <a th:href="@{'/fornecedor/editar/' + ${fornecedor.cnpjFornecedor}}" class="btn">Editar</a>
-            </td>
-        </tr>
-    </table>
 </body>
 </html>

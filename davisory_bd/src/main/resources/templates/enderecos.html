@@ -3,41 +3,135 @@
 <head>
     <title>Endereços</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
+    <style>
+        .layout {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 220px;
+            min-height: 100vh;
+            background-color: #0d47a1;
+            padding: 1rem;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .conteudo {
+            margin-left: 240px;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            background-color: #0d47a1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #1565c0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+    </style>
 </head>
 <body>
-    <a href="/inicio" class="botao-voltar">← Voltar</a> 
-    <h1>Endereços</h1>
-    <div style="margin-bottom: 20px;">
-        <a href="/enderecos/adicionar" class="btn">+ Adicionar Endereço</a>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>Davisory</h2>
+                <p>Sistema de Gestão</p>
+            </div>
+            <nav class="nav">
+                <a href="/clientes">Clientes</a>
+                <a href="/funcionarios">Funcionários</a>
+                <a href="/produtos">Produtos</a>
+                <a href="/pedidos">Pedidos</a>
+                <a href="/estoque">Estoques</a>
+                <a href="/fornecedores">Fornecedores</a>
+                <a href="/materia_prima">Matéria Prima</a>
+                <a href="/atendimentos">Atendimentos</a>
+                <a href="/solicitacoes">Solicitações</a>
+                <a href="/montagens">Montagem</a>
+                <a href="/chefes">Hierarquia</a>
+                <a href="/enderecos">Endereços</a>
+            </nav>
+        </aside>
+
+        <!-- Conteúdo -->
+        <div class="conteudo">
+            <a href="/inicio" class="botao-voltar">← Voltar</a>
+            <h1>Endereços</h1>
+            <div style="margin-bottom: 20px;">
+                <a href="/enderecos/adicionar" class="btn">+ Adicionar Endereço</a>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <a href="/enderecos/grafico" class="btn">Gráfico de Endereços</a>
+            </div>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Estado</th>
+                        <th>Cidade</th>
+                        <th>Bairro</th>
+                        <th>Rua</th>
+                        <th>Número</th>
+                        <th>Complemento</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="e : ${enderecos}">
+                        <td th:text="${e.estado}"></td>
+                        <td th:text="${e.cidade}"></td>
+                        <td th:text="${e.bairro}"></td>
+                        <td th:text="${e.rua}"></td>
+                        <td th:text="${e.numero}"></td>
+                        <td th:text="${e.complemento}"></td>
+                        <td>
+                            <a th:href="@{/enderecos/editar/{id}(id=${e.idEndereco})}" class="btn">Editar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div style="margin-bottom: 10px;">
-        <a href="/enderecos/grafico" class="btn">Gráfico de Endereços</a>
-    </div>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Estado</th>
-                <th>Cidade</th>
-                <th>Bairro</th>
-                <th>Rua</th>
-                <th>Número</th>
-                <th>Complemento</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="e : ${enderecos}">
-                <td th:text="${e.estado}"></td>
-                <td th:text="${e.cidade}"></td>
-                <td th:text="${e.bairro}"></td>
-                <td th:text="${e.rua}"></td>
-                <td th:text="${e.numero}"></td>
-                <td th:text="${e.complemento}"></td>
-                <td>
-                    <a th:href="@{/enderecos/editar/{id}(id=${e.idEndereco})}" class="btn">Editar</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </body>
 </html>

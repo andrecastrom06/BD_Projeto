@@ -3,105 +3,172 @@
 <head>
     <title>Atendimentos</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
-</head>
-<style>
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-conteudo {
-  background-color: #fff;
-  margin: 15% auto;
-  padding: 20px;
-  width: 300px;
-  text-align: center;
-  border-radius: 8px;
-}
-
-.btn {
-  padding: 8px 16px;
-  margin: 5px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.confirmar {
-  background-color: #e74c3c;
-  color: white;
-}
-
-.confirmar:hover {
-  background-color: #c0392b; 
-}
-
-.cancelar {
-  background-color: #ccc;
-  color: black;
-}
-
-.cancelar:hover {
-  background-color: #999;
-}
-</style>
-<body>
-    <a href="/inicio" class="botao-voltar">← Voltar</a> 
-    <h1>Atendimentos</h1>
-    <div style="margin-bottom: 10px;">
-        <a href="/atendimentos/novo" class="btn">+ Adicionar Atendimento</a>
-    </div>
-    <p></p>
-    <div style="margin-bottom: 10px;">
-        <a href="/atendimentos/grafico" class="btn">Gráfico de Atendimentos</a>
-    </div>
-    <p></p>
-    <table border="1">
-        <tr>
-            <th>Nome Cliente</th>
-            <th>Nome Funcionário Administrativo</th>
-            <th>Data do Atendimento</th>
-            <th>Ações</th>
-        </tr>
-        <tr th:each="a : ${atendimentos}">
-            <td th:text="${a.nomeCliente}"></td>
-            <td th:text="${a.nomeFuncionario}"></td>
-            <td th:text="${a.dataAtendimento}"></td>
-            <td>
-                <a th:href="@{'/atendimentos/deletar/' + ${a.cpfCliente} + '/' + ${a.idFuncionario}}"class="btn_excluir"onclick="confirmarExclusao(event, this)">Excluir</a>
-            </td>
-        </tr>        
-    </table>
-    <div id="modal-confirmacao" class="modal">
-        <div class="modal-conteudo">
-          <p>Tem certeza que deseja excluir este atendimento?</p>
-          <button id="btn-confirmar" class="btn confirmar">Sim</button>
-          <button id="btn-cancelar" class="btn cancelar">Cancelar</button>
-        </div>
-      </div>
-      <script>
-        let linkParaExcluir = null;
-      
-        function confirmarExclusao(event, link) {
-          event.preventDefault();
-          linkParaExcluir = link;
-          document.getElementById('modal-confirmacao').style.display = 'block';
+    <style>
+        .layout {
+            display: flex;
         }
-      
+
+        .sidebar {
+            width: 220px;
+            min-height: 100vh;
+            background-color: #0d47a1;
+            padding: 1rem;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .conteudo {
+            margin-left: 240px;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-conteudo {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .confirmar {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .confirmar:hover {
+            background-color: #c0392b;
+        }
+
+        .cancelar {
+            background-color: #ccc;
+            color: black;
+        }
+
+        .cancelar:hover {
+            background-color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>Davisory</h2>
+                <p>Sistema de Gestão</p>
+            </div>
+            <nav class="nav">
+                <a href="/clientes">Clientes</a>
+                <a href="/funcionarios">Funcionários</a>
+                <a href="/produtos">Produtos</a>
+                <a href="/pedidos">Pedidos</a>
+                <a href="/estoque">Estoques</a>
+                <a href="/fornecedores">Fornecedores</a>
+                <a href="/materia_prima">Matéria Prima</a>
+                <a href="/atendimentos">Atendimentos</a>
+                <a href="/solicitacoes">Solicitações</a>
+                <a href="/montagens">Montagem</a>
+                <a href="/chefes">Hierarquia</a>
+                <a href="/enderecos">Endereços</a>
+            </nav>
+        </aside>
+
+        <!-- Conteúdo principal -->
+        <div class="conteudo">
+            <h1>Atendimentos</h1>
+
+            <div style="margin-bottom: 10px;">
+                <a href="/atendimentos/novo" class="btn">+ Adicionar Atendimento</a>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <a href="/atendimentos/grafico" class="btn">Gráfico de Atendimentos</a>
+            </div>
+
+            <table border="1">
+                <tr>
+                    <th>Nome Cliente</th>
+                    <th>Nome Funcionário Administrativo</th>
+                    <th>Data do Atendimento</th>
+                    <th>Ações</th>
+                </tr>
+                <tr th:each="a : ${atendimentos}">
+                    <td th:text="${a.nomeCliente}"></td>
+                    <td th:text="${a.nomeFuncionario}"></td>
+                    <td th:text="${a.dataAtendimento}"></td>
+                    <td>
+                        <a th:href="@{'/atendimentos/deletar/' + ${a.cpfCliente} + '/' + ${a.idFuncionario}}" class="btn_excluir" onclick="confirmarExclusao(event, this)">Excluir</a>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Modal de confirmação -->
+            <div id="modal-confirmacao" class="modal">
+                <div class="modal-conteudo">
+                    <p>Tem certeza que deseja excluir este atendimento?</p>
+                    <button id="btn-confirmar" class="btn confirmar">Sim</button>
+                    <button id="btn-cancelar" class="btn cancelar">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let linkParaExcluir = null;
+
+        function confirmarExclusao(event, link) {
+            event.preventDefault();
+            linkParaExcluir = link;
+            document.getElementById('modal-confirmacao').style.display = 'block';
+        }
+
         document.getElementById('btn-confirmar').addEventListener('click', function () {
-          if (linkParaExcluir) {
-            window.location.href = linkParaExcluir.getAttribute('href');
-          }
+            if (linkParaExcluir) {
+                window.location.href = linkParaExcluir.getAttribute('href');
+            }
         });
-      
+
         document.getElementById('btn-cancelar').addEventListener('click', function () {
-          document.getElementById('modal-confirmacao').style.display = 'none';
-          linkParaExcluir = null;
+            document.getElementById('modal-confirmacao').style.display = 'none';
+            linkParaExcluir = null;
         });
-      </script>            
+    </script>
 </body>
 </html>
