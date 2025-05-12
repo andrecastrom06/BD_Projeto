@@ -4,52 +4,15 @@
     <title>Matéria-Prima</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <style>
-        .layout {
-            display: flex;
-        }
-
-        .sidebar {
-            width: 220px;
-            min-height: 100vh;
-            background-color: #0d47a1;
-            padding: 1rem;
-            color: white;
-            position: fixed;
-            left: 0;
-            top: 0;
-        }
-
-        .sidebar h2 {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            color: white;
-        }
-
-        .sidebar a {
-            display: block;
-            color: white;
-            margin-bottom: 1rem;
-            font-weight: bold;
-        }
-
-        .sidebar a:hover {
-            text-decoration: underline;
-        }
-
-        .conteudo {
-            margin-left: 240px;
-            padding: 2rem;
-            width: 100%;
-        }
-    </style>
 </head>
 <body>
     <div class="layout">
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo">
-                <h2>Davisory</h2>
+                <a href="/inicio" class="logo-link">
+                    <h2>Davisory</h2>
+                </a>
                 <p>Sistema de Gestão</p>
             </div>
             <nav class="nav">
