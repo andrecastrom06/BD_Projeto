@@ -5,41 +5,45 @@
     <title>Davisory - Sistema de Gestão</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/css/paginaLogin.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
 </head>
 <body>
 
 <header>
-    <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Davisory - Sistema de Gestão de Óticas</h1>
+    <h1>Davisory</h1>
+    <p class="subtitulo">Sistema de Gestão de Óticas</p>
 </header>
 
 <main>  
-    <form action="/login" method="post">
+    <form action="/login" method="post" class="form-login">
         <div th:if="${erro}" class="mensagem-erro">
             <p th:text="${erro}"></p>
         </div>
-        <label for="login">Login:</label>
-        <input type="text" id="login" name="nome" required>
+        
+        <div class="campo">
+            <label for="login">Login</label>
+            <input type="text" id="login" name="nome" required>
+        </div>
 
-        <label for="senha">Senha:</label>
-        <div style="position: relative;">
-            <input type="password" id="senha" name="data_contratacao" required>
-            <span onclick="toggleSenha()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
-                👀
-            </span>
-        </div>        
+        <div class="campo">
+            <label for="senha">Senha</label>
+            <div class="campo-senha">
+                <input type="password" id="senha" name="data_contratacao" required>
+                <span class="icone-senha" onclick="toggleSenha()">👁️</span>
+            </div>
+        </div>
 
         <button type="submit">Entrar</button>
     </form>
 </main>
-</body>
 
 <script>
     function toggleSenha() {
         const input = document.getElementById('senha');
-        if (input.type === 'password') {
-            input.type = 'text';
-        } else {
-            input.type = 'password';
-        }
+        input.type = input.type === 'password' ? 'text' : 'password';
     }
 </script>
+
+</body>
+</html>
