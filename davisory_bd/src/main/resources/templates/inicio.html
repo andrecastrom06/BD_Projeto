@@ -86,6 +86,32 @@
             color: #666;
             margin-top: 0.5rem;
         }
+
+        .cards-dashboard {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #f4f4f4;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    flex: 1 1 250px;
+}
+
+.card h3 {
+    margin-bottom: 0.5rem;
+    color: #0d47a1;
+}
+
+#graficoEstoque {
+    margin-top: 2rem;
+    max-width: 600px;
+}
+
     </style>
 </head>
 <body>
@@ -119,8 +145,67 @@
         <section class="dashboard">
             <h2>Módulos Disponíveis</h2>
             <p>Escolha um módulo na barra lateral para começar.</p>
+            <div class="cards-dashboard">
+                <div class="card">
+                    <h3>Total de Produtos</h3>
+                    <p id="total-produtos">--</p>
+                </div>
+                <div class="card">
+                    <h3>Estoque Baixo</h3>
+                    <p id="estoque-baixo">--</p>
+                </div>
+                <div class="card">
+                    <h3>Mais Vendido</h3>
+                    <p id="mais-vendido">--</p>
+                </div>
+            </div>
+            
+            <canvas id="graficoEstoque" width="400" height="200"></canvas>            
         </section>
     </main>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Simulação de dados (substituir por dados do backend com Thymeleaf ou fetch)
+    const totalProdutos = 128;
+    const estoqueBaixo = 9;
+    const maisVendido = 'Óculos Solar Rayban';
+
+    document.getElementById('total-produtos').textContent = totalProdutos;
+    document.getElementById('estoque-baixo').textContent = estoqueBaixo;
+    document.getElementById('mais-vendido').textContent = maisVendido;
+
+    const ctx = document.getElementById('graficoEstoque').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Rayban', 'Oakley', 'Prada', 'Gucci', 'Vogue'],
+            datasets: [{
+                label: 'Estoque Atual',
+                data: [35, 25, 18, 12, 2],
+                backgroundColor: '#1565c0'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    if (estoqueBaixo < 10) {
+        document.getElementById('alerta-estoque').style.display = 'block';
+    }
+</script>
+<div id="alerta-estoque" class="alerta-estoque">
+    <p id="alerta-texto">Alguns produtos estão com estoque baixo. Verifique os detalhes no gráfico.</p>
+</div>
+
+
+
 </body>
 </html>
