@@ -4,8 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.sql.Date;
+
+
 import com.davisory.davisory_bd.model.Pedido;
 
 public class PedidoRepositorio {
@@ -94,5 +100,32 @@ public class PedidoRepositorio {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public Map<String, Integer> contarPedidosPorDia(LocalDate inicio, LocalDate fim) {
+        Map<String, Integer> resultado = new LinkedHashMap<>();
+
+        String sql = """
+            SELECT DATE(dataPedido) as dia, COUNT(*) as total
+            FROM Pedido
+            WHERE dataPedido BETWEEN ? AND ?
+            GROUP BY dia
+            ORDER BY dia
+        """;
+
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setDate(1, Date.valueOf(inicio));
+                stmt.setDate(2, Date.valueOf(fim.plusDays(1)));                
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                resultado.put(rs.getString("dia"), rs.getInt("total"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // ou logar de forma apropriada
+        }
+
+        return resultado;
     }
 }

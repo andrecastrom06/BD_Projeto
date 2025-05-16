@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/css/inicio.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -112,7 +113,7 @@
     max-width: 600px;
 }
 
-    </style>
+</style>
 </head>
 <body>
 
@@ -159,53 +160,87 @@
                     <p id="mais-vendido">--</p>
                 </div>
             </div>
+            <form id="filtro-dashboard" style="margin-top: 2rem;">
+                <label for="entidade">Selecionar módulo:</label>
+                <select id="entidade" name="entidade">
+                    <option value="pedidos">Pedidos</option>
+                    <option value="produtos">Produtos</option>
+                    <option value="materia_prima">Matéria-Prima</option>
+                </select>
             
-            <canvas id="graficoEstoque" width="400" height="200"></canvas>            
+                <label for="tipoGrafico" style="margin-left: 1rem;">Tipo de gráfico:</label>
+                <select id="tipoGrafico" name="tipoGrafico">
+                    <option value="bar">Barras</option>
+                    <option value="line">Linha</option>
+                    <option value="pie">Pizza</option>
+                </select>
+            
+                <label for="dataInicio" style="margin-left: 1rem;">De:</label>
+                <input type="date" id="dataInicio" name="dataInicio">
+            
+                <label for="dataFim" style="margin-left: 1rem;">Até:</label>
+                <input type="date" id="dataFim" name="dataFim">
+            
+                <button type="submit" style="margin-left: 1rem;">Aplicar</button>
+            </form>
+            
+            <canvas id="graficoEstoque" width="600" height="300" style="margin-top: 2rem;"></canvas>                       
         </section>
     </main>
-</div>
+    <script>
+        document.getElementById('filtro-dashboard').addEventListener('submit', function (e) {
+    e.preventDefault();
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    // Simulação de dados (substituir por dados do backend com Thymeleaf ou fetch)
-    const totalProdutos = 128;
-    const estoqueBaixo = 9;
-    const maisVendido = 'Óculos Solar Rayban';
+    const entidade = document.getElementById('entidade').value;
+    const tipoGrafico = document.getElementById('tipoGrafico').value;
+    const dataInicio = document.getElementById('dataInicio').value;
+    const dataFim = document.getElementById('dataFim').value;
 
-    document.getElementById('total-produtos').textContent = totalProdutos;
-    document.getElementById('estoque-baixo').textContent = estoqueBaixo;
-    document.getElementById('mais-vendido').textContent = maisVendido;
-
-    const ctx = document.getElementById('graficoEstoque').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Rayban', 'Oakley', 'Prada', 'Gucci', 'Vogue'],
-            datasets: [{
-                label: 'Estoque Atual',
-                data: [35, 25, 18, 12, 2],
-                backgroundColor: '#1565c0'
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    if (estoqueBaixo < 10) {
-        document.getElementById('alerta-estoque').style.display = 'block';
+    if (!dataInicio || !dataFim) {
+        alert("Preencha as datas de início e fim.");
+        return;
     }
-</script>
-<div id="alerta-estoque" class="alerta-estoque">
-    <p id="alerta-texto">Alguns produtos estão com estoque baixo. Verifique os detalhes no gráfico.</p>
-</div>
 
+    fetch(`/dashboard/dados?entidade=${entidade}&tipo=${tipoGrafico}&inicio=${dataInicio}&fim=${dataFim}`)
+        .then(response => response.json())
+        .then(dados => {
+            if (dados.erro) {
+                alert(dados.erro);
+                return;
+            }
+            desenharGrafico(dados, tipoGrafico);
+        });
+});
 
-
+        
+        let chart; // para manter referência e atualizar
+        
+        function desenharGrafico(dados, tipo) {
+            const ctx = document.getElementById('graficoEstoque').getContext('2d');
+        
+            if (chart) {
+                chart.destroy();
+            }
+        
+            chart = new Chart(ctx, {
+                type: tipo,
+                data: {
+                    labels: dados.labels,
+                    datasets: [{
+                        label: dados.label,
+                        data: dados.valores,
+                        backgroundColor: ['#0d47a1', '#1976d2', '#42a5f5', '#90caf9', '#e3f2fd'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: tipo !== 'pie' ? { beginAtZero: true } : undefined
+                    }
+                }
+            });
+        }
+        </script> 
 </body>
 </html>
