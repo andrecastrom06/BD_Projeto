@@ -8,21 +8,21 @@ CREATE TABLE Endereco (
     bairro VARCHAR(50) NOT NULL,
     rua VARCHAR(100) NOT NULL,
     complemento VARCHAR(255),
-    numero INTEGER NOT NULL CHECK (numero > 0)
+    numero INT NOT NULL CHECK (numero > 0)
 );
 
 CREATE TABLE Fornecedor (
-    cnpjFornecedor VARCHAR(20) PRIMARY KEY,
+    cnpjFornecedor VARCHAR(20) PRIMARY KEY CHECK (cnpjFornecedor REGEXP '^[0-9]{14}$'),
     nomeFornecedor VARCHAR(255) NOT NULL,
-    telefoneFornecedor VARCHAR(20) UNIQUE NOT NULL,
-    emailFornecedor VARCHAR(100) UNIQUE NOT NULL,
+    telefoneFornecedor VARCHAR(20) UNIQUE NOT NULL CHECK (telefoneFornecedor REGEXP '^\\+?[0-9]{8,15}$'),
+    emailFornecedor VARCHAR(100) UNIQUE NOT NULL CHECK (emailFornecedor LIKE '%@%.%'),
     fk_Endereco_id INT NOT NULL,
     FOREIGN KEY (fk_Endereco_id) REFERENCES Endereco(idEndereco)
 );
 
 CREATE TABLE MateriaPrima (
     idMateriaPrima INT PRIMARY KEY AUTO_INCREMENT,
-    nomeMateriaPrima varchar (255) not null,
+    nomeMateriaPrima VARCHAR(255) NOT NULL,
     valorMateriaPrima DECIMAL(10,2) NOT NULL CHECK (valorMateriaPrima >= 0),
     codigoEntregaMateriaPrima VARCHAR(50) UNIQUE NOT NULL,
     dataEstimadaEntregaMateriaPrima DATE NOT NULL
@@ -39,25 +39,25 @@ CREATE TABLE Produto (
 CREATE TABLE EstoqueProduto (
     idEstoqueProduto INT AUTO_INCREMENT,
     fk_Produto_idProduto INT,
-    quantidadeProduto INTEGER NOT NULL CHECK (quantidadeProduto >= 0),
+    quantidadeProduto INT NOT NULL CHECK (quantidadeProduto >= 0),
     PRIMARY KEY (idEstoqueProduto, fk_Produto_idProduto),
     FOREIGN KEY (fk_Produto_idProduto) REFERENCES Produto(idProduto)
 );
 
 CREATE TABLE Cliente (
-    cpfCnpjCliente VARCHAR(20) PRIMARY KEY,
+    cpfCnpjCliente VARCHAR(20) PRIMARY KEY CHECK (cpfCnpjCliente REGEXP '^[0-9]{11}$|^[0-9]{14}$'),
     nomeCliente VARCHAR(255) NOT NULL,
-    telefoneCliente VARCHAR(20) UNIQUE NOT NULL,
-    emailCliente VARCHAR(100) UNIQUE NOT NULL,
+    telefoneCliente VARCHAR(20) UNIQUE NOT NULL CHECK (telefoneCliente REGEXP '^\\+?[0-9]{8,15}$'),
+    emailCliente VARCHAR(100) UNIQUE NOT NULL CHECK (emailCliente LIKE '%@%.%'),
     fk_Endereco_idEndereco INT NOT NULL,
     FOREIGN KEY (fk_Endereco_idEndereco) REFERENCES Endereco(idEndereco)
 );
 
 CREATE TABLE Funcionario (
-    idFuncionario INT PRIMARY key AUTO_INCREMENT,
+    idFuncionario INT PRIMARY KEY AUTO_INCREMENT,
     nomeFuncionario VARCHAR(255) NOT NULL,
-    salarioFuncionario DECIMAL(10,2) NOT NULL CHECK (salarioFuncionario >= 0),
-    dataContratacaoFuncionario DATE NOT NULL,
+    salarioFuncionario DECIMAL(10,2) NOT NULL CHECK (salarioFuncionario >= 1320),
+    dataContratacaoFuncionario DATE NOT NULL CHECK (dataContratacaoFuncionario <= CURRENT_DATE),
     chefeFuncionario INT,
     empregado BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (chefeFuncionario) REFERENCES Funcionario(idFuncionario)
@@ -78,7 +78,7 @@ CREATE TABLE Pedido (
     idPedido INT PRIMARY KEY AUTO_INCREMENT,
     dataPedido DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     codigoEntregaPedido VARCHAR(50) UNIQUE NOT NULL,
-    quantidadePedido INTEGER NOT NULL CHECK (quantidadePedido > 0),
+    quantidadePedido INT NOT NULL CHECK (quantidadePedido > 0),
     precoUnitarioPedido DECIMAL(10,2) NOT NULL CHECK (precoUnitarioPedido >= 0),
     fk_Produto_idProduto INT NOT NULL,
     fk_Funcionario_idFuncionario INT NOT NULL,
@@ -123,6 +123,42 @@ CREATE TABLE Monta (
     FOREIGN KEY (fk_Operacional_Funcionario_idFuncionario) REFERENCES Operacional(fk_Funcionario_idFuncionario),
     FOREIGN KEY (fk_Pedido_idPedido) REFERENCES Pedido(idPedido)
 );
+
+-- Procedure para inserir matéria-prima
+DELIMITER $$
+
+CREATE PROCEDURE inserir_materia_prima (
+    IN p_nome VARCHAR(255),
+    IN p_valor DECIMAL(10,2),
+    IN p_codigo VARCHAR(50),
+    IN p_dataEntrega DATE
+)
+BEGIN
+    INSERT INTO MateriaPrima (
+        nomeMateriaPrima,
+        valorMateriaPrima,
+        codigoEntregaMateriaPrima,
+        dataEstimadaEntregaMateriaPrima
+    ) VALUES (
+        p_nome,
+        p_valor,
+        p_codigo,
+        p_dataEntrega
+    );
+END$$
+
+-- Trigger para atualizar estoque de produto após inserção de pedido
+CREATE TRIGGER trg_atualiza_estoque_produto
+AFTER INSERT ON Pedido
+FOR EACH ROW
+BEGIN
+    UPDATE EstoqueProduto
+    SET quantidadeProduto = quantidadeProduto - NEW.quantidadePedido
+    WHERE fk_Produto_idProduto = NEW.fk_Produto_idProduto;
+END$$
+
+DELIMITER ;
+
 
 INSERT INTO Endereco VALUES 
 (1, 'Pernambuco', 'Recife', 'Casa Forte', 'Rua das Palmeiras', NULL, 240), 
