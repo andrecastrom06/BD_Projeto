@@ -8,6 +8,7 @@
 
 import com.davisory.davisory_bd.dao.AtendimentoRepositorio;
 import com.davisory.davisory_bd.dao.ClienteRepositorio;
+import com.davisory.davisory_bd.dao.FuncionarioRepositorio;
 import com.davisory.davisory_bd.dao.PedidoRepositorio;
 import com.davisory.davisory_bd.dao.ProdutoRepositorio;
 
@@ -74,16 +75,26 @@ public Map<String, Object> obterDadosDashboard(
 public Map<String, Object> obterResumoDashboard() {
     Map<String, Object> resposta = new HashMap<>();
 
-    int totalClientes = new ClienteRepositorio().contarClientes();
-    int totalPedidos = new PedidoRepositorio().contarPedidos();
-    String produtoMaisVendido = new ProdutoRepositorio().buscarProdutoMaisVendido();
+    ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
+    PedidoRepositorio pedidoRepositorio = new PedidoRepositorio();
+    ProdutoRepositorio produtoRepositorio = new ProdutoRepositorio();
+    FuncionarioRepositorio funcionarioRepositorio = new FuncionarioRepositorio();
+
+    int totalClientes = clienteRepositorio.contarClientes();
+    int totalPedidos = pedidoRepositorio.contarPedidos();
+    String produtoMaisVendido = produtoRepositorio.buscarProdutoMaisVendido();
+    int totalFuncionariosAtivos = funcionarioRepositorio.contarFuncionariosAtivos();
+    int totalProdutos = produtoRepositorio.contarProdutos();
 
     resposta.put("totalClientes", totalClientes);
     resposta.put("totalPedidos", totalPedidos);
     resposta.put("produtoMaisVendido", produtoMaisVendido);
+    resposta.put("totalFuncionariosAtivos", totalFuncionariosAtivos);
+    resposta.put("totalProdutos", totalProdutos);
 
     return resposta;
 }
+
 
 
 

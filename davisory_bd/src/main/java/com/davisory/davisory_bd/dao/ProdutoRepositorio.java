@@ -123,4 +123,23 @@ public class ProdutoRepositorio {
             }
             return nome;
         }
+        public int contarProdutos() {
+            int total = 0;
+            String sql = "SELECT COUNT(*) FROM Produto WHERE ativo = TRUE";
+
+            try (Connection conn = ConexaoBD.conectar();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()) {
+
+                if (rs.next()) {
+                    total = rs.getInt(1);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace(); // log apropriado
+            }
+
+            return total;
+        }
+        
 }

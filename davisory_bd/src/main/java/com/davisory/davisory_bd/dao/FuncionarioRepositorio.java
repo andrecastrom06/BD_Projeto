@@ -291,4 +291,23 @@ public class FuncionarioRepositorio {
         }
         return null;
     }
+    public int contarFuncionariosAtivos() {
+        int total = 0;
+        String sql = "SELECT COUNT(*) FROM Funcionario WHERE empregado = TRUE";
+    
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+    
+            if (rs.next()) {
+                total = rs.getInt(1);
+            }
+    
+        } catch (SQLException e) {
+            e.printStackTrace(); // log apropriado
+        }
+    
+        return total;
+    }
+    
 }

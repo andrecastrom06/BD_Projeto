@@ -55,9 +55,17 @@
                     <h3>Produto mais Vendido</h3>
                     <p id="mais-vendido">--</p>
                 </div>
+                <div class="card">
+                    <h3>Funcionários Ativos</h3>
+                    <p id="total-funcionarios">--</p>
+                </div>
+                <div class="card">
+                    <h3>Total de Produtos</h3>
+                    <p id="total-produtos">--</p>
+                </div>
             </div>
         </section>
-
+        <br>
         <section class="dashboard">
             <form id="filtro-dashboard" style="margin-top: 2rem;">
                 <label for="entidade">Selecionar módulo:</label>
@@ -101,6 +109,8 @@
             document.getElementById('total-clientes').textContent = dados.totalClientes;
             document.getElementById('total-pedidos').textContent = dados.totalPedidos;
             document.getElementById('mais-vendido').textContent = dados.produtoMaisVendido;
+            document.getElementById('total-funcionarios').textContent = dados.totalFuncionariosAtivos;
+            document.getElementById('total-produtos').textContent = dados.totalProdutos;
         } catch (erro) {
             console.error('Erro ao carregar o resumo:', erro);
         }
