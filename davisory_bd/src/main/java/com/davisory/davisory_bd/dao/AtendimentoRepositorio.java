@@ -3,10 +3,14 @@ package com.davisory.davisory_bd.dao;
 import com.davisory.davisory_bd.dto.AtendimentoDTO;
 import com.davisory.davisory_bd.model.Atendimento;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AtendimentoRepositorio {
 
@@ -114,5 +118,35 @@ public class AtendimentoRepositorio {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }        
+    }
+
+    public Map<String, Integer> contarAtendimentosPorDia(LocalDate inicio, LocalDate fim) {
+    Map<String, Integer> resultado = new LinkedHashMap<>();
+
+    String sql = """
+        SELECT DATE(dataAtendimento) AS dia, COUNT(*) AS total
+        FROM Atende
+        WHERE dataAtendimento BETWEEN ? AND ?
+        GROUP BY dia
+        ORDER BY dia
+    """;
+
+    try (Connection conn = ConexaoBD.conectar();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setDate(1, Date.valueOf(inicio));
+        stmt.setDate(2, Date.valueOf(fim.plusDays(1)));  
+
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            resultado.put(rs.getString("dia"), rs.getInt("total"));
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return resultado;
+}
+        
 }

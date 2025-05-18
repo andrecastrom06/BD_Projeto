@@ -5,7 +5,9 @@
     import org.springframework.web.bind.annotation.RequestMapping;
     import org.springframework.web.bind.annotation.RequestParam;
     import org.springframework.web.bind.annotation.ResponseBody;
-    import com.davisory.davisory_bd.dao.PedidoRepositorio;
+
+import com.davisory.davisory_bd.dao.AtendimentoRepositorio;
+import com.davisory.davisory_bd.dao.PedidoRepositorio;
 
 
     import java.time.LocalDate;
@@ -57,6 +59,13 @@ public Map<String, Object> obterDadosDashboard(
         resposta.put("valores", new ArrayList<>(dados.values()));
     }
 
+    else if (entidade.equals("atendimentos")) {
+    AtendimentoRepositorio atendimentoRepo = new AtendimentoRepositorio();
+    Map<String, Integer> dados = atendimentoRepo.contarAtendimentosPorDia(dataInicio, dataFim);
+    resposta.put("label", "Atendimentos por dia");
+    resposta.put("labels", new ArrayList<>(dados.keySet()));
+    resposta.put("valores", new ArrayList<>(dados.values()));
+}
     return resposta;
 }
 
