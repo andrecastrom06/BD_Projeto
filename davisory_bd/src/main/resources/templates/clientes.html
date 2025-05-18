@@ -29,9 +29,16 @@
                 <a href="/enderecos"><i class="fas fa-map-marker-alt"></i> Endereços</a>
             </nav>
         </aside>
-        <!-- Conteúdo principal -->
+                <!-- Conteúdo principal -->
         <div class="conteudo">
             <h1>Clientes</h1>
+
+            <!-- Botão de adicionar cliente -->
+            <div style="margin-bottom: 20px;">
+                <a href="/clientes/adicionar" class="btn" style="background-color: #4CAF50; color: white; padding: 10px 15px; border-radius: 5px; text-decoration: none;">
+                    <i class="fas fa-user-plus"></i> Adicionar Cliente
+                </a>
+            </div>
 
             <table>
                 <thead>
@@ -52,8 +59,8 @@
                         <td th:text="${cliente.emailCliente}"></td>
                         <td>
                             <a th:if="${cliente.endereco != null}"
-                               th:href="@{/enderecos/{id}(id=${cliente.endereco.idEndereco})}"
-                               class="botao-endereco">
+                            th:href="@{/enderecos/{id}(id=${cliente.endereco.idEndereco})}"
+                            class="botao-endereco">
                                 Ver Endereço
                             </a>
                         </td>
@@ -64,6 +71,5 @@
                 </tbody>
             </table> 
         </div>
-    </div>
 </body>
 </html>

@@ -90,4 +90,18 @@ public class ClienteRepositorio {
             e.printStackTrace();
         }
     }
+    
+    public int contarClientes() {
+        int total = 0;
+        try (Connection conn = ConexaoBD.conectar()) {
+            PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM Cliente");
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return total;
+    }
 }

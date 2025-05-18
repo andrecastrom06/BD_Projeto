@@ -46,17 +46,35 @@
             <div class="cards-dashboard">
                 <div class="card">
                     <h3>Total de Clientes</h3>
-                    <p id="total-produtos">--</p>
+                    <p id="total-clientes">--</p>
                 </div>
                 <div class="card">
-                    <h3>Total de pedidos</h3>
-                    <p id="estoque-baixo">--</p>
+                    <h3>Total de Pedidos</h3>
+                    <p id="total-pedidos">--</p>
                 </div>
                 <div class="card">
-                    <h3>Produto mais vendido</h3>
+                    <h3>Produto mais Vendido</h3>
                     <p id="mais-vendido">--</p>
                 </div>
             </div>
+            
+            <script>
+                async function carregarResumoDashboard() {
+                    try {
+                        const resposta = await fetch('/dashboard/resumo');
+                        const dados = await resposta.json();
+            
+                        document.getElementById('total-clientes').textContent = dados.totalClientes;
+                        document.getElementById('total-pedidos').textContent = dados.totalPedidos;
+                        document.getElementById('mais-vendido').textContent = dados.produtoMaisVendido;
+                    } catch (erro) {
+                        console.error('Erro ao carregar o resumo:', erro);
+                    }
+                }
+            
+                window.onload = carregarResumoDashboard;
+            </script>
+            
         </section>
         <br>
         <section class="dashboard">

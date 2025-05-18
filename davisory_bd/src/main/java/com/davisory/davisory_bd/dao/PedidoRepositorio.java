@@ -128,4 +128,18 @@ public class PedidoRepositorio {
 
         return resultado;
     }
+
+        public int contarPedidos() {
+            int total = 0;
+            try (Connection conn = ConexaoBD.conectar()) {
+                PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM Pedido");
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    total = rs.getInt(1);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return total;
+        }   
 }

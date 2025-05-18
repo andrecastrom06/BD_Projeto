@@ -7,10 +7,11 @@
     import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.davisory.davisory_bd.dao.AtendimentoRepositorio;
+import com.davisory.davisory_bd.dao.ClienteRepositorio;
 import com.davisory.davisory_bd.dao.PedidoRepositorio;
+import com.davisory.davisory_bd.dao.ProdutoRepositorio;
 
-
-    import java.time.LocalDate;
+import java.time.LocalDate;
     import java.util.ArrayList;
     import java.util.HashMap;
     import java.util.Map;
@@ -68,5 +69,22 @@ public Map<String, Object> obterDadosDashboard(
 }
     return resposta;
 }
+@GetMapping("/resumo")
+@ResponseBody
+public Map<String, Object> obterResumoDashboard() {
+    Map<String, Object> resposta = new HashMap<>();
+
+    int totalClientes = new ClienteRepositorio().contarClientes();
+    int totalPedidos = new PedidoRepositorio().contarPedidos();
+    String produtoMaisVendido = new ProdutoRepositorio().buscarProdutoMaisVendido();
+
+    resposta.put("totalClientes", totalClientes);
+    resposta.put("totalPedidos", totalPedidos);
+    resposta.put("produtoMaisVendido", produtoMaisVendido);
+
+    return resposta;
+}
+
+
 
     }

@@ -103,4 +103,24 @@ public class ProdutoRepositorio {
             e.printStackTrace();
         }
     }
+        public String buscarProdutoMaisVendido() {
+            String nome = "Nenhum";
+            try (Connection conn = ConexaoBD.conectar()) {
+                PreparedStatement stmt = conn.prepareStatement(
+                    "SELECT p.nomeProduto, SUM(ped.quantidadePedido) as total " +
+                    "FROM Pedido ped " +
+                    "JOIN Produto p ON ped.fk_Produto_idProduto = p.idProduto " +
+                    "GROUP BY p.nomeProduto " +
+                    "ORDER BY total DESC " +
+                    "LIMIT 1"
+                );
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    nome = rs.getString("nomeProduto");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return nome;
+        }
 }
