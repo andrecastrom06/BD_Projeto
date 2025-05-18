@@ -60,6 +60,11 @@ public class FuncionarioController {
     @GetMapping("/funcionarios/adicionar")
     public String mostrarFormularioAdicionar(Model model) {
         model.addAttribute("funcionario", new Funcionario());
+
+        // Adiciona lista de possíveis chefes (todos os funcionários existentes)
+        List<Funcionario> chefesPossiveis = repositorio.listarTodosFuncionarios();
+        model.addAttribute("chefes", chefesPossiveis);
+
         return "adicionarFuncionario";
     }
 
@@ -121,4 +126,28 @@ public class FuncionarioController {
         model.addAttribute("subordinados", subordinadosPorChefe);
         return "grafico-subordinados";
     }
-}
+    @PostMapping("/funcionarios/adicionar")
+    public String adicionarFuncionario(
+        @RequestParam String nome,
+        @RequestParam double salario,
+        @RequestParam String tipo,
+        @RequestParam(required = false) String cargo,
+        @RequestParam(required = false) Integer chefe
+    ) {
+        Funcionario funcionario = new Funcionario();
+        funcionario.setNomeFuncionario(nome);
+        funcionario.setSalarioFuncionario(salario);
+        funcionario.setChefeFuncionario(chefe);
+        funcionario.setEmpregado(true); 
+
+        int novoId = repositorio.inserir(funcionario);
+
+        if ("Administrativo".equals(tipo)) {
+            repositorio.inserirAdministrativo(novoId, cargo);
+        } else if ("Operacional".equals(tipo)) {
+            repositorio.inserirOperacional(novoId);
+        }
+
+        return "redirect:/funcionarios";
+    }
+}   

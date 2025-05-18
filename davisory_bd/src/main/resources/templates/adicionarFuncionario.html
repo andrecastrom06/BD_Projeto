@@ -37,10 +37,12 @@
 
         <div class="mb-3">
             <label for="chefe" class="form-label">Chefe:</label>
-            <select class="form-select" id="chefe" name="chefe">
+            <select name="chefe" id="chefe">
                 <option value="">Nenhum</option>
-                <option th:each="chefe : ${chefes}" th:value="${chefe.idFuncionario}" th:text="${chefe.nomeFuncionario}"></option>
-            </select>            
+                <th:block th:each="chefe : ${chefes}">
+                    <option th:value="${chefe.idFuncionario}" th:text="${chefe.nomeFuncionario}"></option>
+                </th:block>
+            </select>        
         </div>
         <div class="text-center">
             <button type="submit" class="btn btn-primary">Salvar</button>
