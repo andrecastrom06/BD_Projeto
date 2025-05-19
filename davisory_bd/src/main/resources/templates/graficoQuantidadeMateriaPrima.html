@@ -44,7 +44,12 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        ticks: { precision: 0 }
+                        min: 0,
+                        max: 3, // você pode ajustar conforme necessário
+                        ticks: {
+                            stepSize: 1,
+                            precision: 0
+                        }
                     }
                 }
             }

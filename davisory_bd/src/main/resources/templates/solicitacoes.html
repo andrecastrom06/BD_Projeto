@@ -4,6 +4,46 @@
     <title>Solicitações</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tabelas.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        .confirmar {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .confirmar:hover {
+            background-color: #c0392b;
+        }
+
+        .cancelar {
+            background-color: #ccc;
+            color: black;
+        }
+
+        .cancelar:hover {
+            background-color: #999;
+        }
+
+        .modal {
+            display: none; /* Oculta o modal por padrão */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro semitransparente */
+        }
+
+        .modal-conteudo {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="layout">
@@ -58,11 +98,52 @@
                     <td th:text="${s.dataSolicitacao}"></td>
                     <td>
                         <a th:href="@{/solicitacoes/editar(cnpj=${s.cnpjFornecedor}, idMateria=${s.idMateriaPrima}, idFunc=${s.idFuncionario})}" class="btn">Editar</a>
-                        <a th:href="@{'/solicitacoes/deletar/' + ${s.cnpjFornecedor} + '/' + ${s.idMateriaPrima} + '/' + ${s.idFuncionario}}" class="btn_excluir" onclick="return confirm('Tem certeza que deseja excluir esta solicitação?');">Excluir</a>
+                        <a href="#" class="btn_excluir" onclick="confirmarExclusao(event, this)" 
+                           th:attr="data-href='/solicitacoes/deletar/' + ${s.cnpjFornecedor} + '/' + ${s.idMateriaPrima} + '/' + ${s.idFuncionario}">
+                            Excluir
+                        </a>
                     </td>
                 </tr>        
             </table>
         </div>
     </div>
+
+    <!-- Modal de confirmação -->
+    <div id="modal-confirmacao" class="modal">
+        <div class="modal-conteudo">
+            <p>Tem certeza que deseja excluir esta solicitação?</p>
+            <button id="btn-confirmar" class="confirmar">Confirmar</button>
+            <button id="btn-cancelar" class="cancelar">Cancelar</button>
+        </div>
+    </div>
+
+    <script>
+        let linkParaExcluir = null;
+
+        function confirmarExclusao(event, link) {
+            event.preventDefault();
+            linkParaExcluir = link;
+            document.getElementById('modal-confirmacao').style.display = 'block';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const btnConfirmar = document.getElementById('btn-confirmar');
+            const btnCancelar = document.getElementById('btn-cancelar');
+
+            if (btnConfirmar && btnCancelar) {
+                btnConfirmar.addEventListener('click', function () {
+                    if (linkParaExcluir) {
+                        const href = linkParaExcluir.getAttribute('data-href');
+                        window.location.href = href;
+                    }
+                });
+
+                btnCancelar.addEventListener('click', function () {
+                    document.getElementById('modal-confirmacao').style.display = 'none';
+                    linkParaExcluir = null;
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -35,8 +35,9 @@
         <div class="conteudo">
             <h1>Estoque de Matéria-Prima</h1>
             <div style="margin-bottom: 10px;">
-                <a href="/estoque/grafico" class="btn">Gráfico de Produtos</a>
+                <a href="/estoque/grafico" class="btn">Gráfico correspondente ao estoque da matéria prima</a>
             </div>
+            <br>
             <table>
                 <thead>
                     <tr>
@@ -75,6 +76,14 @@
                     </tr>
                 </tbody>
             </table>
+            <div id="modal-confirmacao" class="modal">
+                <div class="modal-conteudo">
+                    <p>Tem certeza que deseja excluir este atendimento?</p>
+                    <br>
+                    <button id="btn-confirmar" class="btn confirmar">Sim</button>
+                    <button id="btn-cancelar" class="btn cancelar">Cancelar</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
