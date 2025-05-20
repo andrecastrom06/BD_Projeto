@@ -1,7 +1,5 @@
 package com.davisory.davisory_bd.dao;
 
-import com.davisory.davisory_bd.dto.AtendimentoDTO;
-import com.davisory.davisory_bd.model.Atendimento;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,6 +9,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.davisory.davisory_bd.dto.AtendimentoDTO;
+import com.davisory.davisory_bd.model.Atendimento;
 
 public class AtendimentoRepositorio {
 
