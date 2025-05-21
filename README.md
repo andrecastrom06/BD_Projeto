@@ -12,14 +12,13 @@
 
 # 👓 Projeto Banco de Dados Davisory 👓
 
-  Olá, somos um grupo de estudantes do quarto período da César school e lhe apresento ao Banco de dados da Davisory, que é uma empresa brasileira especializada na produção de armações de óculos em aço inoxidável.
+  Olá, somos um grupo de estudantes do quarto período da CESAR SCHOOL e lhe apresento a aplicação Spring para o Banco de dados da Davisory, que é uma empresa brasileira especializada na produção de armações de óculos em aço inoxidável.
 
 <details>
 
 <summary>Equipe</summary>
 
 ## 👤Equipe👤
-Acompanhe nossa equipe para estar ciente dos nossos projetos :
   - André Castro - alcms@cesar.school 📩
    
   - Caio Lima - clb@cesar.school 📩
@@ -34,7 +33,6 @@ Acompanhe nossa equipe para estar ciente dos nossos projetos :
 
 ## Processo de projeto
   - Caso queira mais detalhes sobre nosso processo descrito em etapas do começo até a finalização do projeto, acesse : https://docs.google.com/document/d/1RaJv51FO-OfHOLRIb1fyvZKLld-sElfNIdHY5CPsPfM/edit?usp=sharing
-  - Última atualização feita no dia 22/04/2025.
 
 </details>
 
@@ -43,19 +41,23 @@ Acompanhe nossa equipe para estar ciente dos nossos projetos :
 <summary>Mini-Mundo</summary>
 
 ## Mini-Mundo Davisory
-Se quiser ver mais sobre nosso mini-mundo em específico, acesse:
-<br>
-- docs: https://docs.google.com/document/d/1sKelIHWcGIeqJN1RK4M5WdEIaBeg2iGqwYvX9Gfq-Y4/edit?usp=sharing
+
+- Mini-Mundo: https://docs.google.com/document/d/1sKelIHWcGIeqJN1RK4M5WdEIaBeg2iGqwYvX9Gfq-Y4/edit?usp=sharing
 </details>
 
 <details>
 
-<summary>Senha do Banco de dados</summary>
+<summary>Como rodar a aplicação</summary>
 
-## UTILIZE COMANDO ABAIXO E TROQUE SENHA PELA SUA SENHA
+## SIGA O PASSO A PASSO ABAIXO:
+* Coloque o arquivo ScriptDavisory.sql no seu DBeaver
+* Conecte seu DBeaver com a aplicação colocando o seguinte comando no terminal
+  - LINUX: export DB_PASSWORD="senha"
+  - WINDOWS: $env:DB_PASSWORD="senha"
+  - *OBS: O campo escrito "senha" deve ser substituído pela sua própria senha*
+* Rode o arquivo DavisoryBdApplication.java
+* Acesse o endereço http://localhost:8080/ no seu navegador
+* O login é o nome de um funcionário administrativo. EX: Rodrigo Torres
+* A senha é a data da sua contratação, com somente caracteres numéricos. EX: 27122026
 
-- LINUX: export DB_PASSWORD="senha"
-- WINDOWS: $env:DB_PASSWORD="senha"
-
-*obs: O campo escrito "senha" deve ser substituído pela sua própria senha*
 </details>
