@@ -129,17 +129,31 @@ public class PedidoRepositorio {
         return resultado;
     }
 
-        public int contarPedidos() {
-            int total = 0;
-            try (Connection conn = ConexaoBD.conectar()) {
-                PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM Pedido");
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    total = rs.getInt(1);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+    public int contarPedidos() {
+        int total = 0;
+        try (Connection conn = ConexaoBD.conectar()) {
+            PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM Pedido");
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt(1);
             }
-            return total;
-        }   
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return total;
+    }  
+    
+    public void realizarPedidoComProcedure(Pedido pedido) throws SQLException {
+        String sql = "{CALL RealizarPedido(?, ?, ?, ?, ?, ?)}";
+        try (Connection conn = ConexaoBD.conectar();
+        PreparedStatement stmt = conn.prepareCall(sql)) {
+            stmt.setString(1, pedido.getCodigoEntregaPedido());
+            stmt.setInt(2, pedido.getQuantidadePedido());
+            stmt.setDouble(3, pedido.getPrecoUnitarioPedido());
+            stmt.setInt(4, pedido.getIdProduto());
+            stmt.setInt(5, pedido.getIdFuncionario());
+            stmt.setString(6, pedido.getCpfCnpjCliente());
+            stmt.execute();
+        }
+    }
 }

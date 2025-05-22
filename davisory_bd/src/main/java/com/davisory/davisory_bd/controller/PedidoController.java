@@ -1,5 +1,6 @@
 package com.davisory.davisory_bd.controller;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,7 +71,12 @@ public class PedidoController {
         pedido.setIdProduto(idProduto);
         pedido.setIdFuncionario(idFuncionario);
         pedido.setCpfCnpjCliente(cpfCnpjCliente);
-        pedidoRepositorio.inserir(pedido);
+        try {
+            pedidoRepositorio.realizarPedidoComProcedure(pedido);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "adicionarpedido";
+        }
         return "redirect:/pedidos";
     }
 

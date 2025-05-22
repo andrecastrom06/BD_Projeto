@@ -57,7 +57,7 @@ CREATE TABLE Funcionario (
     idFuncionario INT PRIMARY KEY AUTO_INCREMENT,
     nomeFuncionario VARCHAR(255) NOT NULL,
     salarioFuncionario DECIMAL(10,2) NOT NULL CHECK (salarioFuncionario >= 1320),
-    dataContratacaoFuncionario DATE NOT NULL CHECK (dataContratacaoFuncionario <= CURRENT_DATE),
+    dataContratacaoFuncionario DATE NOT NULL,
     chefeFuncionario INT,
     empregado BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (chefeFuncionario) REFERENCES Funcionario(idFuncionario)
@@ -124,42 +124,6 @@ CREATE TABLE Monta (
     FOREIGN KEY (fk_Pedido_idPedido) REFERENCES Pedido(idPedido)
 );
 
--- Procedure para inserir matéria-prima
-DELIMITER $$
-
-CREATE PROCEDURE inserir_materia_prima (
-    IN p_nome VARCHAR(255),
-    IN p_valor DECIMAL(10,2),
-    IN p_codigo VARCHAR(50),
-    IN p_dataEntrega DATE
-)
-BEGIN
-    INSERT INTO MateriaPrima (
-        nomeMateriaPrima,
-        valorMateriaPrima,
-        codigoEntregaMateriaPrima,
-        dataEstimadaEntregaMateriaPrima
-    ) VALUES (
-        p_nome,
-        p_valor,
-        p_codigo,
-        p_dataEntrega
-    );
-END$$
-
--- Trigger para atualizar estoque de produto após inserção de pedido
-CREATE TRIGGER trg_atualiza_estoque_produto
-AFTER INSERT ON Pedido
-FOR EACH ROW
-BEGIN
-    UPDATE EstoqueProduto
-    SET quantidadeProduto = quantidadeProduto - NEW.quantidadePedido
-    WHERE fk_Produto_idProduto = NEW.fk_Produto_idProduto;
-END$$
-
-DELIMITER ;
-
-
 INSERT INTO Endereco VALUES 
 (1, 'Pernambuco', 'Recife', 'Casa Forte', 'Rua das Palmeiras', NULL, 240), 
 (2, 'Pernambuco', 'Recife', 'Casa Forte', 'Rua do Sol', NULL, 566), 
@@ -171,28 +135,28 @@ INSERT INTO Endereco VALUES
 (8, 'Pernambuco', 'Recife', 'Boa Vista', 'Av. Cruz Cabugá', 'Sala 301', 987),
 (9, 'Pernambuco', 'Recife', 'Espinheiro', 'Rua do Olhar', 'Casa 4', 215),
 (10, 'Pernambuco', 'Olinda', 'Casa Caiada', 'Rua Visão Clara', NULL, 778),
-(11, 'Pernambuco', 'Camaragibe', 'Timbi', 'Rua das Ópticas', 'Fundos', 552),
+(11, 'Pernambuco', 'Camaragibe', 'Timbi', 'Rua das Ópticas', 'Fundos', 552),  
 (12, 'Pernambuco', 'Recife', 'Tamarineira', 'Av. Norte Miguel Arraes', 'Próx. ao Hospital', 311),
 (13, 'Pernambuco', 'Recife', 'Derby', 'Rua Enxergando Bem', 'Cobertura', 119),
 (14, 'Pernambuco', 'Olinda', 'Rio Doce', 'Rua Armação Forte', NULL, 230),
 (15, 'Pernambuco', 'Paulista', 'Maranguape I', 'Rua da Visão Perfeita', 'Galpão B', 402);
 
 INSERT INTO Fornecedor VALUES 
-('10800112000191', 'Lentes Brasil Óptica Ltda', '(81) 98765-1234', 'comercial@lentesbr.com.br', 1),
-('10800112000192', 'Armações Prime Importadora', '(81) 99654-2345', 'vendas@primearmações.com', 2),
-('10800112000193', 'Vision Glass Distribuidora', '(81) 99543-3456', 'contato@visionglass.com.br', 3),
-('10800112000194', 'ÓpticaTech Componentes', '(81) 99432-4567', 'atendimento@optictech.com.br', 4),
-('10800112000195', 'Reflex Lentes Especiais', '(81) 99321-5678', 'sac@reflexlentes.com', 5),
-('10800112000196', 'Futura Armações e Acessórios', '(81) 99210-6789', 'futura@armaçõesfuturas.com', 1),
-('10800112000197', 'Polar Vision Brasil', '(81) 99109-7890', 'contato@polarvision.com.br', 2),
-('10800112000198', 'Óptica Prisma Industrial', '(81) 99008-8901', 'suporte@opticaprisma.com', 3),
-('10800112000199', 'LentiSul Fábrica de Lentes', '(81) 98907-9012', 'comercial@lentisul.com.br', 4),
-('10800112000200', 'UltraView Suprimentos Ópticos', '(81) 98806-0123', 'ultraview@suprimentosopticos.com', 5),
-('10800112000201', 'FrameZone Indústria de Armações', '(81) 98705-1234', 'vendas@framezone.com', 1),
-('10800112000202', 'MaxLens Brasil', '(81) 98604-2345', 'contato@maxlens.com.br', 2),
-('10800112000203', 'Óptima Tech Vision', '(81) 98503-3456', 'optimatech@visao.com', 3),
-('10800112000204', 'Lumis Armações Profissionais', '(81) 98402-4567', 'lumis@armacoes.com', 4),
-('10800112000205', 'Veris Óptica Industrial', '(81) 98301-5678', 'veris@opticaindustrial.com.br', 5);
+('10800112000191', 'Lentes Brasil Óptica Ltda', '81987651234', 'comercial@lentesbr.com.br', 1),
+('10800112000192', 'Armações Prime Importadora', '81996542345', 'vendas@primearmações.com', 2),
+('10800112000193', 'Vision Glass Distribuidora', '81995433456', 'contato@visionglass.com.br', 3),
+('10800112000194', 'ÓpticaTech Componentes', '81994324567', 'atendimento@optictech.com.br', 4),
+('10800112000195', 'Reflex Lentes Especiais', '81993215678', 'sac@reflexlentes.com', 5),
+('10800112000196', 'Futura Armações e Acessórios', '81992106789', 'futura@armaçõesfuturas.com', 1),
+('10800112000197', 'Polar Vision Brasil', '81991097890', 'contato@polarvision.com.br', 2),
+('10800112000198', 'Óptica Prisma Industrial', '81990088901', 'suporte@opticaprisma.com', 3),
+('10800112000199', 'LentiSul Fábrica de Lentes', '81989079012', 'comercial@lentisul.com.br', 4),
+('10800112000200', 'UltraView Suprimentos Ópticos', '81988060123', 'ultraview@suprimentosopticos.com', 5),
+('10800112000201', 'FrameZone Indústria de Armações', '81987051234', 'vendas@framezone.com', 1),
+('10800112000202', 'MaxLens Brasil', '81986042345', 'contato@maxlens.com.br', 2),
+('10800112000203', 'Óptima Tech Vision', '81985033456', 'optimatech@visao.com', 3),
+('10800112000204', 'Lumis Armações Profissionais', '81984024567', 'lumis@armacoes.com', 4),
+('10800112000205', 'Veris Óptica Industrial', '81983015678', 'veris@opticaindustrial.com.br', 5);
 
 INSERT INTO MateriaPrima (nomeMateriaPrima, valorMateriaPrima, codigoEntregaMateriaPrima, dataEstimadaEntregaMateriaPrima) VALUES 
 ('Lente CR-39 Antirreflexo', 72.50, 'ENT101', '2025-04-15'),
@@ -246,38 +210,38 @@ INSERT INTO EstoqueProduto (fk_Produto_idProduto, quantidadeProduto) VALUES
 (15, 12);
 
 INSERT INTO Cliente VALUES 
-('32165498700', 'Ana Beatriz da Silva', '(81) 98745-1234', 'ana.beatriz@gmail.com', 1),
-('85214796301', 'Carlos Eduardo Ferreira', '(81) 99876-5678', 'carlos.ferreira@gmail.com', 2),
-('74185296311', 'Mariana Oliveira Costa', '(81) 99788-9012', 'mariana.costa@yahoo.com', 3),
-('96325874122', 'Rafael Lima Moura', '(81) 99654-3210', 'rafael.moura@hotmail.com', 4),
-('45612378933', 'Juliana Alves Pereira', '(81) 99512-3456', 'juliana.alves@gmail.com', 5),
-('65478932144', 'Pedro Henrique Gomes', '(81) 99433-7890', 'pedro.gomes@outlook.com', 1),
-('12378945655', 'Isabela Rodrigues', '(81) 99321-4567', 'isabela.rodrigues@gmail.com', 2),
-('78945612366', 'Bruno César Martins', '(81) 99234-5678', 'bruno.martins@hotmail.com', 3),
-('32198765477', 'Larissa Souza Mendes', '(81) 99111-2233', 'larissa.mendes@gmail.com', 4),
-('96374185288', 'Gabriel Fernandes Rocha', '(81) 99098-7654', 'gabriel.rocha@yahoo.com', 5),
-('15975348699', 'Camila Duarte Lima', '(81) 98987-4321', 'camila.duarte@uol.com.br', 1),
-('75315948600', 'Thiago Nascimento', '(81) 98888-9999', 'thiago.nascimento@gmail.com', 2),
-('95135785201', 'Natália Cardoso Freitas', '(81) 98767-1111', 'natalia.freitas@hotmail.com', 3),
-('35715925802', 'Felipe Augusto Lira', '(81) 98654-3333', 'felipe.lira@outlook.com', 4),
-('25845614703', 'Vanessa Ribeiro Pontes', '(81) 98543-7777', 'vanessa.pontes@gmail.com', 5);
+('32165498700', 'Ana Beatriz da Silva', '81987451234', 'ana.beatriz@gmail.com', 1),
+('85214796301', 'Carlos Eduardo Ferreira', '81998765678', 'carlos.ferreira@gmail.com', 2),
+('74185296311', 'Mariana Oliveira Costa', '81997889012', 'mariana.costa@yahoo.com', 3),
+('96325874122', 'Rafael Lima Moura', '81996543210', 'rafael.moura@hotmail.com', 4),
+('45612378933', 'Juliana Alves Pereira', '81995123456', 'juliana.alves@gmail.com', 5),
+('65478932144', 'Pedro Henrique Gomes', '81994337890', 'pedro.gomes@outlook.com', 1),
+('12378945655', 'Isabela Rodrigues', '81993214567', 'isabela.rodrigues@gmail.com', 2),
+('78945612366', 'Bruno César Martins', '81992345678', 'bruno.martins@hotmail.com', 3),
+('32198765477', 'Larissa Souza Mendes', '81991112233', 'larissa.mendes@gmail.com', 4),
+('96374185288', 'Gabriel Fernandes Rocha', '81990987654', 'gabriel.rocha@yahoo.com', 5),
+('15975348699', 'Camila Duarte Lima', '81989874321', 'camila.duarte@uol.com.br', 1),
+('75315948600', 'Thiago Nascimento', '81988889999', 'thiago.nascimento@gmail.com', 2),
+('95135785201', 'Natália Cardoso Freitas', '81987671111', 'natalia.freitas@hotmail.com', 3),
+('35715925802', 'Felipe Augusto Lira', '81986543333', 'felipe.lira@outlook.com', 4),
+('25845614703', 'Vanessa Ribeiro Pontes', '81985437777', 'vanessa.pontes@gmail.com', 5);
 
 INSERT INTO Funcionario (nomeFuncionario, salarioFuncionario, dataContratacaoFuncionario, chefeFuncionario, empregado) VALUES 
 ('Julia Gomes', 4525.29, '2008-12-01', NULL, TRUE),
-('Diego Santos', 2938.71, '2009-06-15', 1, TRUE),
-('Raul Leandro', 1692.32, '2010-11-20', 2, TRUE),
-('Diego Ferreira', 1692.32, '2012-03-05', 2, TRUE),
-('Diego Sabino', 1692.32, '2013-08-12', 2, TRUE),
-('Delrio Roger', 1692.32, '2015-01-10', 2, TRUE),
-('Gustavo Henrique', 1692.32, '2016-06-18', 2, TRUE),
-('Luiz Meitner', 1692.32, '2017-11-25', 2, TRUE),
-('Luiz Correia', 1692.32, '2018-07-03', 2, TRUE),
-('José Silva', 1692.32, '2019-02-14', 2, TRUE),
-('Marcelo Gomes', 1692.32, '2020-05-09', 2, TRUE),
-('Diego Luna', 1692.32, '2021-09-01', 2, TRUE),
-('Jonathas Silva', 1692.32, '2022-03-27', 3, TRUE),
-('Keven Felipe', 1692.32, '2023-08-19', 3, TRUE),
-('Felipe Barbosa', 1692.32, '2024-03-27', 3, TRUE);
+('Diego Santos', 2938.71, '2009-06-15', NULL, TRUE),
+('Raul Leandro', 1692.32, '2010-11-20', NULL, TRUE),
+('Diego Ferreira', 1692.32, '2012-03-05', NULL, TRUE),
+('Diego Sabino', 1692.32, '2013-08-12', NULL, TRUE),
+('Delrio Roger', 1692.32, '2015-01-10', NULL, TRUE),
+('Gustavo Henrique', 1692.32, '2016-06-18', NULL, TRUE),
+('Luiz Meitner', 1692.32, '2017-11-25', NULL, TRUE),
+('Luiz Correia', 1692.32, '2018-07-03', NULL, TRUE),
+('José Silva', 1692.32, '2019-02-14', NULL, TRUE),
+('Marcelo Gomes', 1692.32, '2020-05-09', NULL, TRUE),
+('Diego Luna', 1692.32, '2021-09-01', NULL, TRUE),
+('Jonathas Silva', 1692.32, '2022-03-27', NULL, TRUE),
+('Keven Felipe', 1692.32, '2023-08-19', NULL, TRUE),
+('Felipe Barbosa', 1692.32, '2024-03-27', NULL, TRUE);
 
 INSERT INTO Operacional VALUES 
 (3),
@@ -381,3 +345,61 @@ INSERT INTO Monta (fk_Operacional_Funcionario_idFuncionario, fk_Pedido_idPedido)
 (10, 13),
 (6, 14),
 (7, 15);
+
+DELIMITER //
+
+CREATE PROCEDURE RealizarPedido(
+    IN p_codigoEntregaPedido VARCHAR(50),
+    IN p_quantidade INT,
+    IN p_precoUnitario DECIMAL(10,2),
+    IN p_idProduto INT,
+    IN p_idFuncionario INT,
+    IN p_cpfCnpjCliente VARCHAR(20)
+)
+BEGIN
+    DECLARE estoqueAtual INT;
+
+    SELECT quantidadeProduto INTO estoqueAtual
+    FROM EstoqueProduto
+    WHERE fk_Produto_idProduto = p_idProduto;
+
+    IF estoqueAtual IS NULL THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Produto não encontrado no estoque.';
+    ELSEIF estoqueAtual < p_quantidade THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Estoque insuficiente para o pedido.';
+    ELSE
+        UPDATE EstoqueProduto
+        SET quantidadeProduto = quantidadeProduto - p_quantidade
+        WHERE fk_Produto_idProduto = p_idProduto;
+
+        INSERT INTO Pedido (codigoEntregaPedido, quantidadePedido, precoUnitarioPedido, fk_Produto_idProduto, fk_Funcionario_idFuncionario, fk_Cliente_cpfCnpjCliente)
+        VALUES (p_codigoEntregaPedido, p_quantidade, p_precoUnitario, p_idProduto, p_idFuncionario, p_cpfCnpjCliente);
+    END IF;
+END;
+//
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE TRIGGER tr_bonus_funcionario_operacional
+AFTER INSERT ON Monta
+FOR EACH ROW
+BEGIN
+    DECLARE totalPedido DECIMAL(10,2);
+
+    SELECT quantidadePedido * precoUnitarioPedido
+    INTO totalPedido
+    FROM Pedido
+    WHERE idPedido = NEW.fk_Pedido_idPedido;
+
+    IF totalPedido > 10000 THEN
+        UPDATE Funcionario
+        SET salarioFuncionario = salarioFuncionario * 1.02
+        WHERE idFuncionario = NEW.fk_Operacional_Funcionario_idFuncionario;
+    END IF;
+END;
+$$
+
+DELIMITER ;
