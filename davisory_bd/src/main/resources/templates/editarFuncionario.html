@@ -22,17 +22,6 @@
             <label>Salário:</label>
             <input type="number" step="0.01" name="salario" th:value="${funcionario.salarioFuncionario}" required/><br/>
 
-            <label for="chefe">Chefe:</label>
-            <select name="chefe" id="chefe">
-                <option value="">Nenhum</option>
-                <th:block th:each="chefe : ${chefes}">
-                    <option th:value="${chefe.idFuncionario}"
-                            th:text="${chefe.nomeFuncionario}"
-                            th:selected="${funcionario.chefeFuncionario != null} ? ${chefe.idFuncionario} == ${funcionario.chefeFuncionario.idFuncionario} : false">
-                    </option>
-                </th:block>
-            </select><br/>
-
 
             <label>Status:</label>
             <select name="empregado">
