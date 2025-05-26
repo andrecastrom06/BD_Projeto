@@ -29,8 +29,8 @@
                 <option th:value="false" th:selected="${!funcionario.empregado}">Inativo</option>
             </select><br/>
 
-            <label>Cargo/Função:</label>
-            <input type="text" name="cargo" th:value="${funcionario.cargo}" /><br/>
+            <label th:if="${funcionario.cargo != null}">Cargo/Função:</label>
+            <input type="text" th:if="${funcionario.cargo != null}" name="cargo" th:value="${funcionario.cargo}" /><br/>
 
             <button type="submit">Salvar</button>
         </form>
